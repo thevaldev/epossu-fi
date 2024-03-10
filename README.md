@@ -1,1 +1,2 @@
-# thevaldev-epossu-fi
+# epossu.fi
+Pörssisähkön seuranta verkkosivusto.
