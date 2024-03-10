@@ -86,8 +86,6 @@ const Timings = {
     const seconds = date.getSeconds();
     const timeLeft = (60 - minutes) * 60 - seconds;
 
-    return 2000;
-
     return timeLeft * 1000;
   },
 
