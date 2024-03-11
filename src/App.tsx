@@ -33,7 +33,7 @@ function App() {
 
     // function for fetching new data
     async function getNewData() {
-      await fetch("https://epossu.fi/API/v1/prices")
+      await fetch("https://api.epossu.fi/v2/marketData")
         .then((response) => response.json())
         .then((data) => {
           if (data.success == false) {
