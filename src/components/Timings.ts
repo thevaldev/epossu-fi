@@ -153,8 +153,9 @@ const Timings = {
 
     let timeUntilNext = `${hours}h ${minutes}min ${seconds}s`;
     if (hours == 0) timeUntilNext = `${minutes}min ${seconds}s`;
-    if (minutes == 0) timeUntilNext = `${hours}h  ${seconds}s`;
-    if (seconds == 0) timeUntilNext = `${hours}h ${minutes}m`;
+    if (minutes == 0 && hours !== 0) timeUntilNext = `${hours}h ${seconds}s`;
+    else if (minutes == 0) timeUntilNext = `${seconds}s`;
+    else if (seconds == 0) timeUntilNext = `${hours}h ${minutes}m`;
 
     return timeUntilNext;
   },
