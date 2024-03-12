@@ -22,7 +22,7 @@ interface ChartProps {
 
 const Chart = ({ data, hasTomorrows }: ChartProps) => {
   const [ref_line_spot, setRefLineSpot] = useState<number>(
-    new Date().getHours() - 1
+    new Date().getHours()
   );
   const refSpotTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
   useEffect(() => {
@@ -30,7 +30,7 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
       if (!hasTomorrows && data.dataset.length > 24) {
         setRefLineSpot(23 + new Date().getHours());
       } else {
-        setRefLineSpot(new Date().getHours() - 1);
+        setRefLineSpot(new Date().getHours());
       }
 
       refSpotTimeout.current = setTimeout(() => {
