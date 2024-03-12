@@ -1,0 +1,86 @@
+@import "_variables";
+
+section.api-docs {
+  a {
+    color: $primary;
+
+    &:hover {
+      color: $color_3;
+    }
+  }
+
+  .event {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    text-align: left;
+
+    pre {
+      font-size: 1.75rem;
+      width: 100%;
+      background-color: #181d22;
+      padding: 25px 20px;
+      border-radius: 5px;
+      margin-top: 5px;
+      line-height: 1.15;
+
+      code.type {
+        color: $primary;
+        font-weight: bold;
+      }
+    }
+
+    p.info {
+      font-size: 1.75rem;
+      color: $color_3;
+      margin-top: 15px;
+
+      span {
+        display: block;
+        margin-top: 25px;
+        margin-bottom: 5px;
+        font-size: 2.25rem;
+        color: $color_3;
+        font-weight: bold;
+      }
+
+      ul {
+        margin-top: 15px;
+        padding-left: 25px;
+      }
+    }
+  }
+
+  pre {
+    outline: 1px solid #555c62;
+    padding: 5px;
+
+    &.inner {
+      margin: 0;
+      margin-top: 15px;
+    }
+  }
+  .string {
+    color: #f1fa8c;
+  }
+  .jsonnumber {
+    color: #bd93f9;
+  }
+  .boolean {
+    color: #bd93f9;
+  }
+  .null {
+    color: #ffb86c;
+  }
+  .key {
+    color: #ff79c6;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  section.api-docs .event pre {
+    font-size: 1.5rem;
+  }
+}

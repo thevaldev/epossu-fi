@@ -1,0 +1,58 @@
+@import "_variables";
+
+.scene-builder {
+  width: 100%;
+  margin-bottom: 100px;
+
+  button {
+    outline: 0;
+    border: none;
+    background: none;
+    background-color: $primary;
+    color: #1e242a;
+    font-weight: 500;
+    padding: 20px 55px;
+    border-radius: 12px;
+    font-size: 1.8rem;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: $primary;
+      }
+    }
+
+    &:hover {
+      background-color: $color_3;
+    }
+  }
+
+  h2 {
+    margin-top: 75px;
+    margin-bottom: 25px;
+    font-size: 3rem;
+  }
+
+  .scenes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    .scene {
+      width: 24%;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #181d22;
+      border-radius: 12px;
+    }
+  }
+}
