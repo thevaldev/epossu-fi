@@ -1,0 +1,151 @@
+@import "_variables";
+@import "Header";
+@import "Footer";
+
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+
+  &:after {
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+
+  &:before {
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+}
+
+html,
+body {
+  font-size: 62.5%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Raleway";
+  font-weight: 200;
+  overflow-x: hidden;
+  letter-spacing: 0px;
+  text-align: center;
+  background: #1e242a;
+  color: $color_3;
+}
+
+span.number {
+  font-family: "Lato", sans-serif;
+
+  &.red {
+    color: #fa5353 !important;
+  }
+
+  &.green {
+    color: #7aae65 !important;
+  }
+}
+
+section.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: left;
+  margin-top: 50px;
+
+  p {
+    font-size: 2.3rem;
+    font-weight: 500;
+    color: $primary;
+    margin-bottom: 15px;
+
+    &.lead {
+      font-size: 1.8rem;
+      color: $color_5;
+      margin-bottom: 50px;
+      font-weight: 400;
+    }
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  html,
+  body {
+    font-size: 82.5%;
+  }
+  header .logo-wrap .logo {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  html {
+    font-size: 57.5%;
+  }
+  header .logo-wrap .logo {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  html {
+    font-size: 52.5%;
+  }
+  header .logo-wrap .logo {
+    width: 35px;
+    height: 35px;
+  }
+}
+@media only screen and (max-width: 1075px) {
+  html {
+    font-size: 52.5%;
+  }
+
+  svg {
+    margin-right: 7px;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  html {
+    font-size: 47.5%;
+  }
+  header .logo-wrap .logo {
+    width: 32px;
+    height: 32px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  header ul {
+    width: 100%;
+    justify-content: start;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  header ul {
+    justify-content: space-between;
+    gap: 20px;
+  }
+  header ul li a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+
+    svg {
+      margin: unset;
+      margin-bottom: 5px;
+      font-size: 2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  html {
+    font-size: 42.5%;
+  }
+}
