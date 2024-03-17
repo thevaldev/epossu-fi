@@ -30,29 +30,177 @@
     }
   }
 
-  h2 {
-    margin-top: 75px;
+  h2.title {
+    margin-top: 125px;
     margin-bottom: 25px;
     font-size: 3rem;
   }
 
-  .scenes {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 25px;
+  h2.scene-title {
+    text-align: left;
+    font-size: 2.5rem;
+    margin-top: 0px;
+  }
 
-    .scene {
-      width: 24%;
-      height: 300px;
+  ul {
+    list-style: square;
+    margin-top: 25px;
+    padding-left: 25px;
+
+    li {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+.wrap .container .builder {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  flex-direction: column;
+
+  h3 {
+    margin-top: 75px;
+    padding: 0px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color_5;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    width: 100%;
+    text-align: left;
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-bottom: 25px;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+
+    .label-wrap {
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-between;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    button {
+      margin-top: 45px;
+      margin-bottom: 50px;
+      outline: 0;
+      border: none;
+      background: none;
+      background-color: #ff9073;
+      color: #1e242a;
+      font-weight: 500;
+      padding: 20px 55px;
+      border-radius: 12px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      text-align: left;
+
+      &:hover {
+        background-color: $color_3;
+      }
+    }
+
+    label {
+      display: flex;
+      padding: 23px 32px;
+      width: 23%;
       background-color: #181d22;
       border-radius: 12px;
+      font-size: 2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      text-align: left;
+
+      input {
+        height: 32px;
+        display: block;
+        padding: 10px;
+        width: 20px;
+        margin-right: 15px;
+      }
     }
+  }
+}
+
+.box.scene {
+  pre {
+    background-color: #1e242a;
+    padding: 25px;
+    border-radius: 12px;
+    font-size: 1.8rem;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  button {
+    margin-top: 15px;
+    outline: 0;
+    border: none;
+    background: none;
+    background-color: #ff9073;
+    color: #1e242a;
+    font-weight: 500;
+    padding: 15px 35px;
+    border-radius: 12px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      background-color: $color_3;
+    }
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .wrap .container .builder form .label-wrap {
+    gap: 17px;
+  }
+  .wrap .container .builder form label {
+    padding: 17px 20px;
+    input {
+      height: 16px;
+      width: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .wrap .container .builder form .label-wrap {
+    gap: 17px;
+  }
+  .wrap .container .builder form label {
+    padding: 17px 20px;
+    width: 47%;
+
+    input {
+      height: 16px;
+      width: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .wrap .container .builder form .label-wrap {
+    flex-wrap: wrap;
+  }
+  .wrap .container .builder form label {
+    width: 100%;
   }
 }
