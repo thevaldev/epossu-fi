@@ -12,7 +12,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 import { PriceApiResponse, PriceData } from "../types";
 import Chart from "../elements/Chart";
 import Timings from "../components/Timings";
-import { colorMap } from "../components/Colorizer";
+import { colorMap, colorizePrice } from "../components/Colorizer";
 import "../css/style.scss";
 import { useParams } from "react-router-dom";
 import SceneBuilder from "../components/SceneBuilder";
@@ -250,12 +250,13 @@ const Main = () => {
                   {Object.keys(colorMap)
                     .sort((a, b) => parseInt(a) - parseInt(b))
                     .map((key, index) => {
-                      const color = colorMap[key as keyof typeof colorMap];
                       if (key.startsWith("-")) return null;
                       return (
                         <span
                           className="color"
-                          style={{ backgroundColor: color }}
+                          style={{
+                            backgroundColor: colorizePrice(parseInt(key)),
+                          }}
                           key={index}
                         >
                           <p>{key}</p>
