@@ -45,6 +45,14 @@ span.number {
   }
 }
 
+p.error-notice {
+  font-size: 2rem;
+  text-align: left;
+  padding: 0px 32px;
+  font-weight: 400;
+  color: $warning_red;
+}
+
 section.page {
   width: 100%;
   display: flex;

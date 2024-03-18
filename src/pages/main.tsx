@@ -171,7 +171,7 @@ const Main = () => {
         ) : (
           <>
             <section className="col-row header">
-              {data.data !== undefined && (
+              {data.data !== undefined ? (
                 <>
                   <div className="col header">
                     <PriceBox type="current_price" data={data} />
@@ -180,6 +180,17 @@ const Main = () => {
                   <div className="col header">
                     <PriceBox type="timer_next" />
                     <PriceBox type="timer_tomorrow" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="col header">
+                    <div className="single-box" />
+                    <div className="single-box" />
+                  </div>
+                  <div className="col header">
+                    <div className="single-box" />
+                    <div className="single-box" />
                   </div>
                 </>
               )}
@@ -191,8 +202,12 @@ const Main = () => {
                   <FontAwesomeIcon icon={faClock}></FontAwesomeIcon>
                   Tämän päivän tiedot
                 </h3>
-                {data.data !== undefined && (
+                {data.data !== undefined ? (
                   <PriceBox type="today_info" data={data} />
+                ) : (
+                  <p className="error-notice">
+                    Tietoja ei voitu ladata virheen vuoksi.
+                  </p>
                 )}
               </div>
               <div className="col">
@@ -200,8 +215,12 @@ const Main = () => {
                   <FontAwesomeIcon icon={faCalendarDay} />
                   Huomisen tiedot
                 </h3>
-                {data.data !== undefined && (
+                {data.data !== undefined ? (
                   <PriceBox type="tomorrow_info" data={data} />
+                ) : (
+                  <p className="error-notice">
+                    Tietoja ei voitu ladata virheen vuoksi.
+                  </p>
                 )}
               </div>
             </section>
@@ -211,11 +230,15 @@ const Main = () => {
                 <FontAwesomeIcon icon={faChartArea}></FontAwesomeIcon>
                 Pörssisähkön hinnat taulukolla
               </h3>
-              {data.data !== undefined && (
+              {data.data !== undefined ? (
                 <Chart
                   data={data.data.chart}
                   hasTomorrows={data.data.tomorrow.data_ok}
                 />
+              ) : (
+                <p className="error-notice">
+                  Kuvaaja ei voitu ladata virheen vuoksi.
+                </p>
               )}
             </section>
 
