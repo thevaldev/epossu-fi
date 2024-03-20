@@ -1,7 +1,7 @@
 import "../css/apidocs.scss";
 
 const ApiDocs = () => {
-  document.title = "epossu.fi | API-Rajapinta";
+  document.title = "API - epossu.fi";
 
   const example_json = {
     success: true,
@@ -155,7 +155,7 @@ const ApiDocs = () => {
 
   return (
     <section className="page api-docs">
-      <h1 className="title2">API-Rajapinta</h1>
+      <h1 className="title">API-Rajapinta</h1>
 
       <p className="lead">
         Tämä sivu sisältää ohjeet ja esimerkit epossu.fi:n tarjoamasta

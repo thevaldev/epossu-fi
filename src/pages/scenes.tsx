@@ -2,11 +2,11 @@ import "../css/Scenes.scss";
 import { Link } from "react-router-dom";
 
 const Scenes = () => {
-  document.title = "epossu.fi | Näkymät";
+  document.title = "Näkymät - epossu.fi";
 
   return (
     <section className="page">
-      <h1 className="title2 with-label">
+      <h1 className="title with-label">
         Näkymät <label>BETA</label>
       </h1>
       <p className="lead">

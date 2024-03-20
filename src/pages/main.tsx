@@ -18,7 +18,7 @@ import { useParams } from "react-router-dom";
 import SceneBuilder from "../components/SceneBuilder";
 
 const Main = () => {
-  document.title = "epossu.fi | Pörssisähkön ajankohtaiset hinnat Suomessa";
+  document.title = "Pörssisähkön ajankohtaiset hinnat Suomessa - epossu.fi";
 
   const [error, setError] = useState<number | string>(0); // Error message
   const [data, setData] = useState<PriceData>(null as unknown as PriceData); // Price data
@@ -133,7 +133,7 @@ const Main = () => {
           <h1 className="title with-label">
             Rakenna näkymä <label>BETA</label>
           </h1>
-          <p className="title2">
+          <p className="lead">
             Luo oma näkymäsi pörssisähkön tiedoista, voit valita mitä tietoja
             näytetään. <br />
             Tämä on beta-versio, joten kaikki ominaisuudet eivät ole vielä
@@ -141,7 +141,13 @@ const Main = () => {
           </p>
         </>
       ) : (
-        <h1 className="title">Pörssisähkön tiedot</h1>
+        <>
+          <h1 className="title">Pörssisähkön tiedot</h1>
+          <p className="description">
+            Täältä näet ajankohtaiset pörssisähkön hinnat Suomessa. Tiedot
+            päivittyvät automaattisesti.
+          </p>
+        </>
       )}
       {error !== 0 && (
         <div className="alert warning">
@@ -161,10 +167,9 @@ const Main = () => {
                   <FontAwesomeIcon icon={faShareAlt} />
                   Näkymän jako-linkki
                 </h2>
-                <pre>
+                <pre onClick={copyLink}>
                   {window.location.origin + "/nakyma/" + sceneID.sceneID}
                 </pre>
-                <button onClick={copyLink}>Kopioi linkki</button>
               </div>
             )}
           </>
@@ -277,6 +282,7 @@ const Main = () => {
                 spin
                 size="10x"
               ></FontAwesomeIcon>
+              <p className="loading-text">Tietoja ladataan...</p>
             </section>
           </div>
         </div>

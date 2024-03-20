@@ -8,12 +8,12 @@
     outline: 0;
     border: none;
     background: none;
-    background-color: $primary;
+    background-color: #ff9073;
     color: #1e242a;
     font-weight: 500;
-    padding: 20px 55px;
+    padding: 18px 46px;
     border-radius: 12px;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     cursor: pointer;
 
     &:disabled {
@@ -103,9 +103,9 @@
       background-color: #ff9073;
       color: #1e242a;
       font-weight: 500;
-      padding: 20px 55px;
+      padding: 17px 45px;
       border-radius: 12px;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       cursor: pointer;
       text-align: left;
 
@@ -116,11 +116,11 @@
 
     label {
       display: flex;
-      padding: 23px 32px;
+      padding: 18px 32px;
       width: 23%;
       background-color: #181d22;
       border-radius: 12px;
-      font-size: 2rem;
+      font-size: 1.8rem;
       cursor: pointer;
       display: flex;
       justify-content: start;
@@ -146,24 +146,10 @@
     font-size: 1.8rem;
     margin-top: 25px;
     margin-bottom: 25px;
-  }
-
-  button {
-    margin-top: 15px;
-    outline: 0;
-    border: none;
-    background: none;
-    background-color: #ff9073;
-    color: #1e242a;
-    font-weight: 500;
-    padding: 15px 35px;
-    border-radius: 12px;
-    font-size: 1.6rem;
     cursor: pointer;
-    text-align: left;
 
     &:hover {
-      background-color: $color_3;
+      color: $primary;
     }
   }
 }

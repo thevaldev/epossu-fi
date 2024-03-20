@@ -1,5 +1,27 @@
 @import "_variables";
 
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pageEnterFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
 .colors {
   display: flex;
   justify-content: start;
@@ -48,6 +70,8 @@
   padding-bottom: 45px;
   border-radius: 12px;
   text-align: left;
+  transition: 0.3s ease;
+  animation: pageEnter 0.5s ease;
 
   h2 {
     font-size: 2.5rem;
@@ -174,6 +198,7 @@
       h1.title {
         font-size: 3rem;
         margin-bottom: 15px;
+        margin-top: 50px;
 
         &.with-label {
           display: flex;
@@ -199,6 +224,25 @@
         font-weight: 400;
         margin-top: 15px;
         color: $color_5;
+      }
+
+      p.description {
+        width: 100%;
+        text-align: left;
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 5px;
+        margin-top: 0px;
+        color: $color_5;
+      }
+
+      p.lead {
+        font-size: 1.8rem;
+        color: $color_5;
+        margin-bottom: 50px;
+        font-weight: 400;
+        width: 100%;
+        text-align: left;
       }
 
       h1.title2 {
@@ -279,6 +323,8 @@
         border-radius: 12px;
         width: 49%;
         min-height: 150px;
+        transition: 0.3s ease;
+        animation: pageEnter 0.5s ease;
 
         p.title {
           font-size: 1.8rem;
@@ -329,6 +375,8 @@
         flex-wrap: wrap;
         border-radius: 12px;
         padding-bottom: 45px;
+        transition: 0.3s ease;
+        animation: pageEnter 0.5s ease;
 
         &.header {
           background-color: unset;
@@ -498,6 +546,12 @@
       &.loading {
         min-height: 50vh;
         margin-bottom: 200px;
+
+        p.loading-text {
+          margin-top: 45px;
+          font-size: 2rem;
+          font-weight: 500;
+        }
       }
     }
   }
@@ -511,6 +565,8 @@
   margin-top: 50px;
   height: auto;
   background: #181d22;
+  transition: 0.3s ease;
+  animation: pageEnter 0.5s ease;
 
   .recharts-responsive-container {
     background: #181d22;
