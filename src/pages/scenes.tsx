@@ -1,36 +1,33 @@
 import "../css/Scenes.scss";
+import { Link } from "react-router-dom";
 
 const Scenes = () => {
-  document.title = "epossu.fi | Näkymät";
+  document.title = "Näkymät - epossu.fi";
 
   return (
     <section className="page">
-      <h1 className="title2">Näkymät</h1>
+      <h1 className="title with-label">
+        Näkymät <label>BETA</label>
+      </h1>
       <p className="lead">
         Muokattavat sähkönhintanäkymät infonäytöille ja muille laitteille. Tällä
         työkalulla voit luoda omia näkymiä kuten esimerkiksi nykyinen
         etusivumme. <br />
-        Näkymät ovat helppoja luoda ja muokata, ja niitä voi jakaa muiden
+        Näkymät ovat helppoja luoda, muokata ja niitä voi jakaa muiden
         käyttäjien kanssa.
         <br />
         <br />
-        <b>Tämä ominaisuus on vielä kehitysvaiheessa!</b>
+        <strong>Huom!</strong> Tämä on beta-versio, joten kaikki ominaisuudet ja
+        toiminnot eivät ole vielä käytössä.
+        <br />
+        Kehitys on kuitenkin aktiivista ja uusia ominaisuuksia lisätään
+        jatkuvasti.
       </p>
 
       <div className="scene-builder">
-        <button disabled={true}>Luo uusi näkymä</button>
-
-        {/* <h2>Valmiit näkymät</h2>
-        <div className="scenes">
-          <div className="scene"></div>
-          <div className="scene"></div>
-          <div className="scene"></div>
-          <div className="scene"></div>
-          <div className="scene"></div>
-          <div className="scene"></div>
-          <div className="scene"></div>
-          <div className="scene"></div>
-        </div> */}
+        <Link to={"/nakyma/build_scene"}>
+          <button>Luo uusi näkymä</button>
+        </Link>
       </div>
     </section>
   );

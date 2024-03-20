@@ -5,6 +5,7 @@ import "./css/style.scss";
 import Scenes from "./pages/scenes";
 import Header from "./elements/Header";
 import Footer from "./elements/Footer";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
               <Route path="/" element={<Main />} />
               <Route path="/api" element={<ApiDocs />} />
               <Route path="/nakymat" element={<Scenes />} />
+              <Route path="/nakyma/:sceneID" element={<Main />} />
+              <Route path="/*" element={<NotFound />} />
             </Routes>
             <Footer />
           </div>

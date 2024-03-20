@@ -46,7 +46,7 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data.dataset}>
-        <CartesianGrid strokeDasharray="5" vertical={false} />
+        <CartesianGrid strokeDasharray="5" vertical={false} stroke="#636060" />
         <XAxis dataKey="hour" fontSize={20} />
         <YAxis
           type="number"
