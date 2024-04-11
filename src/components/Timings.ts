@@ -119,48 +119,6 @@ const Timings = {
   },
 
   /**
-   * Get the time left to the next hour in minutes and seconds
-   * @returns The time left to the next hour in minutes and seconds
-   */
-  countdownToNextHour() {
-    const date = new Date();
-    const minutes = 59 - date.getMinutes();
-    const seconds = 59 - date.getSeconds();
-    const timeUntilNext = `${minutes}min ${seconds}s`;
-
-    if (minutes == 0) return `${seconds}s`;
-    if (seconds == 0) return `${minutes}min`;
-
-    return timeUntilNext;
-  },
-
-  /**
-   * Get the time left to the next day in hours, minutes and seconds
-   * @returns The time left to the next day in hours, minutes and seconds
-   */
-  countdownToNextDay() {
-    const date = new Date();
-    date.setDate(date.getDate());
-    date.setHours(14, 0, 0, 0);
-
-    if (date < new Date()) date.setDate(date.getDate() + 1);
-
-    const diff = date.getTime() - new Date().getTime();
-
-    const hours = Math.floor(diff / 1000 / 60 / 60);
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    let timeUntilNext = `${hours}h ${minutes}min ${seconds}s`;
-    if (hours == 0) timeUntilNext = `${minutes}min ${seconds}s`;
-    if (minutes == 0 && hours !== 0) timeUntilNext = `${hours}h ${seconds}s`;
-    else if (minutes == 0) timeUntilNext = `${seconds}s`;
-    else if (seconds == 0) timeUntilNext = `${hours}h ${minutes}m`;
-
-    return timeUntilNext;
-  },
-
-  /**
    * Check if the time has passed
    * @param time - Time to check
    * @returns If the time has passed
