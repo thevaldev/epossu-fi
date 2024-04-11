@@ -1,40 +1,32 @@
 import {
   faCalendarDay,
   faChartArea,
-  faShareAlt,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-solid-svg-icons/faClock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import PriceBox from "../elements/PriceBoxes";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
-import { PriceApiResponse, PriceData } from "../types";
+import { PriceData } from "../types";
 import Chart from "../elements/Chart";
 import Timings from "../components/Timings";
 import { colorMap, colorizePrice } from "../components/Colorizer";
-import "../css/style.scss";
-import { useParams } from "react-router-dom";
-import SceneBuilder from "../components/SceneBuilder";
+import "../css/pages/Main.scss";
+import Header from "../elements/Header";
+import CurrentPrice from "../elements/PriceBoxes/CurrentPrice";
+import NextPrice from "../elements/PriceBoxes/NextPrice";
+import GeneralInfo from "../elements/PriceBoxes/GeneralInfo";
+import TomorrowInfo from "../elements/PriceBoxes/TomorrowsInfo";
 
 const Main = () => {
-  document.title = "Pörssisähkön ajankohtaiset hinnat Suomessa - epossu.fi";
+  document.title = "Pörssisähkön ajankohtaiset hinnat - epossu.fi";
 
   const [error, setError] = useState<number | string>(0); // Error message
-  const [data, setData] = useState<PriceData>(null as unknown as PriceData); // Price data
+  const [data, setData] = useState<PriceData | undefined>(undefined); // Price data
   const timeout = useRef<null | ReturnType<typeof setTimeout>>(null); // Timeout for fetching new data
   const dateChangeHandle = useRef<null | ReturnType<typeof setTimeout>>(null); // Interval for checking if the date has changed
   const [dataRequiresUpdate, setDataRequiresUpdate] = useState<null | boolean>(
     null
   ); // If the data requires an update
-  const sceneID = useParams();
-
-  function copyLink() {
-    navigator.clipboard.writeText(
-      window.location.origin + "/nakyma/" + sceneID.sceneID
-    );
-    alert("Linkki kopioitu leikepöydälle!");
-  }
 
   useEffect(() => {
     // if we don't have data, fetching it and setting the current days number
@@ -45,27 +37,17 @@ const Main = () => {
 
     // function for fetching new data
     async function getNewData() {
-      await fetch("https://api.epossu.fi/v2/marketData")
+      fetch("https://api.epossu.fi/v2/_marketData")
         .then((response) => response.json())
         .then((data) => {
-          if (data.success == false) {
-            // error handling
-            if (data.error !== undefined) setError(data.error);
-            else {
-              setError("Palvelussa tapahtui virhe. Yritä myöhemmin uudelleen.");
-            }
-
-            // setting the data to empty
-            setData({} as PriceApiResponse);
-            return;
-          }
-
           // if the data is null, we set an error
           if (data === null) {
-            setError("Palvelussa tapahtui virhe. Yritä myöhemmin uudelleen.");
+            throw new Error(
+              "Palvelussa tapahtui virhe. Yritä myöhemmin uudelleen."
+            );
           } else {
             // if the data for tomorrow is not ok, we set the dataRequiresUpdate to true and schedule a new data fetch
-            if (data.data.tomorrow.data_ok === false) {
+            if (data.tomorrow.data_ok === false) {
               setDataRequiresUpdate(true);
               scheduleNewDataFetch();
             } else {
@@ -79,13 +61,8 @@ const Main = () => {
           }
         })
         .catch((error) => {
-          // error handling
-          setError(
-            "Sähkötietojen hakeminen epäonnistui. Yritä myöhemmin uudelleen. (" +
-              error.message +
-              ")"
-          );
-          setData({} as PriceApiResponse);
+          setError(error.message);
+          setData(undefined);
         });
     }
 
@@ -127,161 +104,106 @@ const Main = () => {
 
   return (
     <>
-      {sceneID.sceneID !== undefined &&
-      sceneID.sceneID.includes("build_scene") ? (
-        <>
-          <h1 className="title with-label">
-            Rakenna näkymä <label>BETA</label>
-          </h1>
-          <p className="lead">
-            Luo oma näkymäsi pörssisähkön tiedoista, voit valita mitä tietoja
-            näytetään. <br />
-            Tämä on beta-versio, joten kaikki ominaisuudet eivät ole vielä
-            käytössä ja ominaisuudet voivat muuttua.
-          </p>
-        </>
-      ) : (
-        <>
-          <h1 className="title">Pörssisähkön tiedot</h1>
-          <p className="description">
-            Täältä näet ajankohtaiset pörssisähkön hinnat Suomessa. Tiedot
-            päivittyvät automaattisesti.
-          </p>
-        </>
-      )}
+      <Header />
+      <h1 className="title">Pörssisähkön tiedot</h1>
+      <p className="description">
+        Täältä näet ajankohtaisen pörssisähkön hinnan. Sivun tiedot päivittyvät
+        automaattisesti.
+      </p>
       {error !== 0 && (
         <div className="alert warning">
           <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
           <p>{error}</p>
         </div>
       )}
-
-      {data !== null ? (
-        sceneID.sceneID !== undefined ? (
-          <>
-            <SceneBuilder sceneID={sceneID.sceneID as string} data={data} />
-
-            {!sceneID.sceneID.includes("build_scene") && (
-              <div className="box scene">
-                <h2>
-                  <FontAwesomeIcon icon={faShareAlt} />
-                  Näkymän jako-linkki
-                </h2>
-                <pre onClick={copyLink}>
-                  {window.location.origin + "/nakyma/" + sceneID.sceneID}
-                </pre>
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            <section className="col-row header">
-              {data.data !== undefined ? (
-                <>
-                  <div className="col header">
-                    <PriceBox type="current_price" data={data} />
-                    <PriceBox type="next_price" data={data} />
-                  </div>
-                  <div className="col header">
-                    <PriceBox type="timer_next" />
-                    <PriceBox type="timer_tomorrow" />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="col header">
-                    <div className="single-box" />
-                    <div className="single-box" />
-                  </div>
-                  <div className="col header">
-                    <div className="single-box" />
-                    <div className="single-box" />
-                  </div>
-                </>
-              )}
-            </section>
-
-            <section className="col-row">
-              <div className="col">
-                <h3>
-                  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon>
-                  Tämän päivän tiedot
-                </h3>
-                {data.data !== undefined ? (
-                  <PriceBox type="today_info" data={data} />
-                ) : (
-                  <p className="error-notice">
-                    Tietoja ei voitu ladata virheen vuoksi.
-                  </p>
-                )}
-              </div>
-              <div className="col">
-                <h3>
-                  <FontAwesomeIcon icon={faCalendarDay} />
-                  Huomisen tiedot
-                </h3>
-                {data.data !== undefined ? (
-                  <PriceBox type="tomorrow_info" data={data} />
-                ) : (
-                  <p className="error-notice">
-                    Tietoja ei voitu ladata virheen vuoksi.
-                  </p>
-                )}
-              </div>
-            </section>
-
-            <section className="chart">
-              <h3>
-                <FontAwesomeIcon icon={faChartArea}></FontAwesomeIcon>
-                Pörssisähkön hinnat taulukolla
-              </h3>
-              {data.data !== undefined ? (
-                <Chart
-                  data={data.data.chart}
-                  hasTomorrows={data.data.tomorrow.data_ok}
-                />
-              ) : (
-                <p className="error-notice">
-                  Kuvaaja ei voitu ladata virheen vuoksi.
-                </p>
-              )}
-            </section>
-
-            <section className="box">
-              <div className="colors">
-                <h2>Värien selitykset</h2>
-                <p>Värit muuttuvat sähköhinnan mukaan.</p>
-                <div className="color-container">
-                  {Object.keys(colorMap)
-                    .sort((a, b) => parseInt(a) - parseInt(b))
-                    .map((key, index) => {
-                      if (key.startsWith("-")) return null;
-                      return (
-                        <span
-                          className="color"
-                          style={{
-                            backgroundColor: colorizePrice(parseInt(key)),
-                          }}
-                          key={index}
-                        >
-                          <p>{key}</p>
-                        </span>
-                      );
-                    })}
+      {data !== undefined ? (
+        <>
+          <section className="col-row header">
+            {data !== undefined ? (
+              <>
+                <div className="col group half">
+                  <CurrentPrice data={data} size={"half"} />
+                  <NextPrice data={data} size={"half"} />
                 </div>
+                <div className="col group third">
+                  <GeneralInfo data={data} type="average" size={"third"} />
+                  <GeneralInfo data={data} type="lowest" size={"third"} />
+                  <GeneralInfo data={data} type="highest" size={"third"} />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="col group">
+                  <div className="single-box" />
+                  <div className="single-box" />
+                </div>
+                <div className="col group">
+                  <div className="single-box" />
+                  <div className="single-box" />
+                  <div className="single-box" />
+                </div>
+              </>
+            )}
+          </section>
+
+          <section className="col-row info">
+            <h3>
+              <FontAwesomeIcon icon={faCalendarDay} />
+              Huomisen tiedot
+            </h3>
+            {data !== undefined ? (
+              <TomorrowInfo data={data} />
+            ) : (
+              <p className="error-notice">
+                Tietoja ei voitu ladata virheen vuoksi.
+              </p>
+            )}
+          </section>
+
+          <section className="chart">
+            <h3>
+              <FontAwesomeIcon icon={faChartArea}></FontAwesomeIcon>
+              Pörssisähkön hinnat taulukolla
+            </h3>
+            {data !== undefined ? (
+              <Chart data={data.chart} hasTomorrows={data.tomorrow.data_ok} />
+            ) : (
+              <p className="error-notice">
+                Kuvaaja ei voitu ladata virheen vuoksi.
+              </p>
+            )}
+          </section>
+
+          <section className="box">
+            <div className="colors">
+              <h2>Värien selitykset</h2>
+              <p>Värit muuttuvat sähköhinnan mukaan.</p>
+              <div className="color-container">
+                {Object.keys(colorMap)
+                  .sort((a, b) => parseInt(a) - parseInt(b))
+                  .map((key, index) => {
+                    if (key.startsWith("-")) return null;
+                    return (
+                      <span
+                        className="color"
+                        style={{
+                          backgroundColor: colorizePrice(parseInt(key)),
+                        }}
+                        key={index}
+                      >
+                        <p>{key}</p>
+                      </span>
+                    );
+                  })}
               </div>
-            </section>
-          </>
-        )
+            </div>
+          </section>
+        </>
       ) : (
         <div className="wrap">
           <div className="container">
             <section className="row center loading">
-              <FontAwesomeIcon
-                icon={faSpinner}
-                spin
-                size="10x"
-              ></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faSpinner} spin size="10x" />
               <p className="loading-text">Tietoja ladataan...</p>
             </section>
           </div>
