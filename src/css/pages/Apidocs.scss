@@ -70,6 +70,7 @@ section.api-docs {
       margin-top: 5px;
       line-height: 1.15;
       white-space: pre-wrap;
+      word-break: break-all;
 
       code.type {
         color: $primary;
@@ -121,5 +122,17 @@ section.api-docs {
   }
   .key {
     color: #ff79c6;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  section.api-docs .event table {
+    font-size: 1.25rem;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  section.api-docs .event table {
+    font-size: 1.1rem;
   }
 }

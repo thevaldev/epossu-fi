@@ -221,13 +221,29 @@ section.page {
   }
 }
 
+@media only screen and (max-width: 500px) {
+  html,
+  body {
+    font-size: 47%;
+  }
+
+  .wrap .container {
+    width: 85%;
+  }
+
+  .chart .recharts-responsive-container {
+    padding: 5px;
+  }
+
+  .chart .box-row {
+    gap: 0px;
+    justify-content: space-around;
+  }
+}
+
 @media only screen and (max-width: 400px) {
   html,
   body {
     font-size: 45%;
-  }
-
-  .wrap .container {
-    width: 90%;
   }
 }
