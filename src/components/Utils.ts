@@ -12,11 +12,6 @@ export function convertNumber(expectedNumber: number | null) {
   return expectedNumber.toFixed(3);
 }
 
-/**
- * Formats a date to a string
- * @param date - The date to format
- * @returns The formatted date
- */
 export function formatDateForData(date: Date) {
   return (
     ("0" + date.getDate()).slice(-2) +

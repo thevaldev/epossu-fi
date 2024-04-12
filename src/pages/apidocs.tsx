@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react";
-import "../css/pages/Apidocs.scss";
-import Header from "../elements/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import "../css/apidocs.scss";
 
 const ApiDocs = () => {
-  const [visibleExamples, setVisibleExamples] = useState({
-    0: false,
-    1: false,
-  });
+  document.title = "API - epossu.fi";
 
-  useEffect(() => {
-    document.title = "API - epossu.fi";
-  }, []);
-
-  const marketData = {
+  const example_json = {
+    success: true,
     data: {
       today: {
         data_ok: true,
@@ -61,15 +51,78 @@ const ApiDocs = () => {
           {
             price: 1.234,
             date: "2024.01.01 01:00:00",
-            timestamp: 1704070800,
+            hour: "01",
           },
           "...",
           {
             price: 1.234,
             date: "2024.01.03 00:00:00",
-            timestamp: 1704067200,
+            hour: "00",
           },
         ],
+        options: {
+          highest: 1.234,
+          lowest: 1.234,
+        },
+      },
+    },
+  };
+
+  const example_json_types = {
+    success: "boolean",
+    data: {
+      today: {
+        data_ok: "boolean",
+        prices: [
+          {
+            price: "number",
+            date: "string",
+          },
+        ],
+        options: {
+          average: "number",
+          highest: {
+            price: "number",
+            date: "string",
+          },
+          lowest: {
+            price: "number",
+            date: "string",
+          },
+        },
+      },
+      tomorrow: {
+        data_ok: "boolean",
+        prices: [
+          {
+            price: "number",
+            date: "string",
+          },
+        ],
+        options: {
+          average: "number",
+          highest: {
+            price: "number",
+            date: "string",
+          },
+          lowest: {
+            price: "number",
+            date: "string",
+          },
+        },
+      },
+      chart: {
+        dataset: [
+          {
+            price: "number",
+            date: "string",
+            hour: "string",
+          },
+        ],
+        options: {
+          highest: "number",
+          lowest: "number",
+        },
       },
     },
   };
@@ -101,174 +154,116 @@ const ApiDocs = () => {
   }
 
   return (
-    <>
-      <Header />
-      <section className="page api-docs">
-        <h1 className="title">API-Rajapinta</h1>
+    <section className="page api-docs">
+      <h1 className="title">API-Rajapinta</h1>
 
-        <p className="lead">
-          Tämä sivu sisältää ohjeet ja esimerkit epossu.fi:n tarjoamasta
-          rajapinnasta. Rajapinta tarjoaa sähkön markkinahintoja, jotka ovat
-          peräisin Nord Pool -sähköpörssistä.
+      <p className="lead">
+        Tämä sivu sisältää ohjeet ja esimerkit epossu.fi:n tarjoamasta
+        rajapinnasta. Rajapinta tarjoaa sähkön markkinahintoja, jotka ovat
+        peräisin Nord Pool -sähköpörssistä.
+        <br />
+        <br />
+        Rajapinta on tarkoitettu julkiseen käyttöön ja sen käyttö on ilmaista.
+        <br />
+        Rajapinnan käyttö on sallittua, kunhan se ei aiheuta kohtuutonta
+        kuormitusta palvelimelle.
+        <br />
+        <b>
+          Mikäli havaitsemme kohtuutonta kuormitusta, pidätämme oikeuden
+          rajoittaa tai estää rajapinnan käyttöä.
+        </b>
+        <br />
+        <br />
+        Mikäli tarvitset apua rajapinnan käytössä tai sinulla on kysyttävää, ota
+        yhteyttä{" "}
+        <a href="https://github.com/thevaldev/epossu-fi/issues" target="_blank">
+          githubin
+        </a>{" "}
+        kautta.
+      </p>
+
+      <div className="event">
+        <p className="definition">Hae uusimmat pörssitiedot</p>
+        <pre>
+          <code>
+            <code className="type">GET</code>
+            {` https://api.epossu.fi/v2/marketData`}
+          </code>
+        </pre>
+        <p className="info">
+          Palauttaa uusimmat 48 tunnin hintatiedot.
           <br />
-          <br />
-          Rajapinta on tarkoitettu julkiseen käyttöön ja sen käyttö on ilmaista.
-          <br />
-          Rajapinnan käyttö on sallittua, kunhan se ei aiheuta kohtuutonta
-          kuormitusta palvelimelle.
-          <br />
-          <b>
-            Mikäli havaitsemme kohtuutonta kuormitusta, pidätämme oikeuden
-            rajoittaa tai estää rajapinnan käyttöä.
-          </b>
-          <br />
-          <br />
-          Mikäli tarvitset apua rajapinnan käytössä tai sinulla on kysyttävää,
-          ota yhteyttä{" "}
-          <a
-            href="https://github.com/thevaldev/epossu-fi/issues"
-            target="_blank"
-          >
-            githubin
-          </a>{" "}
-          kautta.
+          <ul>
+            <li>
+              Hinnat sisältävät arvonlisäveron <b>(24%)</b>.
+            </li>
+            <li>
+              Hintojen yksikkö on <b>snt/kWh</b>
+            </li>
+            <li>
+              Hintojen aikaleima on <b>dd.mm.yyyy hh:mm</b>
+            </li>
+            <li>
+              Kuvaajan aikaleima on <b>yyyy.mm.dd hh:mm:ss</b>
+            </li>
+            <li>
+              Tietojen päivitys tapahtuu noin kello 14:00, jolloin tietoihin
+              sisältyy seuraavan päivän hintatiedot.
+            </li>
+            <li>
+              Mikäli huomisen dataa ei ole saatavilla palauttaa <b>data_ok</b>{" "}
+              arvon <b>false</b>.
+            </li>
+          </ul>
         </p>
 
-        <div className="event">
-          <p className="definition">Hae uusimmat pörssitiedot</p>
-          <pre>
-            <code>
-              <code className="type">GET</code>
-              {` https://api.epossu.fi/v2/marketData`}
-            </code>
-          </pre>
-          <p className="info">
-            Palauttaa uusimmat 48 tunnin hintatiedot.
-            <br />
-            <ul>
-              <li>
-                Hinnat sisältävät arvonlisäveron <b>(24%)</b>.
-              </li>
-              <li>
-                Hintojen yksikkö on <b>c/kWh</b>
-              </li>
-              <li>
-                Hintojen aikaleima on <b>dd.mm.yyyy hh:mm</b>
-              </li>
-              <li>
-                Kuvaajan aikaleima on <b>yyyy.mm.dd hh:mm:ss</b>
-              </li>
-              <li>
-                Tietojen päivitys tapahtuu noin kello 14:00, jolloin tietoihin
-                sisältyy seuraavan päivän hintatiedot.
-              </li>
-              <li>
-                Mikäli huomisen dataa ei ole saatavilla palauttaa <b>data_ok</b>{" "}
-                arvon <b>false</b>.
-              </li>
-            </ul>
-          </p>
+        <p>Vastaukset</p>
+        <pre>
+          <code className="type">200 </code>
+          <code>Hintojen haku onnistui</code>
+        </pre>
 
-          <p>Vastaukset</p>
-          <pre>
-            <code className="type">200 </code>
-            <code>Hintojen haku onnistui</code>
-          </pre>
+        <p className="example">
+          Esimerkki tapaus (Tiedot haetaan ennen kello 14:00)
+        </p>
+        <pre>
+          <code>
+            <code className="type">GET</code>
+            {` https://api.epossu.fi/v2/marketData`}
+          </code>
 
-          <p>Parametrit</p>
-          <p className="info">
-            Parametrien käyttö ei ole pakollista, mutta voit muokata
-            palautettuja tietoja seuraavilla parametreilla.
-          </p>
-          <table>
-            <thead>
-              <tr>
-                <th>Nimi</th>
-                <th>Oletusarvo</th>
-                <th>Selite</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>include_chart</td>
-                <td>true</td>
-                <td>Palauttaa valmiin datasetin kuvaajaa varten.</td>
-              </tr>
-              <tr>
-                <td>include_options</td>
-                <td>true</td>
-                <td>
-                  Palauttaa hintatietojen lisäksi keskiarvon, korkeimman ja
-                  matalimman hinnan.
-                </td>
-              </tr>
-              <tr>
-                <td>price_timestamps</td>
-                <td>false</td>
-                <td>Lisää hintatietoihin aikaleimat.</td>
-              </tr>
-            </tbody>
-          </table>
+          <br />
+          <br />
+          <code>
+            <code className="type">200 OK</code>
+          </code>
+          <br />
+          <code>
+            <code className="type">Content-Type: application/json</code>
+          </code>
 
-          <>
-            {!visibleExamples[0] ? (
-              <p
-                className="button example"
-                onClick={() =>
-                  setVisibleExamples({ ...visibleExamples, 0: true })
-                }
-              >
-                <FontAwesomeIcon icon={faEye} />
-                Näytä esimerkki
-              </p>
-            ) : (
-              <>
-                <p
-                  className="button example"
-                  onClick={() =>
-                    setVisibleExamples({ ...visibleExamples, 0: false })
-                  }
-                >
-                  <FontAwesomeIcon icon={faEyeSlash} />
-                  Piilota esimerkki
-                </p>
-                <p className="example">
-                  Esimerkkitapaus (Tiedot haetaan ennen kello 14:00)
-                </p>
-                <pre>
-                  <code>
-                    <code className="type">GET</code>
-                    {` https://api.epossu.fi/v2/marketData`}
-                  </code>
-
-                  <br />
-                  <br />
-                  <code>
-                    <code className="type">200 OK</code>
-                  </code>
-                  <br />
-                  <code>
-                    <code className="type">Content-Type: application/json</code>
-                  </code>
-
-                  <br />
-                  <br />
-                  <code className="type">Response body</code>
-                  <pre
-                    className="inner"
-                    dangerouslySetInnerHTML={{
-                      __html: syntaxHighlight(
-                        JSON.stringify(marketData, null, 2)
-                      ),
-                    }}
-                  ></pre>
-                </pre>
-              </>
-            )}
-          </>
-        </div>
-      </section>
-    </>
+          <br />
+          <br />
+          <code className="type">Response body</code>
+          <pre
+            className="inner"
+            dangerouslySetInnerHTML={{
+              __html: syntaxHighlight(JSON.stringify(example_json, null, 2)),
+            }}
+          ></pre>
+          <br />
+          <code className="type">Response types</code>
+          <pre
+            className="inner"
+            dangerouslySetInnerHTML={{
+              __html: syntaxHighlight(
+                JSON.stringify(example_json_types, null, 2)
+              ),
+            }}
+          ></pre>
+        </pre>
+      </div>
+    </section>
   );
 };
 

@@ -1,40 +1,35 @@
-import "../css/pages/Scenes.scss";
-import Header from "../elements/Header";
+import "../css/Scenes.scss";
+import { Link } from "react-router-dom";
 
 const Scenes = () => {
   document.title = "Näkymät - epossu.fi";
 
   return (
-    <>
-      <Header />
-      <section className="page scenes">
-        <h1 className="title with-label red">
-          Näkymät <label>Tulossa pian</label>
-        </h1>
-        <h2>
-          Arvioitu julkaisu:{" "}
-          <span className="number">
-            <strong>1.6.2024</strong>
-          </span>{" "}
-          mennessä.
-        </h2>
-        <p className="lead">
-          Muokattavat sähkönhintanäkymät infonäytöille ja muille laitteille.
-          Tällä työkalulla voit luoda omia näkymiä kuten esimerkiksi nykyinen
-          etusivumme.
-          <br />
-          Näkymiä voi upottaa, jakaa ja niiden sisältöä on helppo muokata.
-          <br />
-          <br />
-          Voit valitaa itse mitä tietoja näytetään, missä järjestyksessä ja
-          minkä kokoisina.
-          <br />
-          <br />
-          <br />
-          <strong>Lisää tietoa tästä ominaisuudesta tulossa pian.</strong>
-        </p>
-      </section>
-    </>
+    <section className="page">
+      <h1 className="title with-label">
+        Näkymät <label>BETA</label>
+      </h1>
+      <p className="lead">
+        Muokattavat sähkönhintanäkymät infonäytöille ja muille laitteille. Tällä
+        työkalulla voit luoda omia näkymiä kuten esimerkiksi nykyinen
+        etusivumme. <br />
+        Näkymät ovat helppoja luoda, muokata ja niitä voi jakaa muiden
+        käyttäjien kanssa.
+        <br />
+        <br />
+        <strong>Huom!</strong> Tämä on beta-versio, joten kaikki ominaisuudet ja
+        toiminnot eivät ole vielä käytössä.
+        <br />
+        Kehitys on kuitenkin aktiivista ja uusia ominaisuuksia lisätään
+        jatkuvasti.
+      </p>
+
+      <div className="scene-builder">
+        <Link to={"/nakyma/build_scene"}>
+          <button>Luo uusi näkymä</button>
+        </Link>
+      </div>
+    </section>
   );
 };
 

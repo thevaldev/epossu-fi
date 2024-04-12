@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { colorizePrice } from "../components/Colorizer";
 import { ChartData } from "../types";
-import DayChart from "./DayChart";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  BarChart,
+  Bar,
+  Rectangle,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  ReferenceLine,
+} from "recharts";
+import Timings from "../components/Timings";
 
 interface ChartProps {
   data: ChartData;
@@ -10,95 +21,126 @@ interface ChartProps {
 }
 
 const Chart = ({ data, hasTomorrows }: ChartProps) => {
-  const [date_selector, setDateSelector] = useState<string>("Kaikki tiedot");
-  const [dataset, setDataset] = useState(data.dataset);
-
-  function changeDate(type: number) {
-    const types: { [key: string]: string } = {
-      0: "Eilen",
-      1: "Tänään",
-      2: "Huomenna",
-      3: "Kaikki tiedot",
-    };
-
-    const current_type = Object.keys(types).find(
-      (key) => types[key] === date_selector
-    );
-
-    let new_type = Number(current_type) + type;
-    if (new_type < 0) new_type = 0;
-    else if (new_type > 3) new_type = 3;
-
-    if (new_type === 2 && !hasTomorrows) {
-      if (type === 1) new_type = 3;
-      else new_type = 1;
-    }
-
-    if (new_type === 0) {
-      const yesterday_date = new Date();
-      yesterday_date.setDate(new Date().getDate() - 1);
-
-      const yesterday = data.dataset.filter(
-        (item) => new Date(item.date).getDate() === yesterday_date.getDate()
-      );
-      setDataset(yesterday as ChartData["dataset"]);
-    }
-
-    if (new_type === 2) {
-      const tomorrow_date = new Date();
-      tomorrow_date.setDate(new Date().getDate() + 1);
-
-      const tomorrow = data.dataset.filter(
-        (item) => new Date(item.date).getDate() === tomorrow_date.getDate()
-      );
-
-      setDataset(tomorrow as ChartData["dataset"]);
-    }
-
-    if (new_type === 1) {
-      const today = data.dataset.filter(
-        (item) => new Date(item.date).getDate() === new Date().getDate()
-      );
-      setDataset(today as ChartData["dataset"]);
-    }
-
-    if (new_type === 3) {
-      setDataset(data.dataset);
-    }
-
-    setDateSelector(types[new_type]);
-  }
-
-  return (
-    <>
-      {
-        <div className="box-row">
-          <button
-            onClick={() => changeDate(-1)}
-            disabled={
-              (date_selector === "Tänään" && hasTomorrows) ||
-              date_selector == "Eilen"
-            }
-          >
-            <FontAwesomeIcon icon={faCaretLeft} />
-          </button>
-          <p>{date_selector}</p>
-          <button
-            onClick={() => changeDate(1)}
-            disabled={date_selector === "Kaikki tiedot"}
-          >
-            <FontAwesomeIcon icon={faCaretRight} />
-          </button>
-        </div>
+  const [ref_line_spot, setRefLineSpot] = useState<number>(
+    new Date().getHours()
+  );
+  const refSpotTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
+  useEffect(() => {
+    function changeRefLineSpot() {
+      if (!hasTomorrows && data.dataset.length > 24) {
+        setRefLineSpot(23 + new Date().getHours());
+      } else {
+        setRefLineSpot(new Date().getHours());
       }
 
-      <DayChart
-        dataset={dataset}
-        shouldDrawRef={
-          date_selector === "Tänään" || date_selector === "Kaikki tiedot"
-        }
-      />
-    </>
+      refSpotTimeout.current = setTimeout(() => {
+        changeRefLineSpot();
+      }, Timings.getTimeLeftToNextHour());
+    }
+
+    changeRefLineSpot();
+    return () =>
+      clearTimeout(refSpotTimeout.current as ReturnType<typeof setTimeout>);
+  }, [data.dataset.length, hasTomorrows]);
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={data.dataset}>
+        <CartesianGrid strokeDasharray="5" vertical={false} stroke="#636060" />
+        <XAxis dataKey="hour" fontSize={20} />
+        <YAxis
+          type="number"
+          domain={[0, parseInt(data.options.highest.toString()) + 11]}
+          tickCount={15}
+          width={45}
+          fontSize={20}
+          allowDecimals={false}
+          tickFormatter={(value) => value.toFixed(0)}
+          label={{
+            value: "snt / kWh",
+            angle: -90,
+            fontSize: 25,
+            position: "left",
+            offset: 0,
+          }}
+        />
+        <ReferenceLine
+          x={ref_line_spot}
+          stroke="#ff9073"
+          strokeWidth={3}
+          label={{
+            value: "Nykyinen tunti",
+            position: { x: -6.5, y: 5 },
+            fill: "#ff9073",
+            fontSize: 18,
+            angle: -90,
+            fontWeight: "500",
+          }}
+        />
+        <Tooltip
+          isAnimationActive={false}
+          cursor={{
+            fill: "rgba(255,255,255,0.2)",
+          }}
+          contentStyle={{
+            backgroundColor: "rgba(255,255,255,1)",
+            color: "white",
+            fontSize: 25,
+            border: "none",
+          }}
+          labelFormatter={() => ""}
+          content={({ payload, label }) => {
+            return (
+              <div className="chart-tooltip">
+                <p className="title">
+                  {payload !== undefined &&
+                    payload[0] !== undefined &&
+                    new Date(payload[0].payload.date).toLocaleDateString(
+                      "fi-FI",
+                      {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "numeric",
+                        year: "numeric",
+                      }
+                    )}
+                </p>
+                <span className="number">
+                  <b>Klo:</b> {label < 9 ? "0" + Number(label) : label}:00 -{" "}
+                  {Number(label) + 1 < 9
+                    ? "0" + Number(Number(label) + 1)
+                    : Number(label) + 1}
+                  :00
+                </span>
+                <span className="number">
+                  <b>Hinta:</b>{" "}
+                  {payload !== undefined &&
+                    payload[0] !== undefined &&
+                    payload[0].payload.price.toFixed(3)}{" "}
+                  snt/kWh
+                </span>
+              </div>
+            );
+          }}
+        />
+        <Bar dataKey="price" shape={<Rectangle />} isAnimationActive={false}>
+          {data.dataset.map((entry, index) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={colorizePrice(entry.price)}
+              style={{
+                filter:
+                  entry.price < 0
+                    ? "hue-rotate(" +
+                      entry.price * -2.75 +
+                      "deg) brightness(1.25)"
+                    : "",
+              }}
+            />
+          ))}
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 

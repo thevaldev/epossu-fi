@@ -1,4 +1,4 @@
-@import "../_variables";
+@import "_variables";
 
 .page.not-found {
   button {
@@ -10,7 +10,7 @@
     color: #1e242a;
     font-weight: 500;
     padding: 11px 25px;
-    border-radius: $border_radius;
+    border-radius: 12px;
     font-size: 1.6rem;
     cursor: pointer;
     text-align: left;

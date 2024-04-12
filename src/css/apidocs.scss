@@ -1,4 +1,4 @@
-@import "../_variables";
+@import "_variables";
 
 section.api-docs {
   a {
@@ -16,60 +16,15 @@ section.api-docs {
     align-items: start;
     justify-content: center;
     text-align: left;
-    border: 1px solid #555c62;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: $border-radius;
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-      margin-bottom: 30px;
-      font-size: 1.75rem;
-      font-weight: 300;
-
-      th {
-        border-bottom: 1px solid #555c62;
-        color: $color_3;
-        padding: 15px 10px;
-        text-align: left;
-        font-weight: bold;
-      }
-
-      td {
-        padding: 15px 10px;
-        border-bottom: 1px solid #555c62;
-      }
-    }
-
-    .button.example {
-      margin-top: 15px;
-      background-color: $primary;
-      padding: 12px 18px;
-      border-radius: $border-radius;
-      color: #181d22;
-      font-size: 2rem;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $color_3;
-      }
-
-      svg {
-        margin-right: 10px;
-      }
-    }
 
     pre {
       font-size: 1.75rem;
       width: 100%;
       background-color: #181d22;
       padding: 25px 20px;
-      border-radius: $border-radius;
+      border-radius: 5px;
       margin-top: 5px;
       line-height: 1.15;
-      white-space: pre-wrap;
 
       code.type {
         color: $primary;
@@ -121,5 +76,11 @@ section.api-docs {
   }
   .key {
     color: #ff79c6;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  section.api-docs .event pre {
+    font-size: 1.5rem;
   }
 }

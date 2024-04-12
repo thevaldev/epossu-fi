@@ -6,19 +6,21 @@ import { PriceData, PriceJSON } from "../../types";
 
 type BoxTypes = {
   data: PriceData;
-  size?: string;
 };
 
-const CurrentPrice = ({ data, size }: BoxTypes) => {
+const CurrentPrice = ({ data }: BoxTypes) => {
   const [currentHourPrice, setCurrentHourPrice] = useState<null | number>(null);
   const timer = useRef<null | ReturnType<typeof setInterval>>(null);
 
   useEffect(() => {
-    if (data === null) return;
+    if (data.data === null) return;
 
     function setNewPrice() {
       setCurrentHourPrice(
-        Timings.getCurrentPrice(data.today, data.tomorrow as PriceJSON)
+        Timings.getCurrentPrice(
+          data.data.today,
+          data.data.tomorrow as PriceJSON
+        )
       );
     }
 
@@ -31,18 +33,18 @@ const CurrentPrice = ({ data, size }: BoxTypes) => {
     return () => {
       if (timer.current !== null) clearInterval(timer.current);
     };
-  }, [data]);
+  }, [data.data]);
 
   return (
-    <div className={`single-box ${size}`}>
-      <p className="title">Hinta nyt</p>
+    <div className="single-box">
+      <p className="title">Nykyinen tunti</p>
       <span
         className="number"
         style={{
           color: `${colorizePrice(currentHourPrice)}`,
         }}
       >
-        {convertNumber(currentHourPrice)} <p>c/kWh</p>
+        {convertNumber(currentHourPrice)} <p>snt/kWh</p>
       </span>
     </div>
   );

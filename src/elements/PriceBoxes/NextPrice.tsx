@@ -6,10 +6,9 @@ import { PriceData, PriceJSON } from "../../types";
 
 type BoxTypes = {
   data: PriceData;
-  size?: string;
 };
 
-const NextPrice = ({ data, size }: BoxTypes) => {
+const NextPrice = ({ data }: BoxTypes) => {
   const [nextHourPrice, setNextHourPrice] = useState<null | number>(null);
   const timer = useRef<null | ReturnType<typeof setInterval>>(null);
 
@@ -18,7 +17,7 @@ const NextPrice = ({ data, size }: BoxTypes) => {
 
     function setNewPrice() {
       setNextHourPrice(
-        Timings.getNextPrice(data.today, data.tomorrow as PriceJSON)
+        Timings.getNextPrice(data.data.today, data.data.tomorrow as PriceJSON)
       );
     }
 
@@ -34,15 +33,15 @@ const NextPrice = ({ data, size }: BoxTypes) => {
   }, [data]);
 
   return (
-    <div className={`single-box ${size}`}>
-      <p className="title">Seuraava hinta</p>
+    <div className="single-box">
+      <p className="title">Seuraava tunti</p>
       <span
         className="number"
         style={{
           color: `${colorizePrice(nextHourPrice)}`,
         }}
       >
-        {convertNumber(nextHourPrice)} <p>c/kWh</p>
+        {convertNumber(nextHourPrice)} <p>snt/kWh</p>
       </span>
     </div>
   );
