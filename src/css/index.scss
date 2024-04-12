@@ -1,11 +1,10 @@
 @import "_variables";
-@import "Header";
-@import "Footer";
+@import "./elements/Header.scss";
+@import "./elements/Footer.scss";
 
 * {
   box-sizing: border-box;
   text-decoration: none;
-
   &:after {
     box-sizing: border-box;
     text-decoration: none;
@@ -33,16 +32,30 @@ body {
   color: $color_3;
 }
 
+.wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+svg {
+  margin-right: 15px;
+}
+
 span.number {
   font-family: "Lato", sans-serif;
-
-  &.red {
-    color: #fa5353 !important;
-  }
-
-  &.green {
-    color: #7aae65 !important;
-  }
 }
 
 p.error-notice {
@@ -68,18 +81,119 @@ section.page {
     margin-bottom: 15px;
 
     &.lead {
-      font-size: 1.8rem;
-      color: $color_5;
+      font-size: 1.9rem;
+      color: $color_6;
       margin-bottom: 50px;
       font-weight: 400;
     }
   }
 }
 
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &.center {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+
+    &.loading {
+      min-height: 50vh;
+      margin-bottom: 200px;
+
+      svg {
+        opacity: 0.3;
+      }
+
+      p.loading-text {
+        margin-top: 45px;
+        font-size: 2rem;
+        font-weight: 500;
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .box {
+    width: 100%;
+    background-color: #181d22;
+    margin-top: 25px;
+    padding: 6px 32px;
+    padding-bottom: 45px;
+    border-radius: 8px;
+    text-align: left;
+    transition: 0.3s ease;
+    animation: pageEnter 0.5s ease;
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+  }
+
+  h1.title {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    margin-top: 50px;
+    font-weight: 800;
+    text-align: left;
+
+    &.with-label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.red {
+        label {
+          background-color: $warning_red;
+        }
+      }
+
+      label {
+        margin-left: 15px;
+        font-size: 1.6rem;
+        color: #1e242a;
+        font-weight: bold;
+        padding: 5px 10px;
+        background-color: $primary;
+        border-radius: 8px;
+      }
+    }
+  }
+
+  p.description {
+    width: 100%;
+    text-align: left;
+    font-weight: 400;
+    margin-bottom: 5px;
+    margin-top: 0px;
+    color: $color_6;
+
+    font-size: 1.9rem;
+    letter-spacing: 0.2px;
+  }
+
+  p.lead {
+    color: $color_6;
+    margin-bottom: 50px;
+    font-weight: 400;
+    width: 100%;
+    text-align: left;
+    line-height: 1.25;
+    font-size: 1.9rem;
+    letter-spacing: 0.2px;
+  }
+}
+
 @media only screen and (min-width: 2000px) {
   html,
   body {
-    font-size: 82.5%;
+    font-size: 72%;
   }
   header .logo-wrap .logo {
     width: 54px;
@@ -87,73 +201,49 @@ section.page {
   }
 }
 
-@media only screen and (max-width: 1600px) {
-  html {
-    font-size: 57.5%;
-  }
-  header .logo-wrap .logo {
-    width: 40px;
-    height: 40px;
+@media only screen and (max-width: 1700px) {
+  .wrap .container {
+    width: 85%;
   }
 }
 
-@media only screen and (max-width: 1200px) {
-  html {
-    font-size: 52.5%;
-  }
-  header .logo-wrap .logo {
-    width: 35px;
-    height: 35px;
-  }
-}
-@media only screen and (max-width: 1075px) {
-  html {
-    font-size: 52.5%;
-  }
-
-  svg {
-    margin-right: 7px;
+@media only screen and (max-width: 850px) {
+  html,
+  body {
+    font-size: 58%;
   }
 }
 
-@media only screen and (max-width: 930px) {
-  html {
-    font-size: 47.5%;
-  }
-  header .logo-wrap .logo {
-    width: 32px;
-    height: 32px;
+@media only screen and (max-width: 700px) {
+  html,
+  body {
+    font-size: 52%;
   }
 }
-@media only screen and (max-width: 800px) {
-  header ul {
-    width: 100%;
-    justify-content: start;
+
+@media only screen and (max-width: 500px) {
+  html,
+  body {
+    font-size: 47%;
+  }
+
+  .wrap .container {
+    width: 85%;
+  }
+
+  .chart .recharts-responsive-container {
+    padding: 5px;
+  }
+
+  .chart .box-row {
+    gap: 0px;
+    justify-content: space-around;
   }
 }
 
 @media only screen and (max-width: 400px) {
-  header ul {
-    justify-content: space-between;
-    gap: 20px;
-  }
-  header ul li a {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    white-space: nowrap;
-
-    svg {
-      margin: unset;
-      margin-bottom: 5px;
-      font-size: 2rem;
-    }
-  }
-}
-
-@media only screen and (max-width: 350px) {
-  html {
-    font-size: 42.5%;
+  html,
+  body {
+    font-size: 45%;
   }
 }

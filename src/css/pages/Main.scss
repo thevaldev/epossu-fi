@@ -1,0 +1,273 @@
+@import "../_variables";
+@import "../elements/alert.scss";
+
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+h3 {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #808080;
+  text-align: left;
+  margin-bottom: 0px;
+  padding: 10px 32px;
+  margin-top: 15px;
+}
+
+.col-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-top: 25px;
+
+  &.nospacing {
+    margin-top: 0px;
+  }
+
+  &.info {
+    width: 100%;
+    flex-wrap: wrap;
+    background-color: #181d22;
+    border-radius: $border_radius;
+    animation: pageEnter 0.5s ease;
+    padding-bottom: 25px;
+
+    .single-box {
+      background-color: transparent;
+      animation: none;
+    }
+  }
+
+  .col.group {
+    width: 49.5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &.full {
+      width: 100%;
+    }
+  }
+
+  .col-box {
+    width: 100%;
+    display: flex;
+    background-color: #181d22;
+    border-radius: $border_radius;
+    flex-wrap: wrap;
+  }
+}
+
+.single-box {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  text-align: left;
+  padding: 0 30px;
+  background-color: #181d22;
+  border-radius: $border_radius;
+  width: 100%;
+  min-height: 120px;
+  animation: pageEnter 0.5s ease;
+
+  &.half {
+    width: 49%;
+  }
+
+  &.full {
+    width: 100%;
+  }
+
+  &.third {
+    width: 32.5%;
+  }
+
+  p.title {
+    font-size: 1.8rem;
+    font-weight: 400;
+    border-bottom: 1px solid #636060;
+    padding-right: 15px;
+    margin-bottom: 15px;
+    margin-top: 0;
+    white-space: nowrap;
+
+    span.number.title-time {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: $primary;
+    }
+  }
+
+  span.number {
+    font-size: 2.9rem;
+    display: inline-flex;
+    align-items: baseline;
+    font-weight: 600;
+    color: $primary;
+
+    &.red {
+      color: $red;
+    }
+
+    &.time {
+      font-size: 2rem;
+    }
+
+    &.percent {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #ccc;
+    }
+
+    p {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin: 0 0 0 10px;
+      color: #ccc;
+    }
+  }
+}
+
+@import "../elements/chart.scss";
+@import "../elements/colors.scss";
+
+// 2k
+@media screen and (min-width: 2000px) {
+  div .wrap .container {
+    width: 70%;
+  }
+}
+
+@media only screen and (min-width: 1150px) and (max-width: 1450px) {
+  .col-row .col.group {
+    &.half {
+      width: 40%;
+    }
+
+    &.third {
+      width: 59%;
+    }
+  }
+
+  .single-box {
+    padding: 0 20px;
+  }
+}
+
+@media only screen and (min-width: 150px) and (max-width: 1150px) {
+  .col-row.header {
+    flex-wrap: wrap;
+    margin-top: 25px;
+
+    .col.group {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+
+  .col-row.info {
+    .col-row {
+      flex-wrap: wrap;
+    }
+
+    .col.group.full {
+      flex-wrap: wrap;
+
+      .single-box {
+        width: 33%;
+      }
+    }
+  }
+
+  .col-row {
+    margin-top: unset;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .col-row.info {
+    .col.group.full .single-box {
+      width: 50%;
+      align-items: stretch;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .col-row.header .col.group.third {
+    flex-wrap: wrap;
+
+    .single-box.third {
+      width: 49%;
+
+      &:last-child {
+        width: 100%;
+        margin-top: 15px;
+      }
+    }
+  }
+
+  .single-box {
+    min-height: 100px;
+    padding: 0 20px;
+  }
+
+  .colors .color {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .col-row.header .col.group.half {
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .single-box.half {
+      width: 100%;
+    }
+  }
+
+  .col-row.info .col.group.full {
+    .single-box {
+      width: 100%;
+    }
+  }
+
+}
+
+@media only screen and (max-width: 400px) {
+  .single-box p.title {
+    margin-bottom: 10px;
+  }
+
+  .single-box {
+    min-height: 80px;
+  }
+
+  .single-box p.title {
+    white-space: pre-wrap;
+  }
+
+  .single-box.third {
+    min-height: 95px;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .col-row.header .col.group.third .single-box.third {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

@@ -1,12 +1,12 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import "../css/Footer.scss";
-
 const Footer = () => {
   return (
     <footer>
       <div className="dev">
-        <a href="https://theval.dev/" target="_blank">
+        <a
+          href="https://theval.dev/"
+          target="_blank"
+          title="Developed by thevaldev"
+        >
           <svg
             version="1.1"
             id="Layer_1"
@@ -29,18 +29,17 @@ const Footer = () => {
               </g>
             </g>
           </svg>
-          Developed by thevaldev
         </a>
       </div>
       <div className="github">
-        Sivusto on avoimen lähdekoodin projekti.
-        <br />
-        Voit tarkastella ja osallistua sen kehitykseen GitHubissa.
-        <div className="footer-row">
+        <p>
+          Sivusto on avoimen lähdekoodin projekti.
+          <br />
+          Voit tarkastella ja osallistua sen kehitykseen{" "}
           <a href="https://github.com/thevaldev/epossu-fi" target="_blank">
-            <FontAwesomeIcon icon={faGithub} />
+            GitHubissa.
           </a>
-        </div>
+        </p>
       </div>
     </footer>
   );
