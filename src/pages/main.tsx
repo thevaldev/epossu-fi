@@ -37,15 +37,17 @@ const Main = () => {
 
     // function for fetching new data
     async function getNewData() {
-      fetch("https://api.epossu.fi/v2/_marketData")
+      fetch("https://api.epossu.fi/v2/marketData")
         .then((response) => response.json())
         .then((data) => {
           // if the data is null, we set an error
+
           if (data === null) {
             throw new Error(
               "Palvelussa tapahtui virhe. Yritä myöhemmin uudelleen."
             );
           } else {
+            data = data.data; // setting the data to the data.data
             // if the data for tomorrow is not ok, we set the dataRequiresUpdate to true and schedule a new data fetch
             if (data.tomorrow.data_ok === false) {
               setDataRequiresUpdate(true);
