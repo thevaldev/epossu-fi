@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from "./pages/main";
-import ApiDocs from "./pages/Apidocs";
-import Scenes from "./pages/Scenes";
+import ApiDocs from "./pages/apidocs";
+import Scenes from "./pages/scenes";
 import Footer from "./elements/Footer";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
