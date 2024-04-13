@@ -20,8 +20,8 @@ const GeneralInfo = ({ data, type, size }: BoxTypes) => {
     type === "average"
       ? "Päivän Keskihinta"
       : type === "lowest"
-      ? "Päivän ylin"
-      : "Päivän alin";
+      ? "Päivän alin"
+      : "Päivän ylin";
 
   const time =
     type === "lowest"
