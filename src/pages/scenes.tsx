@@ -26,8 +26,8 @@ const Scenes = () => {
           Näkymiä voi upottaa, jakaa ja niiden sisältöä on helppo muokata.
           <br />
           <br />
-          Voit valitaa itse mitä tietoja näytetään, missä järjestyksessä ja
-          minkä kokoisina.
+          Voit valita itse mitä tietoja näytetään, missä järjestyksessä ja minkä
+          kokoisina.
           <br />
           <br />
           <br />
