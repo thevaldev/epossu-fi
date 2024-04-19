@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from "./pages/main";
 import ApiDocs from "./pages/apidocs";
-import Scenes from "./pages/scenes";
 import Footer from "./elements/Footer";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
@@ -17,7 +16,6 @@ function App() {
               <Route path="/" element={<Main />} />
               <Route path="/tietoa" element={<About />} />
               <Route path="/api" element={<ApiDocs />} />
-              <Route path="/nakymat" element={<Scenes />} />
               <Route path="/ilmoitukset" element={<Notifications />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
