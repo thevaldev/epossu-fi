@@ -4,7 +4,6 @@ import {
   faHome,
   faInfoCircle,
   faServer,
-  faWindowRestore,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -37,12 +36,6 @@ const Header = () => {
           <Link to="/tietoa">
             <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
             <span>Tietoja</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/nakymat">
-            <FontAwesomeIcon icon={faWindowRestore}></FontAwesomeIcon>
-            <span>Näkymät</span>
           </Link>
         </li>
         <li>
