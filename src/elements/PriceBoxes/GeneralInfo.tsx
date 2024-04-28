@@ -9,6 +9,8 @@ type BoxTypes = {
 };
 
 const GeneralInfo = ({ data, type, size }: BoxTypes) => {
+  if (size == undefined) size = "";
+  
   const value =
     type === "average"
       ? data.today.options.average
