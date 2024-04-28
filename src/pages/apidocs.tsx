@@ -142,32 +142,30 @@ const ApiDocs = () => {
               {` https://api.epossu.fi/v2/marketData`}
             </code>
           </pre>
-          <p className="info">
-            Palauttaa uusimmat 48 tunnin hintatiedot.
-            <br />
-            <ul>
-              <li>
-                Hinnat sisältävät arvonlisäveron <b>(24%)</b>.
-              </li>
-              <li>
-                Hintojen yksikkö on <b>c/kWh</b>
-              </li>
-              <li>
-                Hintojen aikaleima on <b>dd.mm.yyyy hh:mm</b>
-              </li>
-              <li>
-                Kuvaajan aikaleima on <b>yyyy.mm.dd hh:mm:ss</b>
-              </li>
-              <li>
-                Tietojen päivitys tapahtuu noin kello 14:00, jolloin tietoihin
-                sisältyy seuraavan päivän hintatiedot.
-              </li>
-              <li>
-                Mikäli huomisen dataa ei ole saatavilla palauttaa <b>data_ok</b>{" "}
-                arvon <b>false</b>.
-              </li>
-            </ul>
-          </p>
+          <p className="info">Palauttaa uusimmat 48 tunnin hintatiedot.</p>
+
+          <ul>
+            <li>
+              Hinnat sisältävät arvonlisäveron <b>(24%)</b>.
+            </li>
+            <li>
+              Hintojen yksikkö on <b>c/kWh</b>
+            </li>
+            <li>
+              Hintojen aikaleima on <b>dd.mm.yyyy hh:mm</b>
+            </li>
+            <li>
+              Kuvaajan aikaleima on <b>yyyy.mm.dd hh:mm:ss</b>
+            </li>
+            <li>
+              Tietojen päivitys tapahtuu noin kello 14:00, jolloin tietoihin
+              sisältyy seuraavan päivän hintatiedot.
+            </li>
+            <li>
+              Mikäli huomisen dataa ei ole saatavilla palauttaa <b>data_ok</b>{" "}
+              arvon <b>false</b>.
+            </li>
+          </ul>
 
           <p>Vastaukset</p>
           <pre>
