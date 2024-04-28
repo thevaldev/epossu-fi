@@ -9,6 +9,7 @@ import Timings from "./components/Timings";
 import { PriceData } from "./types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import Scenes from "./pages/Scenes";
 
 function App() {
   const [data, setData] = useState<PriceData | undefined>(undefined); // Price data
@@ -121,6 +122,7 @@ function App() {
               <Route path="/tietoa" element={<About />} />
               <Route path="/api" element={<ApiDocs />} />
               <Route path="/ilmoitukset" element={<Notifications />} />
+              <Route path="/nakyma/:id" element={<Scenes data={data} />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </div>
