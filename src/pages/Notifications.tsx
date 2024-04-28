@@ -1,4 +1,5 @@
 import "../css/pages/Notifications.scss";
+import Footer from "../elements/Footer";
 import Header from "../elements/Header";
 
 const Notifications = () => {
@@ -34,6 +35,7 @@ const Notifications = () => {
           <strong>Lisää tietoa tästä ominaisuudesta tulossa pian.</strong>
         </p>
       </section>
+      <Footer />
     </>
   );
 };

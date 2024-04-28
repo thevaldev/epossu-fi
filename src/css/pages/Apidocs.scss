@@ -91,12 +91,16 @@ section.api-docs {
         color: $color_3;
         font-weight: bold;
       }
-
-      ul {
-        margin-top: 15px;
-        padding-left: 25px;
-      }
     }
+  }
+
+  ul {
+    font-size: 1.75rem;
+    color: $color_3;
+    margin-top: 15px;
+    margin-top: 15px;
+    padding-left: 25px;
+    font-weight: 400;
   }
 
   pre {

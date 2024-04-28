@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../css/pages/NotFound.scss";
 import Header from "../elements/Header";
+import Footer from "../elements/Footer";
 
 const NotFound = () => {
   document.title = "Sivua ei löytynyt - epossu.fi";
@@ -18,6 +19,7 @@ const NotFound = () => {
           <button>Palaa etusivulle</button>
         </Link>
       </section>
+      <Footer />
     </>
   );
 };

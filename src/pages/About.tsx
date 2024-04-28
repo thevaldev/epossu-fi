@@ -1,4 +1,5 @@
 import "../css/pages/About.scss";
+import Footer from "../elements/Footer";
 import Header from "../elements/Header";
 
 const Scenes = () => {
@@ -53,6 +54,7 @@ const Scenes = () => {
           </a>
         </p>
       </section>
+      <Footer />
     </>
   );
 };

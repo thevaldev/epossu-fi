@@ -12,6 +12,7 @@ type BoxTypes = {
 const CurrentPrice = ({ data, size }: BoxTypes) => {
   const [currentHourPrice, setCurrentHourPrice] = useState<null | number>(null);
   const timer = useRef<null | ReturnType<typeof setInterval>>(null);
+  if (size == undefined) size = "";
 
   useEffect(() => {
     if (data === null) return;
