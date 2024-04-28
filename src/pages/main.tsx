@@ -1,7 +1,4 @@
-import {
-  faCalendarDay,
-  faChartArea,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDay, faChartArea } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
@@ -14,6 +11,7 @@ import CurrentPrice from "../elements/PriceBoxes/CurrentPrice";
 import NextPrice from "../elements/PriceBoxes/NextPrice";
 import GeneralInfo from "../elements/PriceBoxes/GeneralInfo";
 import TomorrowInfo from "../elements/PriceBoxes/TomorrowsInfo";
+import Footer from "../elements/Footer";
 
 interface MainProps {
   data: PriceData | undefined;
@@ -126,6 +124,7 @@ const Main = ({ data }: MainProps) => {
               </div>
             </div>
           </section>
+          <Footer />
         </>
       )}
     </>

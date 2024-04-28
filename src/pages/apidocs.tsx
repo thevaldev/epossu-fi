@@ -3,6 +3,7 @@ import "../css/pages/Apidocs.scss";
 import Header from "../elements/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../elements/Footer";
 
 const ApiDocs = () => {
   const [visibleExamples, setVisibleExamples] = useState({
@@ -266,6 +267,7 @@ const ApiDocs = () => {
           </>
         </div>
       </section>
+      <Footer />
     </>
   );
 };
