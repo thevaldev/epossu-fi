@@ -26,6 +26,7 @@ const Scenes = ({ data }: SceneProps) => {
     if (wrap !== null) wrap.classList.remove("wrap");
     if (container !== null) container.classList.remove("container");
     if (row !== null) row.classList.remove("row");
+    document.body.style.background = "none";
 
     const allowedOptions = ["transparent", "center", "left", "right"];
 
