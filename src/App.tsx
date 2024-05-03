@@ -32,10 +32,11 @@ function App() {
       fetch("https://api.epossu.fi/v2/marketData")
         .then((response) => response.json())
         .then((data) => {
-          if (data === null) {
+          if (data === null || data === undefined) {
             setDataLoadingReady(true);
+            setData(undefined);
             throw new Error(
-              "Palvelussa tapahtui virhe. Yritä myöhemmin uudelleen."
+              "Tietoja ei saatu ladattua virheen vuoksi: palvelin ei palauttanut dataa."
             );
           }
 
@@ -54,9 +55,10 @@ function App() {
           setDataLoadingReady(true);
           setData(data);
         })
-        .catch(() => {
+        .catch((error) => {
           setDataLoadingReady(true);
           setData(undefined);
+          throw new Error("Tietoja ei saatu ladattua virheen vuoksi: " + error);
         });
     }
 

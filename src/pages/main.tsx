@@ -23,8 +23,10 @@ const Main = ({ data }: MainProps) => {
   const [error, setError] = useState<number | string>(0); // Error message
 
   useEffect(() => {
-    if (data === undefined || data == null) {
-      setError("Tietoja ei voitu ladata virheen vuoksi.");
+    if (data === undefined) {
+      setError(
+        "Tietoja ei saatu ladattua virheen vuoksi, yritä ladata sivu uudelleen. Mikäli virhe toistuu, ota yhteyttä ylläpitoon."
+      );
     }
   }, [data]);
 
