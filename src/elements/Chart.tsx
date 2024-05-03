@@ -16,9 +16,9 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
   function changeDate(type: number) {
     const types: { [key: string]: string } = {
       0: "Eilen",
-      1: "Tänään",
-      2: "Huomenna",
-      3: "Kaikki tiedot",
+      1: "Kaikki tiedot",
+      2: "Tänään",
+      3: "Huomenna",
     };
 
     const current_type = Object.keys(types).find(
@@ -26,13 +26,17 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
     );
 
     let new_type = Number(current_type) + type;
-    if (new_type < 0) new_type = 0;
-    else if (new_type > 3) new_type = 3;
 
-    if (new_type === 2 && !hasTomorrows) {
-      if (type === 1) new_type = 3;
-      else new_type = 1;
+    if (new_type == -1) {
+      if (hasTomorrows) new_type = 3;
+      else new_type = 2;
     }
+
+    if (new_type == 0 && hasTomorrows) new_type = 3;
+    else if (new_type == 3 && !hasTomorrows) new_type = 0;
+
+    if (new_type > 3 && hasTomorrows) new_type = 1;
+    else if (new_type > 3 && !hasTomorrows) new_type = 0;
 
     if (new_type === 0) {
       const yesterday_date = new Date();
@@ -45,6 +49,13 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
     }
 
     if (new_type === 2) {
+      const today = data.dataset.filter(
+        (item) => new Date(item.date).getDate() === new Date().getDate()
+      );
+      setDataset(today as ChartData["dataset"]);
+    }
+
+    if (new_type === 3) {
       const tomorrow_date = new Date();
       tomorrow_date.setDate(new Date().getDate() + 1);
 
@@ -56,13 +67,6 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
     }
 
     if (new_type === 1) {
-      const today = data.dataset.filter(
-        (item) => new Date(item.date).getDate() === new Date().getDate()
-      );
-      setDataset(today as ChartData["dataset"]);
-    }
-
-    if (new_type === 3) {
       setDataset(data.dataset);
     }
 
@@ -73,20 +77,11 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
     <>
       {
         <div className="box-row">
-          <button
-            onClick={() => changeDate(-1)}
-            disabled={
-              (date_selector === "Tänään" && hasTomorrows) ||
-              date_selector == "Eilen"
-            }
-          >
+          <button onClick={() => changeDate(-1)}>
             <FontAwesomeIcon icon={faCaretLeft} />
           </button>
           <p>{date_selector}</p>
-          <button
-            onClick={() => changeDate(1)}
-            disabled={date_selector === "Kaikki tiedot"}
-          >
+          <button onClick={() => changeDate(1)}>
             <FontAwesomeIcon icon={faCaretRight} />
           </button>
         </div>
