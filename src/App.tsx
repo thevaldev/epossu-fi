@@ -90,13 +90,15 @@ function App() {
         handleDateChange();
       }, 2000);
     }
+  }, [data, dataRequiresUpdate]);
 
+  useEffect(() => {
     return () => {
       if (timeout.current !== null) clearTimeout(timeout.current);
       if (dateChangeHandle.current !== null)
         clearTimeout(dateChangeHandle.current);
     };
-  }, [data, dataRequiresUpdate]);
+  }, [timeout, dateChangeHandle]);
 
   return (
     <Router>
