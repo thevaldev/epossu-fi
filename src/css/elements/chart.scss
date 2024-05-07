@@ -78,7 +78,7 @@
   }
 
   .recharts-layer.recharts-bar-rectangle {
-    animation: fadeIn 0.5s ease;
+    animation: fadeIn 0.5s cubic-bezier(0.05, 0.16, 0.25, 0.94);
   }
 
   .chart-tooltip {
