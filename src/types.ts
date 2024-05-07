@@ -23,6 +23,15 @@ export interface PriceData {
   chart: ChartData;
 }
 
+export interface AlertsJSON {
+  [key: string]: {
+    id: string;
+    message: string;
+    type: string;
+    canBeDismissed: boolean;
+  };
+}
+
 export interface ChartData {
   dataset: [
     {

@@ -15,9 +15,9 @@ const Notifications = () => {
         <h2>
           Arvioitu julkaisu:{" "}
           <span className="number">
-            <strong>2024</strong>
+            <strong>1.8.2024</strong>
           </span>{" "}
-          aikana.
+          menessä.
         </h2>
         <p className="lead">
           Muokattavat ilmoitukset puhelimeen ja muihin laitteisiin.
