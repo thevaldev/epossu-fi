@@ -15,7 +15,7 @@ const TomorrowInfo = ({ data }: BoxTypes) => {
       setPercentChange(
         (
           ((data.tomorrow.options.average - data.today.options.average) /
-            data.today.options.average) *
+            Math.abs(data.today.options.average)) *
           100
         ).toFixed(2)
       );
