@@ -89,6 +89,12 @@ const Timings = {
     return timeLeft * 1000;
   },
 
+  /**
+   * Get the time left to the target
+   * @param target - Target time
+   * @param isTomrrowsData - If the data is for tomorrow
+   * @returns The time left to the target
+   */
   getTimeLeftToTarget(target: string, isTomrrowsData: boolean = false) {
     const date = new Date();
     if (isTomrrowsData) date.setDate(date.getDate() + 1);
