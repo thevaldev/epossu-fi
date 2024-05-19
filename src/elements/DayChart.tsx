@@ -45,7 +45,7 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
     });
 
     if (min < 0) {
-      min -= 0.5;
+      min -= 0.15;
     }
 
     return Math.floor(min);
@@ -89,10 +89,7 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
         />
         <YAxis
           fontSize={18}
-          domain={[
-            calculateMin(),
-            calculateMax() + 5 - (calculateMax() % 5) + 5,
-          ]}
+          domain={[calculateMin(), calculateMax() + 5 - (calculateMax() % 5)]}
           tickFormatter={(value) => value.toFixed()}
           tickCount={15}
           allowDecimals={false}
