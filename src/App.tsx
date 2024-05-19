@@ -12,7 +12,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Scenes from "./pages/Scenes";
 
 function App() {
-  const [data, setData] = useState<PriceData | undefined>(undefined); // Price data
+  const [priceData, setPriceData] = useState<PriceData | undefined>(undefined); // Price data
 
   const timeout = useRef<null | ReturnType<typeof setTimeout>>(null); // Timeout for fetching new data
   const dateChangeHandle = useRef<null | ReturnType<typeof setTimeout>>(null); // Interval for checking if the date has changed
@@ -22,7 +22,7 @@ function App() {
   const [dataLoadingReady, setDataLoadingReady] = useState<boolean>(false); // If the data is ready to be loaded
 
   useEffect(() => {
-    if (data == null) {
+    if (priceData == null) {
       // init data
       getNewData();
       Timings.day_mumber = new Date().getDate();
@@ -31,19 +31,17 @@ function App() {
     async function getNewData() {
       fetch("https://api.epossu.fi/v2/marketData")
         .then((response) => response.json())
-        .then((data) => {
-          if (data === null || data === undefined) {
+        .then((response) => {
+          if (response === null || response === undefined) {
             setDataLoadingReady(true);
-            setData(undefined);
+            setPriceData(undefined);
             throw new Error(
               "Tietoja ei saatu ladattua virheen vuoksi: palvelin ei palauttanut dataa."
             );
           }
 
-          data = data.data; // setting the data to the data.data
-
           // if the data for tomorrow is not ok, we set the dataRequiresUpdate to true and schedule a new data fetch'
-          if (data.tomorrow.data_ok === false) {
+          if (response.data.tomorrow.data_ok === false) {
             setDataRequiresUpdate(true);
             scheduleNewDataFetch();
           } else {
@@ -53,11 +51,11 @@ function App() {
 
           // setting the data and error to null
           setDataLoadingReady(true);
-          setData(data);
+          setPriceData(response.data);
         })
         .catch((error) => {
           setDataLoadingReady(true);
-          setData(undefined);
+          setPriceData(undefined);
           throw new Error("Tietoja ei saatu ladattua virheen vuoksi: " + error);
         });
     }
@@ -85,12 +83,12 @@ function App() {
       }, Timings.getTimeLeftToDateChange());
     }
 
-    if (dateChangeHandle.current === null && data !== null) {
+    if (dateChangeHandle.current === null && priceData !== null) {
       dateChangeHandle.current = setTimeout(() => {
         handleDateChange();
       }, 2000);
     }
-  }, [data, dataRequiresUpdate]);
+  }, [priceData, dataRequiresUpdate]);
 
   useEffect(() => {
     return () => {
@@ -107,7 +105,7 @@ function App() {
           <div className="row">
             <Routes>
               {dataLoadingReady ? (
-                <Route path="/" element={<Main data={data} />} />
+                <Route path="/" element={<Main data={priceData} />} />
               ) : (
                 <Route
                   path="/"
@@ -126,7 +124,7 @@ function App() {
               <Route path="/tietoa" element={<About />} />
               <Route path="/api" element={<ApiDocs />} />
               <Route path="/ilmoitukset" element={<Notifications />} />
-              <Route path="/nakyma/:id" element={<Scenes data={data} />} />
+              <Route path="/nakyma/:id" element={<Scenes data={priceData} />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </div>
