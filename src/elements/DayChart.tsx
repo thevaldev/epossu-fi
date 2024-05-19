@@ -79,7 +79,7 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
       <BarChart data={dataset}>
         <CartesianGrid strokeDasharray="5" vertical={false} stroke="#636060" />
         <XAxis
-          fontSize={18}
+          fontSize={16}
           dataKey={"timestamp"}
           tickFormatter={(value) =>
             new Date(value * 1000).toLocaleTimeString("fi-FI", {
@@ -88,7 +88,7 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
           }
         />
         <YAxis
-          fontSize={18}
+          fontSize={16}
           domain={[calculateMin(), calculateMax() + 5 - (calculateMax() % 5)]}
           tickFormatter={(value) => value.toFixed()}
           tickCount={15}
