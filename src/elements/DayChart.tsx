@@ -16,13 +16,11 @@ import { useEffect, useRef, useState } from "react";
 import Timings from "../components/Timings";
 
 interface ChartProps {
-  dataset: [
-    {
-      timestamp: number;
-      date: string;
-      price: number;
-    }
-  ];
+  dataset: {
+    timestamp: number;
+    date: string;
+    price: number;
+  }[];
   shouldDrawRef: boolean;
 }
 
