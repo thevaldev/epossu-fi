@@ -2,12 +2,10 @@ export interface PriceData {
   today: PriceJSON;
   tomorrow: {
     data_ok: boolean;
-    prices: [
-      {
-        price: number;
-        date: string;
-      }
-    ];
+    prices: {
+      price: number;
+      date: string;
+    }[];
     options: {
       average: number;
       highest: {
@@ -33,23 +31,19 @@ export interface AlertsJSON {
 }
 
 export interface ChartData {
-  dataset: [
-    {
-      timestamp: number;
-      date: string;
-      price: number;
-    }
-  ];
+  dataset: {
+    timestamp: number;
+    date: string;
+    price: number;
+  }[];
 }
 
 export interface PriceJSON {
   data_ok: boolean;
-  prices: [
-    {
-      price: number;
-      date: string;
-    }
-  ];
+  prices: {
+    price: number;
+    date: string;
+  }[];
   options: {
     average: number;
     highest: {
