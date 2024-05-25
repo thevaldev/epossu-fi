@@ -27,6 +27,7 @@ const Main = ({ data }: MainProps) => {
 
   const [error, setError] = useState<number | string>(0); // Error message
   const [alerts, setAlerts] = useState<undefined | AlertsJSON>(); // Alert message
+  const [marketData, setMarketData] = useState<undefined | PriceData>();
 
   useEffect(() => {
     if (data === undefined) {
@@ -37,11 +38,11 @@ const Main = ({ data }: MainProps) => {
 
     async function fetchAlerts() {
       const response = await fetch("https://api.epossu.fi/v2/alerts");
-      const data = await response.json();
-      if (data.alerts.length > 0) {
+      const alertsData = await response.json();
+      if (alertsData.alerts.length > 0) {
         const dismissed = localStorage.getItem("dismissed-alerts");
         const newAlerts: AlertsJSON = {};
-        for (const alert of data.alerts) {
+        for (const alert of alertsData.alerts) {
           if (
             dismissed === null ||
             !dismissed.includes(alert.id) ||
@@ -67,6 +68,7 @@ const Main = ({ data }: MainProps) => {
       }
     }
 
+    setMarketData(data);
     fetchAlerts();
   }, [data]);
 
@@ -129,19 +131,27 @@ const Main = ({ data }: MainProps) => {
           );
         })}
 
-      {data !== undefined && (
+      {marketData !== undefined && (
         <>
           <section className="col-row header">
-            {data !== undefined ? (
+            {marketData !== undefined ? (
               <>
                 <div className="col group half">
-                  <CurrentPrice data={data} size={"half"} />
-                  <NextPrice data={data} size={"half"} />
+                  <CurrentPrice data={marketData} size={"half"} />
+                  <NextPrice data={marketData} size={"half"} />
                 </div>
                 <div className="col group third">
-                  <GeneralInfo data={data} type="average" size={"third"} />
-                  <GeneralInfo data={data} type="lowest" size={"third"} />
-                  <GeneralInfo data={data} type="highest" size={"third"} />
+                  <GeneralInfo
+                    data={marketData}
+                    type="average"
+                    size={"third"}
+                  />
+                  <GeneralInfo data={marketData} type="lowest" size={"third"} />
+                  <GeneralInfo
+                    data={marketData}
+                    type="highest"
+                    size={"third"}
+                  />
                 </div>
               </>
             ) : (
@@ -164,8 +174,8 @@ const Main = ({ data }: MainProps) => {
               <FontAwesomeIcon icon={faCalendarDay} />
               Huomisen tiedot
             </h3>
-            {data !== undefined ? (
-              <TomorrowInfo data={data} />
+            {marketData !== undefined ? (
+              <TomorrowInfo data={marketData} />
             ) : (
               <p className="error-notice">
                 Tietoja ei voitu ladata virheen vuoksi.
@@ -178,8 +188,11 @@ const Main = ({ data }: MainProps) => {
               <FontAwesomeIcon icon={faChartArea}></FontAwesomeIcon>
               Pörssisähkön hinnat taulukolla
             </h3>
-            {data !== undefined ? (
-              <Chart data={data.chart} hasTomorrows={data.tomorrow.data_ok} />
+            {marketData !== undefined ? (
+              <Chart
+                data={marketData.chart}
+                hasTomorrows={marketData.tomorrow.data_ok}
+              />
             ) : (
               <p className="error-notice">
                 Kuvaaja ei voitu ladata virheen vuoksi.
