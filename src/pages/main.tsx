@@ -17,13 +17,17 @@ import NextPrice from "../elements/PriceBoxes/NextPrice";
 import GeneralInfo from "../elements/PriceBoxes/GeneralInfo";
 import TomorrowInfo from "../elements/PriceBoxes/TomorrowsInfo";
 import Footer from "../elements/Footer";
+import { setMeta } from "../components/Utils";
 
 interface MainProps {
   data: PriceData | undefined;
 }
 
 const Main = ({ data }: MainProps) => {
-  document.title = "Pörssisähkön ajankohtaiset hinnat - epossu.fi";
+  setMeta(
+    "Pörssisähkön ajankohtaiset hinnat - epossu.fi",
+    "Pörssisähkön hinnat tunneittain. Seuraa sähkönhintoja tuntikohtaisesti kuvaajalta ja hyödynnä edullisimmat tunnit."
+  );
 
   const [error, setError] = useState<number | string>(0); // Error message
   const [alerts, setAlerts] = useState<undefined | AlertsJSON>(); // Alert message

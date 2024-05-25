@@ -1,12 +1,13 @@
-import { useEffect } from "react";
 import "../css/pages/Apidocs.scss";
 import Header from "../elements/Header";
 import Footer from "../elements/Footer";
+import { setMeta } from "../components/Utils";
 
 const ApiDocs = () => {
-  useEffect(() => {
-    document.title = "API - epossu.fi";
-  }, []);
+  setMeta(
+    "API - epossu.fi",
+    "Tietoa epossu.fi -palvelun rajapinnasta. Lue ohjeet ja esimerkit rajapinnan käytöstä."
+  );
 
   const marketData = {
     data: {
