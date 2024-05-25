@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChartData } from "../types";
 import DayChart from "./DayChart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -72,6 +72,11 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
 
     setDateSelector(types[new_type]);
   }
+
+  // Update the dataset when the data changes
+  useEffect(() => {
+    setDataset(data.dataset);
+  }, [data]);
 
   return (
     <>

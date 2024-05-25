@@ -2,9 +2,13 @@ import { Link } from "react-router-dom";
 import "../css/pages/NotFound.scss";
 import Header from "../elements/Header";
 import Footer from "../elements/Footer";
+import { setMeta } from "../components/Utils";
 
 const NotFound = () => {
-  document.title = "Sivua ei löytynyt - epossu.fi";
+  setMeta(
+    "Sivua ei löytynyt - epossu.fi",
+    "Etsimääsi sivua ei löytynyt. Tarkista osoite ja yritä uudelleen."
+  );
 
   return (
     <>

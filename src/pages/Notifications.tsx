@@ -1,9 +1,13 @@
 import "../css/pages/Notifications.scss";
 import Footer from "../elements/Footer";
 import Header from "../elements/Header";
+import { setMeta } from "../components/Utils";
 
 const Notifications = () => {
-  document.title = "Ilmoitukset - epossu.fi";
+  setMeta(
+    "Ilmoitukset - epossu.fi",
+    "Ilmoitukset puhelimeen ja muihin laitteisiin. Tilaa ilmoitukset sähkön hinnan muutoksista."
+  );
 
   return (
     <>

@@ -1,14 +1,3 @@
-@keyframes fadeIn {
-  0% {
-    transform-origin: 0% 95%;
-    transform: scaleY(0);
-  }
-  100% {
-    transform-origin: 0% 95%;
-    transform: scaleY(1);
-  }
-}
-
 .chart {
   width: 100%;
   margin-top: 25px;
@@ -80,10 +69,6 @@
     padding: 20px;
     min-height: 700px;
     border-radius: 8px;
-  }
-
-  .recharts-layer.recharts-bar-rectangle {
-    animation: fadeIn 0.5s cubic-bezier(0.05, 0.16, 0.25, 0.94);
   }
 
   .chart-tooltip {

@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
 import "../css/pages/Apidocs.scss";
 import Header from "../elements/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../elements/Footer";
+import { setMeta } from "../components/Utils";
 
 const ApiDocs = () => {
-  const [visibleExamples, setVisibleExamples] = useState({
-    0: false,
-    1: false,
-  });
-
-  useEffect(() => {
-    document.title = "API - epossu.fi";
-  }, []);
+  setMeta(
+    "API - epossu.fi",
+    "Tietoa epossu.fi -palvelun rajapinnasta. Lue ohjeet ja esimerkit rajapinnan käytöstä."
+  );
 
   const marketData = {
     data: {
@@ -75,14 +69,127 @@ const ApiDocs = () => {
     },
   };
 
-  function syntaxHighlight(json: string) {
-    if (!json) return "";
-    json = json
+  const code_example = [
+    "async function fetchMarketData() {",
+    "    // API:n osoite",
+    "    const ENDPOINT = 'https://api.epossu.fi/v2/marketData';",
+    "",
+    "    // valinnaiset parametrit",
+    "    const params = '?include_chart=false&price_timestamps=true';",
+    "",
+    "    const response = await fetch(ENDPOINT + params);    // Haetaan data API:sta",
+    "    const json = await response.json();                 // Muutetaan data JSON-muotoon",
+    "",
+    "    if (json.success == true) return json.data;         // Jos haku onnistui, palautetaan data",
+    "    throw new Error('Tietojen haussa tapahtui virhe');  // Muuten ilmoitetaan virheestä",
+    "}",
+    "",
+    "fetchMarketData().then((data) => {",
+    "    console.log(data);",
+    "});",
+  ];
+
+  function syntaxHighlight(value: string, iscode: boolean = false) {
+    if (iscode) {
+      // loop thru each line
+      const lines = value.split("\n");
+      for (let i = 0; i < lines.length; i++) {
+        // remove leading whitespaces
+        if (lines[i].includes("// ")) {
+          lines[i] = lines[i].replace("// ", '<span class="comment">// ');
+          lines[i] = lines[i].replace(/$/, "</span>");
+        }
+
+        // brackets and semicolons
+        lines[i] = lines[i].replace(/\(/g, '<span class="bracket">(</span>');
+        lines[i] = lines[i].replace(/\)/g, '<span class="bracket">)</span>');
+        lines[i] = lines[i].replace(/\{/g, '<span class="bracket">{</span>');
+        lines[i] = lines[i].replace(/\}/g, '<span class="bracket">}</span>');
+        lines[i] = lines[i].replace(/;/g, '<span class="semicolon">;</span>');
+
+        // color strings with ''
+        const re = new RegExp(/'[^']*'/g);
+        lines[i] = lines[i].replace(
+          re,
+          "<span class='string'>" + lines[i].match(re) + "</span>"
+        );
+
+        // operators
+        lines[i] = lines[i].replace(/\+/g, '<span class="operator">+</span>');
+
+        // regex ".json"
+        const re2 = new RegExp(/\.json/g);
+        lines[i] = lines[i].replace(
+          re2,
+          "<span style='color: #95d773'>.json</span>"
+        );
+
+        const keywords = [
+          "fetchMarketData",
+          "const",
+          "async",
+          "await",
+          "function",
+          "if",
+          "throw",
+          "return",
+          "new",
+          "Error",
+          "fetch",
+          "true",
+          "false",
+          "then",
+          "console",
+          "log",
+        ];
+
+        const colors = {
+          Error: "#f92672",
+          function: "#52b7e5",
+          const: "#52b7e5",
+          async: "#52b7e5",
+          fetchMarketData: "#95d773",
+          if: "#f92672",
+          new: "#f92672",
+          return: "#f92672",
+          await: "#f92672",
+          throw: "#f92672",
+          fetch: "#95d773",
+          true: "#52b7e5",
+          false: "#52b7e5",
+          then: "#f92672",
+          console: "#52b7e5",
+          log: "#95d773",
+        };
+
+        keywords.forEach((keyword) => {
+          const re = new RegExp("\\b" + keyword + "\\b", "g");
+          lines[i] = lines[i].replace(
+            re,
+            "<span style='color: " +
+              colors[keyword as keyof typeof colors] +
+              "'>" +
+              keyword +
+              "</span>"
+          );
+        });
+      }
+
+      value = lines.join("\n");
+
+      return value;
+    }
+
+    if (!value) return "";
+
+    value = value
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
-    return json.replace(
+
+    return value.replace(
       /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
+
       function (match: string) {
         let cls = "jsonnumber";
         if (/^"/.test(match)) {
@@ -96,6 +203,7 @@ const ApiDocs = () => {
         } else if (/null/.test(match)) {
           cls = "null";
         }
+
         return '<span class="' + cls + '">' + match + "</span>";
       }
     );
@@ -173,6 +281,10 @@ const ApiDocs = () => {
             <code className="type">200 </code>
             <code>Hintojen haku onnistui</code>
           </pre>
+          <pre>
+            <code className="type">429 </code>
+            <code>Liian monta pyyntöä. Yritä uudelleen myöhemmin.</code>
+          </pre>
 
           <p>Parametrit</p>
           <p className="info">
@@ -189,82 +301,45 @@ const ApiDocs = () => {
             </thead>
             <tbody>
               <tr>
-                <td>include_chart</td>
-                <td>true</td>
-                <td>Palauttaa valmiin datasetin kuvaajaa varten.</td>
+                <td data-label="Nimi">include_chart</td>
+                <td data-label="Oletusarvo">true</td>
+                <td data-label="Selite">
+                  Palauttaa valmiin datasetin kuvaajaa varten.
+                </td>
               </tr>
               <tr>
-                <td>include_options</td>
-                <td>true</td>
-                <td>
+                <td data-label="Nimi">include_options</td>
+                <td data-label="Oletusarvo">true</td>
+                <td data-label="Selite">
                   Palauttaa hintatietojen lisäksi keskiarvon, korkeimman ja
                   matalimman hinnan.
                 </td>
               </tr>
               <tr>
-                <td>price_timestamps</td>
-                <td>false</td>
-                <td>Lisää hintatietoihin aikaleimat.</td>
+                <td data-label="Nimi">price_timestamps</td>
+                <td data-label="Oletusarvo">false</td>
+                <td data-label="Selite">Lisää hintatietoihin aikaleimat.</td>
               </tr>
             </tbody>
           </table>
 
-          <>
-            {!visibleExamples[0] ? (
-              <p
-                className="button example"
-                onClick={() =>
-                  setVisibleExamples({ ...visibleExamples, 0: true })
-                }
-              >
-                <FontAwesomeIcon icon={faEye} />
-                Näytä esimerkki
-              </p>
-            ) : (
-              <>
-                <p
-                  className="button example"
-                  onClick={() =>
-                    setVisibleExamples({ ...visibleExamples, 0: false })
-                  }
-                >
-                  <FontAwesomeIcon icon={faEyeSlash} />
-                  Piilota esimerkki
-                </p>
-                <p className="example">
-                  Esimerkkitapaus (Tiedot haetaan ennen kello 14:00)
-                </p>
-                <pre>
-                  <code>
-                    <code className="type">GET</code>
-                    {` https://api.epossu.fi/v2/marketData`}
-                  </code>
+          <p>JS Esimerkki koodi</p>
+          <pre>
+            <code
+              className="inner"
+              dangerouslySetInnerHTML={{
+                __html: syntaxHighlight(code_example.join("\n"), true),
+              }}
+            ></code>
+          </pre>
 
-                  <br />
-                  <br />
-                  <code>
-                    <code className="type">200 OK</code>
-                  </code>
-                  <br />
-                  <code>
-                    <code className="type">Content-Type: application/json</code>
-                  </code>
-
-                  <br />
-                  <br />
-                  <code className="type">Response body</code>
-                  <pre
-                    className="inner"
-                    dangerouslySetInnerHTML={{
-                      __html: syntaxHighlight(
-                        JSON.stringify(marketData, null, 2)
-                      ),
-                    }}
-                  ></pre>
-                </pre>
-              </>
-            )}
-          </>
+          <p>Vastaus</p>
+          <pre
+            className="inner"
+            dangerouslySetInnerHTML={{
+              __html: syntaxHighlight(JSON.stringify(marketData, null, 2)),
+            }}
+          ></pre>
         </div>
       </section>
       <Footer />

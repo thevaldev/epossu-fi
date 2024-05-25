@@ -167,7 +167,12 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
             );
           }}
         />
-        <Bar dataKey="price" shape={<Rectangle />} isAnimationActive={false}>
+        <Bar
+          dataKey="price"
+          shape={<Rectangle />}
+          animationBegin={50}
+          animationDuration={400}
+        >
           {dataset.map((entry, index) => (
             <Cell
               key={`cell-${index}`}

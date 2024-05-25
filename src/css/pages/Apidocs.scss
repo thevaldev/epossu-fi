@@ -69,8 +69,8 @@ section.api-docs {
       border-radius: $border-radius;
       margin-top: 5px;
       line-height: 1.15;
-      white-space: pre-wrap;
-      word-break: break-all;
+      white-space: pre;
+      word-break: keep-all;
 
       code.type {
         color: $primary;
@@ -113,25 +113,84 @@ section.api-docs {
     }
   }
   .string {
-    color: #f1fa8c;
+    color: #f6db63;
   }
   .jsonnumber {
-    color: #bd93f9;
+    color: #52b7e5;
   }
   .boolean {
-    color: #bd93f9;
+    color: #52b7e5;
   }
+  .comment {
+    color: #5f6e6b;
+  }
+  .semicolon {
+    color: #869797;
+  }
+
+  .keyword {
+    color: #ff79c6;
+
+    &.fetchMarketData {
+      color: #95d773;
+    }
+  }
+
+  .operator {
+    color: #f92672;
+  }
+
+  .bracket {
+    color: #95d773;
+  }
+
   .null {
     color: #ffb86c;
   }
   .key {
-    color: #ff79c6;
+    color: #f92672;
   }
 }
 
 @media only screen and (max-width: 500px) {
-  section.api-docs .event table {
-    font-size: 1.25rem;
+  section.api-docs {
+    pre.inner {
+      font-size: 1.5rem;
+    }
+    pre {
+      overflow-x: auto;
+    }
+    .event {
+      table {
+        thead {
+          display: none;
+        }
+
+        tbody {
+          display: flex;
+          flex-direction: column;
+
+          tr {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+
+            td {
+              display: flex;
+              justify-content: space-between;
+              text-align: right;
+              padding: 7px 10px;
+            }
+
+            td:before {
+              content: attr(data-label);
+              font-weight: bold;
+              margin-right: 15px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

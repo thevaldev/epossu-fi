@@ -1,9 +1,13 @@
 import "../css/pages/About.scss";
 import Footer from "../elements/Footer";
 import Header from "../elements/Header";
+import { setMeta } from "../components/Utils";
 
 const Scenes = () => {
-  document.title = "Tietoa palvelusta - epossu.fi";
+  setMeta(
+    "Tietoa palvelusta - epossu.fi",
+    "Tietoa epossu.fi -palvelusta. Lue usein kysytyt kysymykset ja vastaukset."
+  );
 
   return (
     <>
