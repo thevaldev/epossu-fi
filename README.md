@@ -69,8 +69,6 @@ Website for viewing current & tomorrow's electricity prices in Finland
 
 ## Roadmap
 
-Here's all of the upcoming features
-
 - [x] Update API docs
 - [ ] Add English language version for the website
 - [ ] Notifications for phones & other devices about price updates
