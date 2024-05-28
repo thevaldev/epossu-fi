@@ -69,12 +69,10 @@ Website for viewing current & tomorrow's electricity prices in Finland
 
 ## Roadmap
 
-Here's all of the upcoming features
-
 - [x] Update API docs
 - [ ] Add English language version for the website
 - [ ] Notifications for phones & other devices about price updates
-- [ ] Add ability to deploy API locally
+- [ ] Add possibility to deploy API locally
 - [ ] Add settings page that allows users to change price colors
 - [ ] Revamp the embed system
 
@@ -86,7 +84,7 @@ This project is licensed under the [MIT license](https://raw.githubusercontent.c
 
 #### Landing desktop
 
-<img src="https://raw.githubusercontent.com/thevaldev/epossu-fi/main/src/assets/landing-desktop.png" alt="landing desktop" height="400">
+<img src="https://raw.githubusercontent.com/thevaldev/epossu-fi/main/src/assets/landing-desktop.png" alt="landing desktop">
 
 #### Landing tablet
 
