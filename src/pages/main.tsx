@@ -34,6 +34,7 @@ const Main = ({ data, isReady }: MainProps) => {
   const [error, setError] = useState<number | string>(0); // Error message
   const [alerts, setAlerts] = useState<undefined | AlertsJSON>(); // Alert message
   const [marketData, setMarketData] = useState<undefined | PriceData>(); // Market data
+  const [displayLoading, setDisplayLoading] = useState<boolean>(false); // Display loading spinner
 
   useEffect(() => {
     if (data === undefined && isReady) {
@@ -41,6 +42,12 @@ const Main = ({ data, isReady }: MainProps) => {
         "Tietoja ei saatu ladattua virheen vuoksi, yritä ladata sivu uudelleen. Mikäli virhe toistuu, ota yhteyttä ylläpitoon."
       );
     } else setError(0);
+
+    const timer = setTimeout(() => {
+      if (!isReady && data === undefined && !displayLoading) {
+        setDisplayLoading(true);
+      }
+    }, 100);
 
     async function fetchAlerts() {
       const response = await fetch("https://api.epossu.fi/v2/alerts");
@@ -78,7 +85,9 @@ const Main = ({ data, isReady }: MainProps) => {
       fetchAlerts();
       setMarketData(data);
     }
-  }, [data, isReady]);
+
+    return () => clearTimeout(timer);
+  }, [data, isReady, displayLoading]);
 
   return (
     <>
@@ -89,7 +98,7 @@ const Main = ({ data, isReady }: MainProps) => {
         automaattisesti.
       </p>
 
-      {!isReady && (
+      {displayLoading && !isReady && (
         <div className="alert info">
           <FontAwesomeIcon icon={faSpinner} spin size="10x" />
           <p>Ladataan tietoja...</p>
