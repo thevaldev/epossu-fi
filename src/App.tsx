@@ -7,8 +7,6 @@ import Notifications from "./pages/Notifications";
 import { useState, useRef, useEffect } from "react";
 import Timings from "./components/Timings";
 import { PriceData } from "./types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Scenes from "./pages/Scenes";
 
 function App() {
@@ -104,23 +102,10 @@ function App() {
         <div className="container">
           <div className="row">
             <Routes>
-              {dataLoadingReady ? (
-                <Route path="/" element={<Main data={priceData} />} />
-              ) : (
-                <Route
-                  path="/"
-                  element={
-                    <div className="wrap">
-                      <div className="container">
-                        <section className="row center loading">
-                          <FontAwesomeIcon icon={faSpinner} spin size="10x" />
-                          <p className="loading-text">Tietoja ladataan...</p>
-                        </section>
-                      </div>
-                    </div>
-                  }
-                />
-              )}
+              <Route
+                path="/"
+                element={<Main data={priceData} isReady={dataLoadingReady} />}
+              />
               <Route path="/tietoa" element={<About />} />
               <Route path="/api" element={<ApiDocs />} />
               <Route path="/ilmoitukset" element={<Notifications />} />

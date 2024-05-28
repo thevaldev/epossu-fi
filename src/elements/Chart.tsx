@@ -82,11 +82,11 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
     <>
       {
         <div className="box-row">
-          <button onClick={() => changeDate(-1)}>
+          <button aria-label="previous" onClick={() => changeDate(-1)}>
             <FontAwesomeIcon icon={faCaretLeft} />
           </button>
           <p>{date_selector}</p>
-          <button onClick={() => changeDate(1)}>
+          <button aria-label="next" onClick={() => changeDate(1)}>
             <FontAwesomeIcon icon={faCaretRight} />
           </button>
         </div>

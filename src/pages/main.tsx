@@ -3,6 +3,7 @@ import {
   faChartArea,
   faCode,
   faExclamationCircle,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
@@ -21,9 +22,10 @@ import { setMeta } from "../components/Utils";
 
 interface MainProps {
   data: PriceData | undefined;
+  isReady: boolean;
 }
 
-const Main = ({ data }: MainProps) => {
+const Main = ({ data, isReady }: MainProps) => {
   setMeta(
     "Pörssisähkön ajankohtaiset hinnat - epossu.fi",
     "Pörssisähkön hinnat tunneittain. Seuraa sähkönhintoja tuntikohtaisesti kuvaajalta ja hyödynnä edullisimmat tunnit."
@@ -31,14 +33,14 @@ const Main = ({ data }: MainProps) => {
 
   const [error, setError] = useState<number | string>(0); // Error message
   const [alerts, setAlerts] = useState<undefined | AlertsJSON>(); // Alert message
-  const [marketData, setMarketData] = useState<undefined | PriceData>();
+  const [marketData, setMarketData] = useState<undefined | PriceData>(); // Market data
 
   useEffect(() => {
-    if (data === undefined) {
+    if (data === undefined && isReady) {
       setError(
         "Tietoja ei saatu ladattua virheen vuoksi, yritä ladata sivu uudelleen. Mikäli virhe toistuu, ota yhteyttä ylläpitoon."
       );
-    }
+    } else setError(0);
 
     async function fetchAlerts() {
       const response = await fetch("https://api.epossu.fi/v2/alerts");
@@ -72,9 +74,11 @@ const Main = ({ data }: MainProps) => {
       }
     }
 
-    setMarketData(data);
-    fetchAlerts();
-  }, [data]);
+    if (isReady) {
+      fetchAlerts();
+      setMarketData(data);
+    }
+  }, [data, isReady]);
 
   return (
     <>
@@ -84,6 +88,14 @@ const Main = ({ data }: MainProps) => {
         Täältä näet ajankohtaisen pörssisähkön hinnan. Sivun tiedot päivittyvät
         automaattisesti.
       </p>
+
+      {!isReady && (
+        <div className="alert info">
+          <FontAwesomeIcon icon={faSpinner} spin size="10x" />
+          <p>Ladataan tietoja...</p>
+        </div>
+      )}
+
       {error !== 0 && (
         <div className="alert warning">
           <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
@@ -174,10 +186,10 @@ const Main = ({ data }: MainProps) => {
           </section>
 
           <section className="col-row info">
-            <h3>
+            <h2 className="title">
               <FontAwesomeIcon icon={faCalendarDay} />
               Huomisen tiedot
-            </h3>
+            </h2>
             {marketData !== undefined ? (
               <TomorrowInfo data={marketData} />
             ) : (
@@ -188,7 +200,7 @@ const Main = ({ data }: MainProps) => {
           </section>
 
           <section className="chart">
-            <h3>
+            <h3 className="title">
               <FontAwesomeIcon icon={faChartArea}></FontAwesomeIcon>
               Pörssisähkön hinnat taulukolla
             </h3>

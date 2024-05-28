@@ -21,7 +21,11 @@ const Header = () => {
           <span>Sähköpossu</span>
         </div>
       </Link>
-      <button className="mobile-nav" onClick={() => setMobileNav(!mobileNav)}>
+      <button
+        aria-label="toggle navigation"
+        className="mobile-nav"
+        onClick={() => setMobileNav(!mobileNav)}
+      >
         <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
       </button>
 
