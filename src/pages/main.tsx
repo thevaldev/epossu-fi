@@ -47,7 +47,7 @@ const Main = ({ data, isReady }: MainProps) => {
       if (!isReady && data === undefined && !displayLoading) {
         setDisplayLoading(true);
       }
-    }, 100);
+    }, 150);
 
     async function fetchAlerts() {
       const response = await fetch("https://api.epossu.fi/v2/alerts");
