@@ -7,7 +7,6 @@ import Notifications from "./pages/Notifications";
 import { useState, useRef, useEffect } from "react";
 import Timings from "./components/Timings";
 import { AlertsJSON, PriceData } from "./types";
-import Scenes from "./pages/Scenes";
 
 function App() {
   const [priceData, setPriceData] = useState<PriceData | undefined>(undefined); // Price data
@@ -163,7 +162,6 @@ function App() {
               <Route path="/tietoa" element={<About />} />
               <Route path="/api" element={<ApiDocs />} />
               <Route path="/ilmoitukset" element={<Notifications />} />
-              <Route path="/nakyma/:id" element={<Scenes data={priceData} />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </div>
