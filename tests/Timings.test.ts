@@ -15,12 +15,14 @@ function formatDateForData(addDays: number = 0, addHour: number = 0) {
     date = new Date(date.getTime() + addDays * 24 * 60 * 60 * 1000);
 
   return (
-    date.toLocaleString("fi-FI", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-    }) + ":00"
+    date
+      .toLocaleString("fi-FI", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+      })
+      .replace(" klo", "") + ":00"
   );
 }
 
