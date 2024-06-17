@@ -5,7 +5,7 @@ import { setMeta } from "../components/Utils";
 
 const Scenes = () => {
   setMeta(
-    "Tietoa palvelusta - epossu.fi",
+    "Tietoa palvelusta",
     "Tietoa epossu.fi -palvelusta. Lue usein kysytyt kysymykset ja vastaukset."
   );
 
