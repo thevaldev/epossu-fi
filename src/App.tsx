@@ -87,7 +87,7 @@ function App() {
                   id: "time_out_of_sync",
                   type: "critical",
                   message:
-                    "Tietokoneesi aika on epätarkka, päivitä se! Jotkin toiminnot eivät välttämättä toimi oikein ennen ajan päivitystä.",
+                    "Laitteesi aika on epätarkka, päivitä se! Jotkin toiminnot eivät välttämättä toimi oikein ennen ajan päivitystä.",
                   canBeDismissed: false,
                 },
               };
