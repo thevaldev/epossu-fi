@@ -6,11 +6,11 @@ import About from "./pages/About";
 import Notifications from "./pages/Notifications";
 import { useState, useRef, useEffect } from "react";
 import Timings from "./components/Timings";
-import { PriceData } from "./types";
-import Scenes from "./pages/Scenes";
+import { AlertsJSON, PriceData } from "./types";
 
 function App() {
   const [priceData, setPriceData] = useState<PriceData | undefined>(undefined); // Price data
+  const [alertData, setAlerts] = useState<undefined | AlertsJSON>(); // Alert data
 
   const timeout = useRef<null | ReturnType<typeof setTimeout>>(null); // Timeout for fetching new data
   const dateChangeHandle = useRef<null | ReturnType<typeof setTimeout>>(null); // Interval for checking if the date has changed
@@ -27,7 +27,7 @@ function App() {
     }
 
     async function getNewData() {
-      fetch("https://api.epossu.fi/v2/marketData")
+      fetch("https://api.epossu.fi/v2/production")
         .then((response) => response.json())
         .then((response) => {
           if (response === null || response === undefined) {
@@ -39,7 +39,7 @@ function App() {
           }
 
           // if the data for tomorrow is not ok, we set the dataRequiresUpdate to true and schedule a new data fetch'
-          if (response.data.tomorrow.data_ok === false) {
+          if (response.data.marketData.tomorrow.data_ok === false) {
             setDataRequiresUpdate(true);
             scheduleNewDataFetch();
           } else {
@@ -47,9 +47,56 @@ function App() {
             scheduleNewDataFetch(true);
           }
 
+          if (response.data.alerts.length > 0) {
+            const dismissed = localStorage.getItem("dismissed-alerts");
+            const newAlerts: AlertsJSON = {};
+            for (const alert of response.data.alerts) {
+              if (
+                dismissed === null ||
+                !dismissed.includes(alert.id) ||
+                !alert.canBeDismissed
+              ) {
+                newAlerts[alert.id] = alert;
+              }
+            }
+
+            // sorting alerts by type
+            const sortedAlerts: AlertsJSON = {};
+            const types = ["critical", "error", "warning", "info", "code"];
+            for (const type of types) {
+              for (const key in newAlerts) {
+                if (newAlerts[key as keyof typeof newAlerts].type === type) {
+                  sortedAlerts[key as keyof typeof newAlerts] =
+                    newAlerts[key as keyof typeof newAlerts];
+                }
+              }
+            }
+
+            setAlerts(sortedAlerts);
+          }
+
+          // Adding a alert if the server time and the client time are out of sync by 15 minutes
+          const time = new Date().getTime() / 1000;
+          const diff = Math.abs(time - response.server_time);
+
+          if (diff > 900 || diff < -900) {
+            setAlerts((prev) => {
+              return {
+                ...prev,
+                time_sync: {
+                  id: "time_out_of_sync",
+                  type: "critical",
+                  message:
+                    "Laitteesi aika on epätarkka, päivitä se! Jotkin toiminnot eivät välttämättä toimi oikein ennen ajan päivitystä.",
+                  canBeDismissed: false,
+                },
+              };
+            });
+          }
+
           // setting the data and error to null
           setDataLoadingReady(true);
-          setPriceData(response.data);
+          setPriceData(response.data.marketData);
         })
         .catch((error) => {
           setDataLoadingReady(true);
@@ -104,12 +151,17 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<Main data={priceData} isReady={dataLoadingReady} />}
+                element={
+                  <Main
+                    _marketData={priceData}
+                    _alertData={alertData}
+                    isReady={dataLoadingReady}
+                  />
+                }
               />
               <Route path="/tietoa" element={<About />} />
               <Route path="/api" element={<ApiDocs />} />
               <Route path="/ilmoitukset" element={<Notifications />} />
-              <Route path="/nakyma/:id" element={<Scenes data={priceData} />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </div>

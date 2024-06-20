@@ -6,7 +6,7 @@ import { setMeta } from "../components/Utils";
 
 const NotFound = () => {
   setMeta(
-    "Sivua ei löytynyt - epossu.fi",
+    "Sivua ei löytynyt",
     "Etsimääsi sivua ei löytynyt. Tarkista osoite ja yritä uudelleen."
   );
 

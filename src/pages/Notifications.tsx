@@ -5,7 +5,7 @@ import { setMeta } from "../components/Utils";
 
 const Notifications = () => {
   setMeta(
-    "Ilmoitukset - epossu.fi",
+    "Pörssisähkön hinta ilmoitukset",
     "Ilmoitukset puhelimeen ja muihin laitteisiin. Tilaa ilmoitukset sähkön hinnan muutoksista."
   );
 

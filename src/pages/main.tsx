@@ -21,75 +21,53 @@ import Footer from "../elements/Footer";
 import { setMeta } from "../components/Utils";
 
 interface MainProps {
-  data: PriceData | undefined;
+  _marketData: PriceData | undefined;
+  _alertData: AlertsJSON | undefined;
   isReady: boolean;
 }
 
-const Main = ({ data, isReady }: MainProps) => {
+const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
   setMeta(
-    "Pörssisähkön ajankohtaiset hinnat - epossu.fi",
+    "Pörssisähkön hinnat Suomessa",
     "Pörssisähkön hinnat tunneittain. Seuraa sähkönhintoja tuntikohtaisesti kuvaajalta ja hyödynnä edullisimmat tunnit."
   );
 
   const [error, setError] = useState<number | string>(0); // Error message
   const [alerts, setAlerts] = useState<undefined | AlertsJSON>(); // Alert message
   const [marketData, setMarketData] = useState<undefined | PriceData>(); // Market data
+  const [displayLoading, setDisplayLoading] = useState<boolean>(false); // Display loading spinner
 
   useEffect(() => {
-    if (data === undefined && isReady) {
+    if (_marketData === undefined && isReady) {
       setError(
         "Tietoja ei saatu ladattua virheen vuoksi, yritä ladata sivu uudelleen. Mikäli virhe toistuu, ota yhteyttä ylläpitoon."
       );
     } else setError(0);
 
-    async function fetchAlerts() {
-      const response = await fetch("https://api.epossu.fi/v2/alerts");
-      const alertsData = await response.json();
-      if (alertsData.alerts.length > 0) {
-        const dismissed = localStorage.getItem("dismissed-alerts");
-        const newAlerts: AlertsJSON = {};
-        for (const alert of alertsData.alerts) {
-          if (
-            dismissed === null ||
-            !dismissed.includes(alert.id) ||
-            !alert.canBeDismissed
-          ) {
-            newAlerts[alert.id] = alert;
-          }
-        }
-
-        // sorting alerts by type
-        const sortedAlerts: AlertsJSON = {};
-        const types = ["critical", "error", "warning", "info", "code"];
-        for (const type of types) {
-          for (const key in newAlerts) {
-            if (newAlerts[key as keyof typeof newAlerts].type === type) {
-              sortedAlerts[key as keyof typeof newAlerts] =
-                newAlerts[key as keyof typeof newAlerts];
-            }
-          }
-        }
-
-        setAlerts(sortedAlerts);
+    const timer = setTimeout(() => {
+      if (!isReady && _marketData === undefined && !displayLoading) {
+        setDisplayLoading(true);
       }
-    }
+    }, 250);
 
     if (isReady) {
-      fetchAlerts();
-      setMarketData(data);
+      setAlerts(_alertData);
+      setMarketData(_marketData);
     }
-  }, [data, isReady]);
+
+    return () => clearTimeout(timer);
+  }, [isReady, displayLoading, _marketData, _alertData]);
 
   return (
     <>
       <Header />
       <h1 className="title">Pörssisähkön tiedot</h1>
       <p className="description">
-        Täältä näet ajankohtaisen pörssisähkön hinnan. Sivun tiedot päivittyvät
+        Tästä näet pörssisähkön hinnan nyt ja huomenna. Sivun tiedot päivittyvät
         automaattisesti.
       </p>
 
-      {!isReady && (
+      {displayLoading && !isReady && (
         <div className="alert info">
           <FontAwesomeIcon icon={faSpinner} spin size="10x" />
           <p>Ladataan tietoja...</p>

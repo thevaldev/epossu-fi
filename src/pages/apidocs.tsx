@@ -5,7 +5,7 @@ import { setMeta } from "../components/Utils";
 
 const ApiDocs = () => {
   setMeta(
-    "API - epossu.fi",
+    "API-Rajapinta",
     "Tietoa epossu.fi -palvelun rajapinnasta. Lue ohjeet ja esimerkit rajapinnan käytöstä."
   );
 
