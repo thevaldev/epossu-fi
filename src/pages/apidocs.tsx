@@ -6,7 +6,7 @@ import { setMeta } from "../components/Utils";
 const ApiDocs = () => {
   setMeta(
     "API-Rajapinta",
-    "Tietoa epossu.fi -palvelun rajapinnasta. Lue ohjeet ja esimerkit rajapinnan käytöstä."
+    "Tietoa epossu.fi-palvelun rajapinnasta. Lue ohjeet ja esimerkit rajapinnan käytöstä."
   );
 
   const marketData = {
@@ -216,31 +216,22 @@ const ApiDocs = () => {
         <h1 className="title">API-Rajapinta</h1>
 
         <p className="lead">
-          Tämä sivu sisältää ohjeet ja esimerkit epossu.fi:n tarjoamasta
-          rajapinnasta. Rajapinta tarjoaa sähkön markkinahintoja, jotka ovat
+          Tämä sivu sisältää ohjeet ja esimerkkejä epossu.fi:n rajapinnan
+          käytöstä. Rajapintamme tarjoaa sähkömarkkinahintoja, jotka ovat
           peräisin Nord Pool -sähköpörssistä.
           <br />
-          <br />
-          Rajapinta on tarkoitettu julkiseen käyttöön ja sen käyttö on ilmaista.
-          <br />
-          Rajapinnan käyttö on sallittua, kunhan se ei aiheuta kohtuutonta
-          kuormitusta palvelimelle.
-          <br />
-          <b>
-            Mikäli havaitsemme kohtuutonta kuormitusta, pidätämme oikeuden
-            rajoittaa tai estää rajapinnan käyttöä.
-          </b>
+          epossu.fi:n rajapinta on ilmainen ja avoin kaikille käyttäjille,
+          rajapintaa voi käyttää esimerkiksi sähkömarkkinahintojen seuraamiseen
+          tai analysointiin.
           <br />
           <br />
-          Mikäli tarvitset apua rajapinnan käytössä tai sinulla on kysyttävää,
-          ota yhteyttä{" "}
-          <a
-            href="https://github.com/thevaldev/epossu-fi/issues"
-            target="_blank"
-          >
-            githubin
-          </a>{" "}
-          kautta.
+          <strong>
+            {" "}
+            Rajapinnan käyttö on rajoitettu <span className="number">
+              180
+            </span>{" "}
+            pyyntöön minuutissa.
+          </strong>
         </p>
 
         <div className="event">
@@ -251,14 +242,24 @@ const ApiDocs = () => {
               {` https://api.epossu.fi/v2/marketData`}
             </code>
           </pre>
-          <p className="info">Palauttaa uusimmat 48 tunnin hintatiedot.</p>
+          <p className="info">
+            Palauttaa uusimmat pörssisähköhinnat{" "}
+            <span className="number">48</span> tunnin ajalta.
+            <br />
+            Seuraavan päivän tiedot ovat saatavilla noin kello{" "}
+            <span className="number">14:00</span>
+          </p>
 
           <ul>
             <li>
-              Hinnat sisältävät arvonlisäveron <b>(24%)</b>.
+              Hinnat sisältävät nykyisen arvonlisäveron{" "}
+              <b>
+                <span className="number">(24%)</span>
+              </b>
+              .
             </li>
             <li>
-              Hintojen yksikkö on <b>c/kWh</b>
+              Hintojen yksikkö on <b>c/kWh</b> (senttiä per kilowattitunti).
             </li>
             <li>
               Hintojen aikaleima on <b>dd.mm.yyyy hh:mm</b>
@@ -267,8 +268,9 @@ const ApiDocs = () => {
               Kuvaajan aikaleima on <b>yyyy.mm.dd hh:mm:ss</b>
             </li>
             <li>
-              Tietojen päivitys tapahtuu noin kello 14:00, jolloin tietoihin
-              sisältyy seuraavan päivän hintatiedot.
+              Tietojen päivitys tapahtuu noin kello{" "}
+              <span className="number">14:00</span>, jolloin tietoihin sisältyy
+              myös seuraavan päivän hintatiedot.
             </li>
             <li>
               Mikäli huomisen dataa ei ole saatavilla palauttaa <b>data_ok</b>{" "}

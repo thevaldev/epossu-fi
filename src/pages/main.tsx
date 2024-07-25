@@ -26,37 +26,64 @@ interface MainProps {
   isReady: boolean;
 }
 
+interface ErrorProps {
+  message: string;
+  isCritical: boolean;
+}
+
 const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
   setMeta(
     "Pörssisähkön hinnat Suomessa",
-    "Pörssisähkön hinnat tunneittain. Seuraa sähkönhintoja tuntikohtaisesti kuvaajalta ja hyödynnä edullisimmat tunnit."
+    "Pörssisähkön ajankohtaiset hinnat tunneittain. Seuraa sähkönhintoja tuntikohtaisesti kuvaajalta ja hyödynnä edullisimmat tunnit."
   );
 
-  const [error, setError] = useState<number | string>(0); // Error message
+  const [error, setError] = useState<undefined | ErrorProps>(); // Error message
   const [alerts, setAlerts] = useState<undefined | AlertsJSON>(); // Alert message
   const [marketData, setMarketData] = useState<undefined | PriceData>(); // Market data
   const [displayLoading, setDisplayLoading] = useState<boolean>(false); // Display loading spinner
+  const [timedout, setTimedout] = useState<boolean>(false); // Server timed out
 
   useEffect(() => {
+    // Display error message if data is not ready
     if (_marketData === undefined && isReady) {
-      setError(
-        "Tietoja ei saatu ladattua virheen vuoksi, yritä ladata sivu uudelleen. Mikäli virhe toistuu, ota yhteyttä ylläpitoon."
-      );
-    } else setError(0);
+      setError({
+        message:
+          "Tietoja ei saatu ladattua palvelin virheen vuoksi. Jos virhe toistuu ota yhteyttä ylläpitoon! (Virhe 001)",
+        isCritical: true,
+      });
+    } else if (!timedout) setError(undefined); // Clear error message
 
+    // Display loading spinner if data is not ready
     const timer = setTimeout(() => {
+      if (timedout) return;
       if (!isReady && _marketData === undefined && !displayLoading) {
         setDisplayLoading(true);
       }
-    }, 250);
+    }, 500);
 
+    // Display error message if data is not ready after 5 seconds
+    if (displayLoading) {
+      setTimeout(() => {
+        if (!isReady && _marketData === undefined) {
+          setError({
+            message:
+              "Palvelin ei vastannut ajoissa, yritä ladata sivu uudelleen. Jos virhe toistuu ota yhteyttä ylläpitoon! (Virhe 002)",
+            isCritical: true,
+          });
+          setDisplayLoading(false);
+          setTimedout(true);
+        }
+      }, 5000);
+    }
+
+    // Set alerts and market data if data is ready
     if (isReady) {
       setAlerts(_alertData);
       setMarketData(_marketData);
     }
 
     return () => clearTimeout(timer);
-  }, [isReady, displayLoading, _marketData, _alertData]);
+  }, [isReady, displayLoading, _marketData, _alertData, timedout]);
 
   return (
     <>
@@ -70,14 +97,14 @@ const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
       {displayLoading && !isReady && (
         <div className="alert info">
           <FontAwesomeIcon icon={faSpinner} spin size="10x" />
-          <p>Ladataan tietoja...</p>
+          <p>Ladataan hintatietoja...</p>
         </div>
       )}
 
-      {error !== 0 && (
-        <div className="alert warning">
+      {error !== undefined && (
+        <div className={`alert ${error.isCritical ? "critical" : "warning"}`}>
           <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
-          <p>{error}</p>
+          <p>{error.message}</p>
         </div>
       )}
 

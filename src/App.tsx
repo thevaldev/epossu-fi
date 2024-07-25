@@ -4,49 +4,49 @@ import ApiDocs from "./pages/apidocs";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Notifications from "./pages/Notifications";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Timings from "./components/Timings";
+import Themes from "./components/Themes";
 import { AlertsJSON, PriceData } from "./types";
+import Settings from "./pages/Settings";
 
 function App() {
   const [priceData, setPriceData] = useState<PriceData | undefined>(undefined); // Price data
   const [alertData, setAlerts] = useState<undefined | AlertsJSON>(); // Alert data
 
-  const timeout = useRef<null | ReturnType<typeof setTimeout>>(null); // Timeout for fetching new data
-  const dateChangeHandle = useRef<null | ReturnType<typeof setTimeout>>(null); // Interval for checking if the date has changed
-  const [dataRequiresUpdate, setDataRequiresUpdate] = useState<null | boolean>(
-    null
-  ); // If the data requires an update
-  const [dataLoadingReady, setDataLoadingReady] = useState<boolean>(false); // If the data is ready to be loaded
+  const [DataReadyState, setDataReadyState] = useState<boolean>(false);
+  const [hasTomorrowData, setHasTomorrowData] = useState<boolean>(false);
 
   useEffect(() => {
+    Themes.initTheme();
+
+    //init priceData
     if (priceData == null) {
-      // init data
-      getNewData();
       Timings.day_mumber = new Date().getDate();
+      fetchNewData();
     }
 
-    async function getNewData() {
+    async function fetchNewData() {
       fetch("https://api.epossu.fi/v2/production")
         .then((response) => response.json())
         .then((response) => {
-          if (response === null || response === undefined) {
-            setDataLoadingReady(true);
+          // Handling the possible server error
+          if (response == null || response == undefined) {
+            setDataReadyState(true);
             setPriceData(undefined);
             throw new Error(
-              "Tietoja ei saatu ladattua virheen vuoksi: palvelin ei palauttanut dataa."
+              "Server returned null or undefined. Check the server status: " +
+                response
             );
           }
 
-          // if the data for tomorrow is not ok, we set the dataRequiresUpdate to true and schedule a new data fetch'
-          if (response.data.marketData.tomorrow.data_ok === false) {
-            setDataRequiresUpdate(true);
-            scheduleNewDataFetch();
-          } else {
-            setDataRequiresUpdate(false);
-            scheduleNewDataFetch(true);
-          }
+          // setting tomorrows data status
+          setHasTomorrowData(response.data.marketData.tomorrow.data_ok);
 
+          // setting the data
+          setPriceData(response.data.marketData);
+
+          // setting alerts
           if (response.data.alerts.length > 0) {
             const dismissed = localStorage.getItem("dismissed-alerts");
             const newAlerts: AlertsJSON = {};
@@ -75,73 +75,41 @@ function App() {
             setAlerts(sortedAlerts);
           }
 
-          // Adding a alert if the server time and the client time are out of sync by 15 minutes
-          const time = new Date().getTime() / 1000;
-          const diff = Math.abs(time - response.server_time);
-
-          if (diff > 900 || diff < -900) {
-            setAlerts((prev) => {
-              return {
-                ...prev,
-                time_sync: {
-                  id: "time_out_of_sync",
-                  type: "critical",
-                  message:
-                    "Laitteesi aika on epätarkka, päivitä se! Jotkin toiminnot eivät välttämättä toimi oikein ennen ajan päivitystä.",
-                  canBeDismissed: false,
-                },
-              };
-            });
-          }
-
-          // setting the data and error to null
-          setDataLoadingReady(true);
-          setPriceData(response.data.marketData);
+          // setting the data ready state
+          setDataReadyState(true);
         })
         .catch((error) => {
-          setDataLoadingReady(true);
+          setDataReadyState(true);
           setPriceData(undefined);
-          throw new Error("Tietoja ei saatu ladattua virheen vuoksi: " + error);
+          throw new Error("Data fetch failed due to an error: " + error);
         });
     }
 
-    function scheduleNewDataFetch(forceTomorrow: boolean = false) {
-      if (timeout.current !== null) clearTimeout(timeout.current);
-
-      // Set a timeout for fetching new data
-      timeout.current = setTimeout(() => {
-        getNewData();
-      }, Timings.getNextDayPriceTime(forceTomorrow));
-    }
-
-    function handleDateChange() {
-      if (dateChangeHandle.current !== null)
-        clearTimeout(dateChangeHandle.current);
-
-      if (Timings.day_mumber !== new Date().getDate()) {
-        Timings.day_mumber = new Date().getDate();
-        getNewData();
+    // function for handling date changes and fetching new data
+    function intervalPing() {
+      // if is time for new data
+      if (!hasTomorrowData && Timings.isTimeForTomorrowsData()) {
+        setDataReadyState(false);
+        fetchNewData();
       }
 
-      dateChangeHandle.current = setTimeout(() => {
-        handleDateChange();
-      }, Timings.getTimeLeftToDateChange());
+      // if the date has changed, fetch new data
+      if (Timings.day_mumber !== new Date().getDate()) {
+        Timings.day_mumber = new Date().getDate();
+        setDataReadyState(false);
+        fetchNewData();
+      }
     }
 
-    if (dateChangeHandle.current === null && priceData !== null) {
-      dateChangeHandle.current = setTimeout(() => {
-        handleDateChange();
-      }, 2000);
-    }
-  }, [priceData, dataRequiresUpdate]);
+    // setting the ping interval for fetching new data
+    const interval = setInterval(() => {
+      intervalPing();
+    }, 60000);
 
-  useEffect(() => {
     return () => {
-      if (timeout.current !== null) clearTimeout(timeout.current);
-      if (dateChangeHandle.current !== null)
-        clearTimeout(dateChangeHandle.current);
+      clearInterval(interval);
     };
-  }, [timeout, dateChangeHandle]);
+  }, [priceData, DataReadyState, hasTomorrowData]);
 
   return (
     <Router>
@@ -155,13 +123,14 @@ function App() {
                   <Main
                     _marketData={priceData}
                     _alertData={alertData}
-                    isReady={dataLoadingReady}
+                    isReady={DataReadyState}
                   />
                 }
               />
               <Route path="/tietoa" element={<About />} />
               <Route path="/api" element={<ApiDocs />} />
               <Route path="/ilmoitukset" element={<Notifications />} />
+              <Route path="/asetukset" element={<Settings />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </div>

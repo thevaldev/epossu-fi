@@ -27,7 +27,6 @@ Website for viewing current & tomorrow's electricity prices in Finland
   - [Running locally](#running-locally)
   - [REST API](#rest-api)
 - [Commands](#commands)
-- [Roadmap](#roadmap)
 - [License](#license)
 - [Screenshots](#screenshots)
 
@@ -65,16 +64,7 @@ Website for viewing current & tomorrow's electricity prices in Finland
 
 - `npm run dev` - Main dev server, runs everything needed
 - `npm run build` - Builds the website for production
-- `npm run tests` - Runs the unit tests for the project
-
-## Roadmap
-
-- [x] Update API docs
-- [ ] Add English language version for the website
-- [ ] Notifications for phones & other devices about price updates
-- [ ] Add possibility to deploy API locally
-- [ ] Add settings page that allows users to change price colors
-- [ ] Revamp the embed system
+- `npm run test` - Runs the unit tests for the project
 
 ## License
 

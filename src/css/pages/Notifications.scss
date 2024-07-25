@@ -4,14 +4,134 @@ section.page.notifications {
   h2 {
     font-size: 2.3rem;
     font-weight: 600;
-    color: $primary;
+    color: var(--primary);
   }
 
-  p.lead {
+  .lead {
     margin-bottom: unset;
   }
 
   span strong {
-    font-weight: 800;
+    font-weight: 600;
+  }
+
+  button {
+    outline: 0;
+    border: none;
+    background: none;
+    background-color: var(--primary);
+    color: #1e242a;
+    font-weight: 500;
+    padding: 11px 25px;
+    border-radius: var(--border-radius);
+    font-size: 1.6rem;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.3s ease;
+
+    &.green {
+      background-color: var(--green);
+
+      &:hover {
+        background-color: lighten(#4a9b69, 10%);
+      }
+    }
+
+    &:hover {
+      background-color: var(--primary2);
+    }
+  }
+
+  .permission-handle {
+    margin-top: 25px;
+    padding: 22px 25px;
+    background-color: var(--container);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+
+    button {
+      margin-top: 10px;
+    }
+
+    .permission-status {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+
+      span {
+        display: flex;
+        align-items: start;
+        justify-content: center;
+      }
+
+      svg.fa-circle-xmark {
+        color: var(--warning-red);
+        font-size: 2.5rem;
+      }
+
+      svg.fa-circle-exclamation {
+        color: var(--primary);
+        font-size: 2.5rem;
+      }
+
+      svg.fa-circle-check {
+        color: var(--green);
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    background-color: var(--container);
+    padding: 25px 30px;
+    border-radius: var(--border-radius);
+
+    h2 {
+      margin-top: 0px;
+      margin-bottom: 50px;
+      font-weight: 700;
+      font-size: 2.6rem;
+
+      &.has-description {
+        margin-bottom: 5px;
+      }
+    }
+
+    p.description {
+      margin-bottom: 35px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+
+      input,
+      select {
+        height: 50px;
+        font-size: 1.6rem;
+        padding: 0 15px;
+        margin-top: 10px;
+        margin-bottom: 25px;
+        border: 1px solid #555c62;
+        border-radius: var(--border-radius);
+        background-color: var(--container);
+        color: var(--text);
+
+        &:disabled {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+        }
+      }
+    }
   }
 }

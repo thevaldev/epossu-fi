@@ -6,14 +6,14 @@
   align-items: center;
   padding: 0 30px;
   background-color: white;
-  border-radius: $border_radius;
+  border-radius: var(--border_radius);
   height: auto;
   text-align: left;
   position: relative;
   animation: pageEnter 0.45s ease;
 
   &.critical {
-    background-color: $warning_red;
+    background-color: var(--warning-red);
     color: white;
 
     svg {
@@ -42,7 +42,7 @@
     border: none;
     background: none;
     background-color: #1e242a;
-    color: $color_3;
+    color: var(--color-3);
     font-weight: 500;
     padding: 11px 25px;
     border-radius: 8px;
@@ -52,7 +52,7 @@
     transition: 0.3s ease;
 
     &:hover {
-      background-color: $color_5;
+      background-color: var(--color-5);
     }
   }
 
@@ -70,20 +70,20 @@
     svg {
       margin: 0;
       padding: 0;
-      color: $color_2;
+      color: var(--color-2);
     }
   }
 
   i,
   svg {
     font-size: 2.5rem;
-    color: $primary;
+    color: var(--primary);
   }
 
   &.warning {
     i,
     svg {
-      color: $warning_red;
+      color: var(--warning-red);
     }
   }
 

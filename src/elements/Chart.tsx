@@ -97,6 +97,7 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
         shouldDrawRef={
           date_selector === "Tänään" || date_selector === "Kaikki tiedot"
         }
+        shouldResizeFonts={date_selector !== "Kaikki tiedot"}
       />
     </>
   );

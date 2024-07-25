@@ -1,6 +1,7 @@
 @import "_variables";
 @import "./elements/Header.scss";
 @import "./elements/Footer.scss";
+@import "./fonts.scss";
 
 * {
   box-sizing: border-box;
@@ -29,7 +30,42 @@ body {
   letter-spacing: 0px;
   text-align: center;
   background: #1e242a;
-  color: $color_3;
+  color: var(--color-3);
+
+  &.light {
+    background: #f0f0f0;
+    color: #1e242a;
+
+    header .mobile-nav {
+      color: #1e242a;
+    }
+
+    .row .box,
+    .colors span,
+    .col-row.info,
+    section.chart,
+    section.box,
+    .col-row.header .single-box {
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.08);
+    }
+
+    .chart .chart-tooltip {
+      color: #1e242a;
+    }
+
+    section.api-docs .event {
+      border-color: #ccc;
+      background: #ffffff29;
+    }
+
+    section.api-docs pre {
+      outline-color: #ccc;
+    }
+
+    section.api-docs .string {
+      color: #1e242a;
+    }
+  }
 }
 
 .wrap {
@@ -63,7 +99,7 @@ p.error-notice {
   text-align: left;
   padding: 0px 32px;
   font-weight: 400;
-  color: $warning_red;
+  color: var(--warning-red);
 }
 
 section.page {
@@ -77,12 +113,12 @@ section.page {
   p {
     font-size: 2.3rem;
     font-weight: 500;
-    color: $primary;
+    color: var(--primary);
     margin-bottom: 15px;
 
     &.lead {
       font-size: 1.9rem;
-      color: $color_6;
+      color: var(--color-6);
       margin-bottom: 50px;
       font-weight: 400;
     }
@@ -121,13 +157,13 @@ section.page {
 
   .box {
     width: 100%;
-    background-color: #181d22;
+    background-color: var(--container);
     margin-top: 25px;
     padding: 6px 32px;
     padding-bottom: 45px;
     border-radius: 8px;
     text-align: left;
-    transition: 0.3s ease;
+    transition: opacity 0.3s ease;
     animation: pageEnter 0.5s ease;
 
     h2 {
@@ -150,7 +186,7 @@ section.page {
 
       &.red {
         label {
-          background-color: $warning_red;
+          background-color: var(--warning-red);
         }
       }
 
@@ -160,7 +196,7 @@ section.page {
         color: #1e242a;
         font-weight: bold;
         padding: 5px 10px;
-        background-color: $primary;
+        background-color: var(--primary);
         border-radius: 8px;
       }
     }
@@ -172,14 +208,15 @@ section.page {
     font-weight: 400;
     margin-bottom: 5px;
     margin-top: 0px;
-    color: $color_6;
+    color: var(--color-6);
 
     font-size: 1.9rem;
     letter-spacing: 0.2px;
   }
 
+  div.lead,
   p.lead {
-    color: $color_6;
+    color: var(--color-6);
     margin-bottom: 50px;
     font-weight: 400;
     width: 100%;

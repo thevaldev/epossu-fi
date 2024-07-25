@@ -48,8 +48,8 @@ h3 {
   &.info {
     width: 100%;
     flex-wrap: wrap;
-    background-color: #181d22;
-    border-radius: $border_radius;
+    background-color: var(--container);
+    border-radius: var(--border-radius);
     animation: pageEnter 0.5s ease;
     padding-bottom: 25px;
 
@@ -73,8 +73,8 @@ h3 {
   .col-box {
     width: 100%;
     display: flex;
-    background-color: #181d22;
-    border-radius: $border_radius;
+    background-color: var(--container);
+    border-radius: var(--border-radius);
     flex-wrap: wrap;
   }
 }
@@ -86,8 +86,8 @@ h3 {
   flex-direction: column;
   text-align: left;
   padding: 0 30px;
-  background-color: #181d22;
-  border-radius: $border_radius;
+  background-color: var(--container);
+  border-radius: var(--border-radius);
   width: 100%;
   min-height: 120px;
   animation: pageEnter 0.5s ease;
@@ -116,7 +116,7 @@ h3 {
     span.number.title-time {
       font-size: 1.8rem;
       font-weight: 400;
-      color: $primary;
+      color: var(--primary);
     }
   }
 
@@ -125,14 +125,14 @@ h3 {
     display: inline-flex;
     align-items: baseline;
     font-weight: 600;
-    color: $primary;
+    color: var(--primary);
 
     &.red {
-      color: $red;
+      color: var(--red);
     }
 
     &.green {
-      color: $green;
+      color: var(--green);
     }
 
     &.time {
@@ -142,14 +142,14 @@ h3 {
     &.percent {
       font-size: 1.1rem;
       font-weight: 500;
-      color: #ccc;
+      color: var(--color-6);
     }
 
     p {
       font-size: 1.5rem;
       font-weight: 400;
       margin: 0 0 0 10px;
-      color: #ccc;
+      color: var(--color-6);
     }
   }
 }

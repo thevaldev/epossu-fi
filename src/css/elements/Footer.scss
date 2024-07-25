@@ -24,7 +24,7 @@ footer {
     flex-direction: column;
     font-size: 1.8rem;
     font-weight: 400;
-    color: $primary;
+    color: var(--primary);
 
     svg {
       margin-bottom: 15px;
@@ -33,9 +33,9 @@ footer {
     }
 
     &:hover {
-      color: $color_5;
+      color: var(--color-5);
       svg {
-        fill: $color_5;
+        fill: var(--color-5);
       }
     }
   }
@@ -44,7 +44,7 @@ footer {
     margin-right: unset;
     width: 32px;
     height: 32px;
-    fill: $primary;
+    fill: var(--primary);
   }
 
   .github {
@@ -52,14 +52,14 @@ footer {
     flex-direction: column;
     font-size: 1.6rem;
     font-weight: 400;
-    color: $color_6;
+    color: var(--color-6);
 
     a {
-      color: $primary;
+      color: var(--primary);
       text-decoration: underline;
 
       &:hover {
-        color: $color_5;
+        color: var(--color-5);
       }
     }
   }
