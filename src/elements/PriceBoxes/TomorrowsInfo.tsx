@@ -97,9 +97,7 @@ const TomorrowInfo = ({ data }: BoxTypes) => {
       ) : (
         <div className="single-box">
           <p className="title">Huomisen tietoja ei ole vielä saatavilla</p>
-          <span className="number time">
-            Hinnat ovat saatavilla noin klo 14:00
-          </span>
+          <span className="number time">Tiedot päivittyvät noin klo 14:00</span>
         </div>
       )}
     </>

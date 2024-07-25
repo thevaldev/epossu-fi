@@ -10,12 +10,12 @@ header {
   .mobile-nav {
     display: none;
     background-color: transparent;
-    color: $primary;
+    color: var(--primary);
     font-size: 3rem;
     padding: unset;
 
     &:hover {
-      color: $color_3;
+      color: var(--color-3);
       background-color: unset;
     }
   }
@@ -24,13 +24,13 @@ header {
     display: flex;
     align-items: center;
     justify-content: start;
-    width: 20%;
-    color: $color_3;
+    color: var(--color-3);
 
     .logo {
       width: 42px;
       height: 42px;
       margin-right: 15px;
+      fill: var(--color-3);
     }
 
     span {
@@ -38,7 +38,7 @@ header {
       margin: 0;
       font-weight: 600;
       padding-left: 15px;
-      border-left: 2px solid $color_2;
+      border-left: 2px solid var(--color-2);
     }
   }
 
@@ -52,20 +52,23 @@ header {
     margin: 0;
     gap: 60px;
 
-    svg {
-      margin-right: 10px;
-    }
-
     li {
       font-size: 1.5rem;
       font-weight: 500;
       transition: all 0.2s ease;
 
       a {
-        color: $color_3;
+        color: var(--color-3);
+        gap: 0px 5px;
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-right: unset;
+        }
 
         &:hover {
-          color: $primary;
+          color: var(--primary);
         }
       }
     }
@@ -73,7 +76,7 @@ header {
 
   button {
     padding: 12px 25px;
-    background-color: $primary;
+    background-color: var(--primary);
     color: #181d22;
     font-weight: 500;
     border: none;
@@ -84,13 +87,34 @@ header {
     display: flex;
     align-items: center;
 
+    &.theme {
+      border-radius: 50%;
+      width: 37px;
+      height: 37px;
+      display: flex;
+      padding: unset;
+      justify-content: center;
+      background-color: #181d22;
+      transition: transform 0.2s ease;
+
+      svg {
+        color: var(--primary);
+        font-size: 1.75rem;
+      }
+
+      &:hover {
+        background-color: #181d22;
+        transform: scale(1.05);
+      }
+    }
+
     svg,
     i {
       margin: unset;
     }
 
     &:hover {
-      background-color: darken($primary, 5%);
+      background-color: var(--primary2);
     }
   }
 }
@@ -112,7 +136,7 @@ header {
   }
 }
 
-@media only screen and (min-width: 150px) and (max-width: 635px) {
+@media only screen and (min-width: 150px) and (max-width: 770px) {
   header {
     ul {
       margin-top: 25px;
@@ -151,6 +175,7 @@ header {
 
       li {
         width: 100%;
+        font-size: 1.7rem;
 
         a {
           width: 100%;
@@ -160,8 +185,8 @@ header {
           padding: 0px 15px;
           align-items: center;
           height: 45px;
-          background-color: #181d22;
-          border-radius: $border-radius;
+          background-color: var(--container);
+          border-radius: var(--border-radius);
 
           svg {
             margin-right: 10px;

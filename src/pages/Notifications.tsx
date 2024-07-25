@@ -6,7 +6,7 @@ import { setMeta } from "../components/Utils";
 const Notifications = () => {
   setMeta(
     "Pörssisähkön hinta ilmoitukset",
-    "Ilmoitukset puhelimeen ja muihin laitteisiin. Tilaa ilmoitukset sähkön hinnan muutoksista."
+    "Tilaa maksuttomat ilmoitukset sähkön hinnan muutoksista. Saat ilmoituksen aina kun sähkön hinta on haluamasi raja-arvon yläpuolella tai vaikka joka päivä tiettyyn kellon aikaan."
   );
 
   return (
@@ -16,28 +16,22 @@ const Notifications = () => {
         <h1 className="title with-label red">
           Ilmoitukset <label>Tulossa pian</label>
         </h1>
-        <h2>
-          Arvioitu julkaisu:{" "}
-          <span className="number">
-            <strong>1.8.2024</strong>
-          </span>{" "}
-          menessä.
-        </h2>
         <p className="lead">
-          Muokattavat ilmoitukset puhelimeen ja muihin laitteisiin.
+          Tältä sivulta voit tilata ilmoitukset laitteellesi sähkön hinnan
+          muutoksista.
           <br />
-          Tällä työkalulla voit tilata maksuttomat ilmoitukset puhelimeesi{" "}
-          <strong>
-            esimerkiksi kun sähkön hinta on suurempi kuin 20 c/kWh.
-          </strong>
-          <br />
-          <br />
-          Ilmoituksia pystyy itse määrittelemään ja muokkaamaan.
+          Ilmoitukset ovat maksuttomia ja saat ne aina kun sähkön hinta on
+          haluamasi raja-arvon yläpuolella, tai vaikka joka päivä tiettyyn
+          kellon aikaan.
           <br />
           <br />
+          Saat itse päättää mitä tietoja sinulle lähetetään ja milloin.
           <br />
-          <strong>Lisää tietoa tästä ominaisuudesta tulossa pian.</strong>
+          <br />
         </p>
+        <h2>
+          Ilmoitukset ovat vielä testauksessa, mutta ne julkaistaan hyvin pian!
+        </h2>
       </section>
       <Footer />
     </>

@@ -2,11 +2,15 @@
 
 section.api-docs {
   a {
-    color: $primary;
+    color: var(--primary);
 
     &:hover {
-      color: $color_3;
+      color: var(--color-3);
     }
+  }
+
+  ul li {
+    margin-bottom: 3px;
   }
 
   .event {
@@ -19,7 +23,7 @@ section.api-docs {
     border: 1px solid #555c62;
     padding: 25px;
     margin-bottom: 25px;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
 
     table {
       width: 100%;
@@ -31,7 +35,7 @@ section.api-docs {
 
       th {
         border-bottom: 1px solid #555c62;
-        color: $color_3;
+        color: var(--color-3);
         padding: 15px 10px;
         text-align: left;
         font-weight: bold;
@@ -45,15 +49,15 @@ section.api-docs {
 
     .button.example {
       margin-top: 15px;
-      background-color: $primary;
+      background-color: var(--primary);
       padding: 12px 18px;
-      border-radius: $border-radius;
-      color: #181d22;
+      border-radius: var(--border-radius);
+      color: var(--container);
       font-size: 2rem;
       cursor: pointer;
 
       &:hover {
-        background-color: $color_3;
+        background-color: var(--color-3);
       }
 
       svg {
@@ -64,31 +68,31 @@ section.api-docs {
     pre {
       font-size: 1.75rem;
       width: 100%;
-      background-color: #181d22;
+      background-color: var(--container);
       padding: 25px 20px;
-      border-radius: $border-radius;
+      border-radius: var(--border-radius);
       margin-top: 5px;
       line-height: 1.15;
       white-space: pre;
       word-break: keep-all;
 
       code.type {
-        color: $primary;
+        color: var(--primary);
         font-weight: bold;
       }
     }
 
     p.info {
       font-size: 1.75rem;
-      color: $color_3;
+      color: var(--color-3);
       margin-top: 15px;
 
-      span {
+      span:not(.number) {
         display: block;
         margin-top: 25px;
         margin-bottom: 5px;
         font-size: 2.25rem;
-        color: $color_3;
+        color: var(--color-3);
         font-weight: bold;
       }
     }
@@ -96,7 +100,7 @@ section.api-docs {
 
   ul {
     font-size: 1.75rem;
-    color: $color_3;
+    color: var(--color-3);
     margin-top: 15px;
     margin-top: 15px;
     padding-left: 25px;

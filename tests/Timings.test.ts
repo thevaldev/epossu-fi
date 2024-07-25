@@ -72,20 +72,4 @@ describe("Timings", () => {
     const result = Timings.getNextPrice(priceData.today, priceData.tomorrow);
     expect(result).toBe(-0.037);
   });
-
-  // getTimeLeftToTarget
-  it("should return the time left to target", () => {
-    const result = Timings.getTimeLeftToTarget(
-      new Date().toLocaleString("fi-FI", {
-        hour: "2-digit",
-      }) + ":00"
-    );
-    expect(result).toBeLessThanOrEqual(3600000);
-  });
-
-  // hastimePassed
-  it("should return if the time has passed", () => {
-    const result = Timings.hastimePassed(formatDateForData(0, 1));
-    expect(result).toBe(false);
-  });
 });

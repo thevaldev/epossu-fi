@@ -22,9 +22,14 @@ interface ChartProps {
     price: number;
   }[];
   shouldDrawRef: boolean;
+  shouldResizeFonts: boolean;
 }
 
-const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
+const DayChart = ({
+  dataset,
+  shouldDrawRef,
+  shouldResizeFonts,
+}: ChartProps) => {
   const [ref_line_spot, setRefLineSpot] = useState<Date>(new Date());
   const refSpotTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
 
@@ -42,11 +47,7 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
       if (item.price < min) min = item.price;
     });
 
-    if (min < 0) {
-      min -= 0.15;
-    }
-
-    return Math.floor(min);
+    return min;
   }
 
   useEffect(() => {
@@ -74,10 +75,14 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
       height="100%"
       className="responsive-chart"
     >
-      <BarChart data={dataset}>
+      <BarChart data={dataset} {...{ overflow: "visible" }}>
         <CartesianGrid strokeDasharray="5" vertical={false} stroke="#636060" />
         <XAxis
-          fontSize={16}
+          {...(shouldResizeFonts && {
+            interval: 0,
+          })}
+          fontSize={"1.3rem"}
+          id={shouldResizeFonts ? "x-axis" : "x-axis--resize"}
           dataKey={"timestamp"}
           tickFormatter={(value) =>
             new Date(value * 1000).toLocaleTimeString("fi-FI", {
@@ -86,29 +91,29 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
           }
         />
         <YAxis
-          fontSize={16}
+          fontSize={13}
           domain={[calculateMin(), calculateMax() + 5 - (calculateMax() % 5)]}
-          tickFormatter={(value) => value.toFixed()}
+          tickFormatter={(value) => value.toFixed(2)}
           tickCount={15}
           allowDecimals={false}
           width={30}
         />
-        <ReferenceLine y={0} stroke="rgba(255,255,255,0.3)" strokeWidth={1} />
-
-        {calculateMin() < 0 && (
-          <ReferenceLine y={0} stroke="rgba(255,255,255,0.3)" strokeWidth={1} />
-        )}
+        <ReferenceLine
+          y={0}
+          stroke="var(--color-chart-cursor-2)"
+          strokeWidth={1}
+        />
 
         {shouldDrawRef && (
           <>
             <ReferenceLine
               x={ref_line_spot.getTime() / 1000}
-              stroke="rgba(255,255,255,0.3)"
+              stroke="var(--color-chart-cursor-2)"
               strokeWidth={2}
               label={{
                 value: "Nykyinen tunti",
                 position: "insideTopRight",
-                fill: "rgba(255,255,255,0.3)",
+                fill: "var(--color-chart-cursor-2)",
                 fontSize: 18,
                 offset: 20,
                 angle: -90,
@@ -117,7 +122,7 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
             <ReferenceArea
               x1={dataset[0].timestamp}
               x2={ref_line_spot.getTime() / 1000}
-              fill="rgba(255,255,255,0.1)"
+              fill="var(--color-chart-cursor)"
               stroke="none"
             />
           </>
@@ -125,7 +130,7 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
         <Tooltip
           isAnimationActive={false}
           cursor={{
-            fill: "rgba(255,255,255,0.05)",
+            fill: "var(--color-chart-cursor)",
           }}
           labelFormatter={() => ""}
           content={({ payload, label }) => {
@@ -167,16 +172,12 @@ const DayChart = ({ dataset, shouldDrawRef }: ChartProps) => {
             );
           }}
         />
-        <Bar
-          dataKey="price"
-          shape={<Rectangle />}
-          animationBegin={50}
-          animationDuration={400}
-        >
+        <Bar dataKey="price" isAnimationActive={false} shape={<Rectangle />}>
           {dataset.map((entry, index) => (
             <Cell
               key={`cell-${index}`}
               fill={colorizePrice(entry.price)}
+              className="cell animate"
               style={{
                 filter:
                   entry.price < 0

@@ -2,9 +2,10 @@
   width: 100%;
   margin-top: 25px;
   height: auto;
-  background: #181d22;
-  transition: 0.3s ease;
+  background: var(--container);
+  transition: opacity 0.3s ease;
   animation: pageEnter 0.5s ease;
+  animation-fill-mode: forwards;
   border-radius: 8px;
 
   .box-row {
@@ -33,12 +34,12 @@
 
       &:not(:disabled):hover {
         svg {
-          color: $primary;
+          color: var(--primary);
         }
       }
 
       svg {
-        color: $color_3;
+        color: var(--color-3);
         font-size: 3rem;
         margin: unset;
       }
@@ -53,6 +54,20 @@
   .responsive-chart {
     height: 750px !important;
     min-height: unset !important;
+
+    .cell.animate {
+      animation: fade 0.5s linear;
+      animation-fill-mode: forwards;
+
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    }
   }
 
   h2 {
@@ -65,7 +80,7 @@
   }
 
   .recharts-responsive-container {
-    background: #181d22;
+    background: var(--container);
     padding: 20px;
     min-height: 700px;
     border-radius: 8px;
@@ -75,7 +90,7 @@
     width: auto;
     background-color: #fff;
     display: flex;
-    color: #181d22;
+    color: var(--container);
     font-size: 2rem;
     flex-direction: column;
     font-weight: 500;
@@ -90,24 +105,47 @@
   }
 }
 
+@media only screen and (max-width: 1100px) {
+  .chart .responsive-chart #x-axis--resize {
+    font-size: 1rem;
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .chart .responsive-chart {
     height: 450px !important;
+  }
+
+  .chart .responsive-chart #x-axis--resize {
+    font-size: 1.3rem;
   }
 }
 
 @media only screen and (max-width: 500px) {
   .recharts-layer.recharts-cartesian-axis-tick text {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  .chart .responsive-chart #x-axis--resize,
+  .recharts-layer.recharts-cartesian-axis-tick #x-axis {
+    font-size: 1rem;
   }
 
   .recharts-layer.recharts-reference-line {
     line {
-      stroke: $primary;
+      stroke: var(--primary);
     }
 
     text {
       display: none;
     }
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .chart .responsive-chart #x-axis--resize,
+  .recharts-layer.recharts-cartesian-axis-tick #x-axis,
+  .recharts-layer.recharts-cartesian-axis-tick text {
+    font-size: 0.7rem;
   }
 }

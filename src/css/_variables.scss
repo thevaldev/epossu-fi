@@ -1,11 +1,16 @@
-$red: #ff5050;
-$warning_red: #ef5555;
-$primary: #ff9073;
-$color_2: #3d5560;
-$color_3: #f8fafb;
-$color_5: #808080;
-$color_6: #ccc;
-$warning_red: #ef5555;
-$green: #4a9b69;
-
-$border_radius: 8px;
+:root {
+  --primary: #ff9073;
+  --primary2: #ff7c5a;
+  --red: #ff5050;
+  --warning-red: #ef5555;
+  --color-2: #3d5560;
+  --color-3: #f8fafb;
+  --color-5: #808080;
+  --color-6: #ccc;
+  --green: #4a9b69;
+  --border-radius: 8px;
+  --container: #181d22;
+  --color-chart-cursor: rgba(255, 255, 255, 0.05);
+  --color-chart-cursor-2: rgba(255, 255, 255, 0.4);
+  --background: #1e242a;
+}

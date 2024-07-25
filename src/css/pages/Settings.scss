@@ -1,0 +1,62 @@
+.page.settings {
+  p {
+    color: var(--color-6);
+    font-size: 1.5rem;
+    margin: unset;
+    font-weight: 400;
+
+    &.bold {
+      font-weight: 800;
+
+      span {
+        font-weight: 500;
+      }
+    }
+
+    &.description {
+      font-size: 1.7rem;
+      margin-bottom: 5px;
+    }
+
+    &.title {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    &.error {
+      color: var(--warning-red);
+      font-weight: 600;
+      font-size: 1.7rem;
+    }
+
+    &.success {
+      color: var(--green);
+      font-weight: 600;
+      font-size: 1.7rem;
+    }
+  }
+
+  .group {
+    margin-top: 25px;
+  }
+
+  button {
+    margin-top: 25px;
+    outline: 0;
+    border: none;
+    background: none;
+    background-color: var(--primary);
+    color: #1e242a;
+    font-weight: 500;
+    padding: 11px 25px;
+    border-radius: var(--border-radius);
+    font-size: 1.6rem;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: var(--primary2);
+    }
+  }
+}
