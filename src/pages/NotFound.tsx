@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import "../css/pages/NotFound.scss";
-import Header from "../elements/Header";
-import Footer from "../elements/Footer";
 import { setMeta } from "../components/Utils";
 
 const NotFound = () => {
@@ -12,7 +10,6 @@ const NotFound = () => {
 
   return (
     <>
-      <Header />
       <section className="page not-found">
         <h1 className="title">Etsimääsi sivua ei löytynyt</h1>
         <p className="lead">
@@ -23,7 +20,6 @@ const NotFound = () => {
           <button>Palaa etusivulle</button>
         </Link>
       </section>
-      <Footer />
     </>
   );
 };

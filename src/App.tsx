@@ -9,6 +9,8 @@ import Timings from "./components/Timings";
 import Themes from "./components/Themes";
 import { AlertsJSON, PriceData } from "./types";
 import Settings from "./pages/Settings";
+import Footer from "./elements/Footer";
+import Header from "./elements/Header";
 
 function App() {
   const [priceData, setPriceData] = useState<PriceData | undefined>(undefined); // Price data
@@ -116,6 +118,7 @@ function App() {
       <div className="wrap">
         <div className="container">
           <div className="row">
+            <Header />
             <Routes>
               <Route
                 path="/"
@@ -133,6 +136,7 @@ function App() {
               <Route path="/asetukset" element={<Settings />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
+            <Footer />
           </div>
         </div>
       </div>

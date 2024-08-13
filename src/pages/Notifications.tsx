@@ -1,6 +1,4 @@
 import "../css/pages/Notifications.scss";
-import Footer from "../elements/Footer";
-import Header from "../elements/Header";
 import { setMeta } from "../components/Utils";
 
 const Notifications = () => {
@@ -11,7 +9,6 @@ const Notifications = () => {
 
   return (
     <>
-      <Header />
       <section className="page notifications">
         <h1 className="title with-label red">
           Ilmoitukset <label>Tulossa pian</label>
@@ -33,7 +30,6 @@ const Notifications = () => {
           Ilmoitukset ovat vielä testauksessa, mutta ne julkaistaan hyvin pian!
         </h2>
       </section>
-      <Footer />
     </>
   );
 };

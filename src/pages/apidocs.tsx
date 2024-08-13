@@ -1,6 +1,4 @@
 import "../css/pages/Apidocs.scss";
-import Header from "../elements/Header";
-import Footer from "../elements/Footer";
 import { setMeta } from "../components/Utils";
 
 const ApiDocs = () => {
@@ -211,7 +209,6 @@ const ApiDocs = () => {
 
   return (
     <>
-      <Header />
       <section className="page api-docs">
         <h1 className="title">API-Rajapinta</h1>
 
@@ -344,7 +341,6 @@ const ApiDocs = () => {
           ></pre>
         </div>
       </section>
-      <Footer />
     </>
   );
 };
