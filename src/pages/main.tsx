@@ -3,6 +3,7 @@ import {
   faChartArea,
   faCode,
   faExclamationCircle,
+  faPalette,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -220,7 +221,10 @@ const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
 
           <section className="box">
             <div className="colors">
-              <h2>Värien selitykset</h2>
+              <h3>
+                <FontAwesomeIcon icon={faPalette} />
+                Värien selitykset
+              </h3>
               <p>Värit muuttuvat sähköhinnan mukaan.</p>
               <div className="color-container">
                 {Object.keys(colorMap)

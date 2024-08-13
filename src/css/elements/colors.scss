@@ -15,10 +15,9 @@
     gap: 3px;
   }
 
-  h2 {
-    font-size: 3rem;
+  h3 {
     margin-bottom: 15px;
-    color: var(--primary);
+    padding: unset;
   }
 
   p {
@@ -27,12 +26,13 @@
     font-family: "Lato", sans-serif;
     margin: unset;
     font-weight: 400;
+    margin-bottom: 15px;
   }
 
   .color {
     display: flex;
-    width: 45px;
-    height: 45px;
+    width: 41px;
+    height: 41px;
     margin: unset;
     justify-content: center;
     align-items: center;
@@ -40,6 +40,7 @@
 
     p {
       color: white;
+      margin: unset;
     }
   }
 }
