@@ -13,8 +13,10 @@ const NotFound = () => {
       <section className="page not-found">
         <h1 className="title">Etsimääsi sivua ei löytynyt</h1>
         <p className="lead">
-          Sivu jota yritit etsiä ei ole olemassa. Tarkista osoite ja yritä
+          Sivua jota yritit etsiä ei ole olemassa. Tarkista osoite ja yritä
           uudelleen.
+          <br />
+          Voit palata etusivulle painamalla alla olevaa nappia.
         </p>
         <Link to={"/"}>
           <button>Palaa etusivulle</button>
