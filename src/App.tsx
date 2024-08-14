@@ -136,7 +136,7 @@ function App() {
               <Route path="/asetukset" element={<Settings />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
-            <Footer />
+            <Footer marketData={priceData} />
           </div>
         </div>
       </div>

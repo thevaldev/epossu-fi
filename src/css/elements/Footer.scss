@@ -4,17 +4,131 @@ footer {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 100px;
-  margin-bottom: 50px;
-  padding-top: 55px;
+  margin-top: 150px;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-3);
 
-  .footer-row {
+  .footer-content {
+    background-color: var(--container);
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    gap: 40px;
+    justify-content: space-between;
+    padding: 28px 32px;
+    min-height: 300px;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 40px 0px;
+    border-radius: var(--border-radius);
+
+    .logo-wrap {
+      display: flex;
+      justify-content: start;
+      align-items: start;
+      color: unset;
+      flex-direction: column;
+      text-align: left;
+      width: 25%;
+
+      a {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        color: unset;
+
+        svg {
+          width: 42px;
+          height: 42px;
+          margin-right: 12px;
+          fill: var(--color-3);
+        }
+
+        span {
+          font-size: 2.6rem;
+          margin: 0;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .footer-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .col {
+      display: flex;
+      justify-content: end;
+      align-items: start;
+      flex-direction: column;
+      width: 10%;
+      text-align: left;
+
+      &.bigger {
+        width: 18%;
+      }
+
+      p {
+        font-size: 1.8rem;
+        margin-top: 0px;
+        font-weight: 600;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          font-size: 1.4rem;
+          font-weight: 400;
+          transition: all 0.2s ease;
+          margin-bottom: 4px;
+          color: var(--primary);
+
+          span.number {
+            font-weight: 600;
+            margin-right: 2px;
+
+            &.no-b {
+              font-weight: 500;
+            }
+          }
+
+          a {
+            color: var(--primary);
+            gap: 0px 5px;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+              color: var(--color-5);
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    .github {
+      width: 100%;
+      font-size: 1.3rem;
+
+      a {
+        color: var(--primary);
+        text-decoration: underline;
+
+        &:hover {
+          color: var(--color-5);
+        }
+      }
+    }
   }
 
   .dev a {
@@ -25,11 +139,13 @@ footer {
     font-size: 1.8rem;
     font-weight: 400;
     color: var(--primary);
+    margin-top: 25px;
 
     svg {
-      margin-bottom: 15px;
+      margin-bottom: 5px;
       width: 40px;
       height: 40px;
+      fill: var(--primary);
     }
 
     &:hover {
@@ -46,21 +162,55 @@ footer {
     height: 32px;
     fill: var(--primary);
   }
+}
 
-  .github {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.6rem;
-    font-weight: 400;
-    color: var(--color-6);
+@media only screen and (max-width: 750px) {
+  footer .footer-content .logo-wrap {
+    width: 100%;
+  }
 
-    a {
-      color: var(--primary);
-      text-decoration: underline;
+  footer .footer-content {
+    gap: 20px 0px;
+  }
 
-      &:hover {
-        color: var(--color-5);
-      }
+  footer .footer-content .col {
+    align-items: center;
+    width: 30%;
+    text-align: center;
+
+    &.bigger {
+      width: 40%;
     }
+
+    p {
+      margin-bottom: 5px;
+    }
+
+    ul li a {
+      justify-content: center;
+    }
+  }
+
+  footer .footer-content .logo-wrap {
+    text-align: center;
+    align-items: center;
+  }
+}
+@media only screen and (max-width: 500px) {
+  footer .footer-content .col {
+    width: 50%;
+
+    &.bigger {
+      width: 100%;
+    }
+  }
+
+  footer .footer-content {
+    justify-content: center;
+  }
+}
+@media only screen and (max-width: 275px) {
+  footer .footer-content .col {
+    width: 100%;
   }
 }

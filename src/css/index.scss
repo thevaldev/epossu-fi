@@ -36,10 +36,16 @@ body {
     background: #f0f0f0;
     color: #1e242a;
 
+    footer .footer-content .col ul li a,
+    footer .footer-content .col ul li {
+      color: var(--color-3);
+    }
+
     header .mobile-nav {
       color: #1e242a;
     }
 
+    footer .footer-content,
     .row .box,
     .colors span,
     .col-row.info,
@@ -82,7 +88,7 @@ body {
     justify-content: center;
     align-items: start;
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 25px;
   }
 }
 
