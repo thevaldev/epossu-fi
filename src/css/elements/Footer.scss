@@ -8,6 +8,7 @@ footer {
   font-size: 1.5rem;
   font-weight: 300;
   color: var(--color-3);
+  animation: pageEnter 0.5s ease;
 
   .footer-content {
     background-color: var(--container);
