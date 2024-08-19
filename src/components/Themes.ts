@@ -47,6 +47,7 @@ const Themes = {
       "--color-chart-cursor-2",
       "rgba(0, 0, 0, 0.9)"
     );
+    document.documentElement.style.setProperty("--background", "#f0f0f0");
   },
   /**
    * Set the dark theme
@@ -66,6 +67,7 @@ const Themes = {
       "--color-chart-cursor-2",
       "rgba(255, 255, 255, 0.4)"
     );
+    document.documentElement.style.setProperty("--background", "#1e242a");
   },
 };
 
