@@ -73,7 +73,7 @@ const ApiDocs = () => {
     "    const ENDPOINT = 'https://api.epossu.fi/v2/marketData';",
     "",
     "    // valinnaiset parametrit",
-    "    const params = '?include_chart=false&price_timestamps=true';",
+    "    const params = '?include_chart=true&price_timestamps=false';",
     "",
     "    const response = await fetch(ENDPOINT + params);    // Haetaan data API:sta",
     "    const json = await response.json();                 // Muutetaan data JSON-muotoon",
