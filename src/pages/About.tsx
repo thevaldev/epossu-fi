@@ -35,7 +35,7 @@ const Scenes = () => {
         <p className="lead">
           Kyllä, kaikki hinnat sisältävät nykyisen arvonlisäveron{" "}
           <span className="number">
-            <b>(24%)</b>
+            <b>(25.5%)</b>
           </span>
           .
         </p>
