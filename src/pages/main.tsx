@@ -3,6 +3,7 @@ import {
   faChartArea,
   faCode,
   faExclamationCircle,
+  faPalette,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,12 +13,10 @@ import { AlertsJSON, PriceData } from "../types";
 import Chart from "../elements/Chart";
 import { colorMap, colorizePrice } from "../components/Colorizer";
 import "../css/pages/Main.scss";
-import Header from "../elements/Header";
 import CurrentPrice from "../elements/PriceBoxes/CurrentPrice";
 import NextPrice from "../elements/PriceBoxes/NextPrice";
 import GeneralInfo from "../elements/PriceBoxes/GeneralInfo";
 import TomorrowInfo from "../elements/PriceBoxes/TomorrowsInfo";
-import Footer from "../elements/Footer";
 import { setMeta } from "../components/Utils";
 
 interface MainProps {
@@ -87,7 +86,6 @@ const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
 
   return (
     <>
-      <Header />
       <h1 className="title">Pörssisähkön tiedot</h1>
       <p className="description">
         Tästä näet pörssisähkön hinnan nyt ja huomenna. Sivun tiedot päivittyvät
@@ -223,7 +221,10 @@ const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
 
           <section className="box">
             <div className="colors">
-              <h2>Värien selitykset</h2>
+              <h3>
+                <FontAwesomeIcon icon={faPalette} />
+                Värien selitykset
+              </h3>
               <p>Värit muuttuvat sähköhinnan mukaan.</p>
               <div className="color-container">
                 {Object.keys(colorMap)
@@ -245,7 +246,6 @@ const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
               </div>
             </div>
           </section>
-          <Footer />
         </>
       )}
     </>

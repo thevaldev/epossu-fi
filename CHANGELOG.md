@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [1.1.2] - 2.9.2024
+
+### Added
+
+- Added all fonts into the assets folder
+- Added the footer & header elements back into `App.tsx` instead of having them in individual files
+- Added a form into the notifications page
+
+### Updated
+
+- Updated the website footer
+- Updated 404 page texts
+- Updated API code example
+- Updated some npm dependency
+- Updated VAT percentage from `24%` to `25.5%`
+
+### Changed
+
+- Changed the colors explanation title from a `h2` to `h3`
+- Changed chart tooltip titles font
+- Changed margins on all pages lead text
+- Adjusted charts Y-axis for negative prices
+
+### Fixed
+
+- Fixed alerts `border-radius`
+- Fixed theme css not using correct background variable
+
+### Removed
+
+- Removed useless development env css
+
 ## [1.1.1] - 26.7.2024
 
 ### Added

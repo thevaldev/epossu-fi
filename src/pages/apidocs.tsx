@@ -1,6 +1,4 @@
 import "../css/pages/Apidocs.scss";
-import Header from "../elements/Header";
-import Footer from "../elements/Footer";
 import { setMeta } from "../components/Utils";
 
 const ApiDocs = () => {
@@ -75,7 +73,7 @@ const ApiDocs = () => {
     "    const ENDPOINT = 'https://api.epossu.fi/v2/marketData';",
     "",
     "    // valinnaiset parametrit",
-    "    const params = '?include_chart=false&price_timestamps=true';",
+    "    const params = '?include_chart=true&price_timestamps=false';",
     "",
     "    const response = await fetch(ENDPOINT + params);    // Haetaan data API:sta",
     "    const json = await response.json();                 // Muutetaan data JSON-muotoon",
@@ -211,7 +209,6 @@ const ApiDocs = () => {
 
   return (
     <>
-      <Header />
       <section className="page api-docs">
         <h1 className="title">API-Rajapinta</h1>
 
@@ -344,7 +341,6 @@ const ApiDocs = () => {
           ></pre>
         </div>
       </section>
-      <Footer />
     </>
   );
 };

@@ -44,7 +44,7 @@ const DayChart = ({
   function calculateMin() {
     let min = 0;
     dataset.forEach((item) => {
-      if (item.price < min) min = item.price;
+      if (item.price < min) min = item.price - 0.15;
     });
 
     return min;

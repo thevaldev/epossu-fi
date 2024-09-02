@@ -1,6 +1,4 @@
 import "../css/pages/Settings.scss";
-import Footer from "../elements/Footer";
-import Header from "../elements/Header";
 import { setMeta } from "../components/Utils";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -52,7 +50,6 @@ const Settings = () => {
 
   return (
     <>
-      <Header />
       <section className="page settings">
         <h1 className="title">Sivun asetukset</h1>
         <p className="lead">
@@ -152,7 +149,6 @@ const Settings = () => {
           )}
         </div>
       </section>
-      <Footer />
     </>
   );
 };

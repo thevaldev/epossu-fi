@@ -1,6 +1,4 @@
 import "../css/pages/About.scss";
-import Footer from "../elements/Footer";
-import Header from "../elements/Header";
 import { setMeta } from "../components/Utils";
 
 const Scenes = () => {
@@ -11,7 +9,6 @@ const Scenes = () => {
 
   return (
     <>
-      <Header />
       <section className="page about">
         <h1 className="title">Tietoa palvelusta</h1>
         <p className="lead">
@@ -38,7 +35,7 @@ const Scenes = () => {
         <p className="lead">
           Kyllä, kaikki hinnat sisältävät nykyisen arvonlisäveron{" "}
           <span className="number">
-            <b>(24%)</b>
+            <b>(25.5%)</b>
           </span>
           .
         </p>
@@ -66,7 +63,6 @@ const Scenes = () => {
           .
         </p>
       </section>
-      <Footer />
     </>
   );
 };
