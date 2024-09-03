@@ -164,7 +164,7 @@ h3 {
   }
 }
 
-@media only screen and (min-width: 1150px) and (max-width: 1450px) {
+@media only screen and (min-width: 1150px) and (max-width: 1500px) {
   .col-row .col.group {
     &.half {
       width: 40%;
@@ -219,7 +219,7 @@ h3 {
   }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 725px) {
   .col-row.header .col.group.third {
     flex-wrap: wrap;
 
@@ -279,7 +279,7 @@ h3 {
   }
 }
 
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 325px) {
   .col-row.header .col.group.third .single-box.third {
     width: 100%;
     margin-top: 10px;
