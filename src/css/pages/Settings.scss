@@ -130,6 +130,19 @@
     padding: 8px 16px;
     border-radius: var(--border-radius);
 
+    &.green {
+      background-color: var(--green);
+      color: #181d22;
+
+      &:hover {
+        filter: brightness(1.1);
+      }
+
+      &:disabled {
+        opacity: 0.9;
+      }
+    }
+
     &:disabled {
       color: var(--color-4);
       cursor: not-allowed;

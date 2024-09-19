@@ -121,14 +121,19 @@ const Settings = () => {
             <div className="inner-group">
               <span className="value">
                 {timeDifference !== undefined
-                  ? `${timeDifference} sekuntia`
-                  : "Ei testattu"}
+                  ? `Aikaero palvelimen kanssa on ${timeDifference} ${
+                      timeDifference == 1 ? "sekuntti" : "sekuntia"
+                    }`
+                  : "Aloita testi painamalla nappia."}
               </span>
-              {timeDifference === undefined && (
-                <button className="button" onClick={testTime}>
-                  Testaa aikaero
-                </button>
-              )}
+
+              <button
+                className={`button ${timeDifference !== undefined && "green"}`}
+                onClick={testTime}
+                disabled={timeDifference !== undefined}
+              >
+                {timeDifference !== undefined ? "Testattu" : "Testaa aikaero"}
+              </button>
             </div>
           </div>
 
