@@ -23,6 +23,7 @@ interface MainProps {
   _marketData: PriceData | undefined;
   _alertData: AlertsJSON | undefined;
   isReady: boolean;
+  APIError?: string;
 }
 
 interface ErrorProps {
@@ -30,7 +31,7 @@ interface ErrorProps {
   isCritical: boolean;
 }
 
-const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
+const Main = ({ _marketData, _alertData, isReady, APIError }: MainProps) => {
   setMeta(
     "Pörssisähkön hinnat Suomessa",
     "Pörssisähkön ajankohtaiset hinnat tunneittain. Seuraa sähkönhintoja tuntikohtaisesti kuvaajalta ja hyödynnä edullisimmat tunnit."
@@ -40,40 +41,24 @@ const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
   const [alerts, setAlerts] = useState<undefined | AlertsJSON>(); // Alert message
   const [marketData, setMarketData] = useState<undefined | PriceData>(); // Market data
   const [displayLoading, setDisplayLoading] = useState<boolean>(false); // Display loading spinner
-  const [timedout, setTimedout] = useState<boolean>(false); // Server timed out
 
   useEffect(() => {
     // Display error message if data is not ready
-    if (_marketData === undefined && isReady) {
+    if (APIError !== undefined) {
+      setDisplayLoading(false);
       setError({
-        message:
-          "Tietoja ei saatu ladattua palvelin virheen vuoksi. Jos virhe toistuu ota yhteyttä ylläpitoon! (Virhe 001)",
+        message: APIError,
         isCritical: true,
       });
-    } else if (!timedout) setError(undefined); // Clear error message
+      return;
+    }
 
     // Display loading spinner if data is not ready
     const timer = setTimeout(() => {
-      if (timedout) return;
       if (!isReady && _marketData === undefined && !displayLoading) {
         setDisplayLoading(true);
       }
     }, 500);
-
-    // Display error message if data is not ready after 5 seconds
-    if (displayLoading) {
-      setTimeout(() => {
-        if (!isReady && _marketData === undefined) {
-          setError({
-            message:
-              "Palvelin ei vastannut ajoissa, yritä ladata sivu uudelleen. Jos virhe toistuu ota yhteyttä ylläpitoon! (Virhe 002)",
-            isCritical: true,
-          });
-          setDisplayLoading(false);
-          setTimedout(true);
-        }
-      }, 5000);
-    }
 
     // Set alerts and market data if data is ready
     if (isReady) {
@@ -82,7 +67,7 @@ const Main = ({ _marketData, _alertData, isReady }: MainProps) => {
     }
 
     return () => clearTimeout(timer);
-  }, [isReady, displayLoading, _marketData, _alertData, timedout]);
+  }, [isReady, displayLoading, _marketData, _alertData, APIError]);
 
   return (
     <>

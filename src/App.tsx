@@ -18,6 +18,7 @@ function App() {
 
   const [DataReadyState, setDataReadyState] = useState<boolean>(false);
   const [hasTomorrowData, setHasTomorrowData] = useState<boolean>(false);
+  const [APIError, setAPIError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     Themes.initTheme();
@@ -36,10 +37,11 @@ function App() {
           if (response == null || response == undefined) {
             setDataReadyState(true);
             setPriceData(undefined);
-            throw new Error(
-              "Server returned null or undefined. Check the server status: " +
-                response
+            setAPIError(
+              "Palvelin ei palauttanut hintoja, päivitä sivu ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä ylläpitoon. (E1)"
             );
+            console.error("E1", "Error fetching data: ", response);
+            return;
           }
 
           // setting tomorrows data status
@@ -83,7 +85,10 @@ function App() {
         .catch((error) => {
           setDataReadyState(true);
           setPriceData(undefined);
-          throw new Error("Data fetch failed due to an error: " + error);
+          setAPIError(
+            "Palvelin ei palauttanut hintoja, päivitä sivu ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä ylläpitoon. (E2)"
+          );
+          console.error("E2", "Error fetching data: ", error);
         });
     }
 
@@ -127,6 +132,7 @@ function App() {
                     _marketData={priceData}
                     _alertData={alertData}
                     isReady={DataReadyState}
+                    APIError={APIError}
                   />
                 }
               />
