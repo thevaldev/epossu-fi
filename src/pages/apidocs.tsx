@@ -1,211 +1,13 @@
 import "../css/pages/Apidocs.scss";
 import { setMeta } from "../components/Utils";
+import CodeExample from "../elements/Apidocs/CodeExample";
+import JsonExample from "../elements/Apidocs/JsonExample";
 
 const ApiDocs = () => {
   setMeta(
     "API-Rajapinta",
     "Tietoa epossu.fi-palvelun rajapinnasta. Lue ohjeet ja esimerkit rajapinnan käytöstä."
   );
-
-  const marketData = {
-    data: {
-      today: {
-        data_ok: true,
-        prices: [
-          {
-            price: 1.234,
-            date: "01.01.2024 00:00",
-          },
-          "...",
-          {
-            price: 1.234,
-            date: "01.01.2024 23:00",
-          },
-        ],
-        options: {
-          average: 1.234,
-          highest: {
-            price: 1.234,
-            date: "01.01.2024 09:00",
-          },
-          lowest: {
-            price: 1.234,
-            date: "01.01.2024 00:00",
-          },
-        },
-      },
-      tomorrow: {
-        data_ok: false,
-        prices: [],
-        options: {
-          average: 0,
-          highest: {
-            price: 0,
-            date: "",
-          },
-          lowest: {
-            price: 0,
-            date: "",
-          },
-        },
-      },
-      chart: {
-        dataset: [
-          {
-            price: 1.234,
-            date: "2024.01.01 01:00:00",
-            timestamp: 1704070800,
-          },
-          "...",
-          {
-            price: 1.234,
-            date: "2024.01.03 00:00:00",
-            timestamp: 1704067200,
-          },
-        ],
-      },
-    },
-  };
-
-  const code_example = [
-    "async function fetchMarketData() {",
-    "    // API:n osoite",
-    "    const ENDPOINT = 'https://api.epossu.fi/v2/marketData';",
-    "",
-    "    // valinnaiset parametrit",
-    "    const params = '?include_chart=true&price_timestamps=false';",
-    "",
-    "    const response = await fetch(ENDPOINT + params);    // Haetaan data API:sta",
-    "    const json = await response.json();                 // Muutetaan data JSON-muotoon",
-    "",
-    "    if (json.success == true) return json.data;         // Jos haku onnistui, palautetaan data",
-    "    throw new Error('Tietojen haussa tapahtui virhe');  // Muuten ilmoitetaan virheestä",
-    "}",
-    "",
-    "fetchMarketData().then((data) => {",
-    "    console.log(data);",
-    "});",
-  ];
-
-  function syntaxHighlight(value: string, iscode: boolean = false) {
-    if (iscode) {
-      // loop thru each line
-      const lines = value.split("\n");
-      for (let i = 0; i < lines.length; i++) {
-        // remove leading whitespaces
-        if (lines[i].includes("// ")) {
-          lines[i] = lines[i].replace("// ", '<span class="comment">// ');
-          lines[i] = lines[i].replace(/$/, "</span>");
-        }
-
-        // brackets and semicolons
-        lines[i] = lines[i].replace(/\(/g, '<span class="bracket">(</span>');
-        lines[i] = lines[i].replace(/\)/g, '<span class="bracket">)</span>');
-        lines[i] = lines[i].replace(/\{/g, '<span class="bracket">{</span>');
-        lines[i] = lines[i].replace(/\}/g, '<span class="bracket">}</span>');
-        lines[i] = lines[i].replace(/;/g, '<span class="semicolon">;</span>');
-
-        // color strings with ''
-        const re = new RegExp(/'[^']*'/g);
-        lines[i] = lines[i].replace(
-          re,
-          "<span class='string'>" + lines[i].match(re) + "</span>"
-        );
-
-        // operators
-        lines[i] = lines[i].replace(/\+/g, '<span class="operator">+</span>');
-
-        // regex ".json"
-        const re2 = new RegExp(/\.json/g);
-        lines[i] = lines[i].replace(
-          re2,
-          "<span style='color: #95d773'>.json</span>"
-        );
-
-        const keywords = [
-          "fetchMarketData",
-          "const",
-          "async",
-          "await",
-          "function",
-          "if",
-          "throw",
-          "return",
-          "new",
-          "Error",
-          "fetch",
-          "true",
-          "false",
-          "then",
-          "console",
-          "log",
-        ];
-
-        const colors = {
-          Error: "#f92672",
-          function: "#52b7e5",
-          const: "#52b7e5",
-          async: "#52b7e5",
-          fetchMarketData: "#95d773",
-          if: "#f92672",
-          new: "#f92672",
-          return: "#f92672",
-          await: "#f92672",
-          throw: "#f92672",
-          fetch: "#95d773",
-          true: "#52b7e5",
-          false: "#52b7e5",
-          then: "#f92672",
-          console: "#52b7e5",
-          log: "#95d773",
-        };
-
-        keywords.forEach((keyword) => {
-          const re = new RegExp("\\b" + keyword + "\\b", "g");
-          lines[i] = lines[i].replace(
-            re,
-            "<span style='color: " +
-              colors[keyword as keyof typeof colors] +
-              "'>" +
-              keyword +
-              "</span>"
-          );
-        });
-      }
-
-      value = lines.join("\n");
-
-      return value;
-    }
-
-    if (!value) return "";
-
-    value = value
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-
-    return value.replace(
-      /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
-
-      function (match: string) {
-        let cls = "jsonnumber";
-        if (/^"/.test(match)) {
-          if (/:$/.test(match)) {
-            cls = "key";
-          } else {
-            cls = "string";
-          }
-        } else if (/true|false/.test(match)) {
-          cls = "boolean";
-        } else if (/null/.test(match)) {
-          cls = "null";
-        }
-
-        return '<span class="' + cls + '">' + match + "</span>";
-      }
-    );
-  }
 
   return (
     <>
@@ -324,21 +126,15 @@ const ApiDocs = () => {
 
           <p>JS Esimerkki koodi</p>
           <pre>
-            <code
-              className="inner"
-              dangerouslySetInnerHTML={{
-                __html: syntaxHighlight(code_example.join("\n"), true),
-              }}
-            ></code>
+            <code className="inner break-lines">
+              <CodeExample />
+            </code>
           </pre>
 
           <p>Vastaus</p>
-          <pre
-            className="inner"
-            dangerouslySetInnerHTML={{
-              __html: syntaxHighlight(JSON.stringify(marketData, null, 2)),
-            }}
-          ></pre>
+          <pre className="inner">
+            <JsonExample />
+          </pre>
         </div>
       </section>
     </>

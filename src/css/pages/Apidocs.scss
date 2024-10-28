@@ -115,6 +115,9 @@ section.api-docs {
   pre {
     outline: 1px solid #555c62;
     padding: 5px;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
 
     &.inner {
       margin: 0;
