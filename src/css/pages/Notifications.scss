@@ -64,7 +64,39 @@ section.page.notifications {
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content: center;
+    justify-content: start;
+    padding-bottom: 25px;
+
+    &.fixed-height {
+      height: 450px;
+
+      .loader {
+        margin-top: 25px;
+
+        svg {
+          font-size: 5rem;
+        }
+      }
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 25px;
+    }
+
+    &.red {
+      h2 {
+        color: var(--red);
+      }
+    }
+
+    p.details {
+      margin-top: 5px;
+
+      ul {
+        padding: 0 15px;
+      }
+    }
 
     h2 {
       color: var(--color-3);
@@ -72,14 +104,28 @@ section.page.notifications {
       font-weight: 600;
     }
 
-    p {
-      margin-bottom: 45px;
-    }
-
     label {
       font-size: 1.6rem;
       font-weight: 500;
-      margin-bottom: 35px;
+      margin-bottom: 10px;
+      margin-top: 25px;
+
+      &.wider {
+        width: 40%;
+        min-width: 300px;
+      }
+    }
+
+    button {
+      margin-top: 25px;
+
+      &.red {
+        background-color: var(--warning-red);
+
+        &:hover {
+          background-color: var(--red);
+        }
+      }
     }
 
     select,
@@ -93,6 +139,24 @@ section.page.notifications {
       border-radius: var(--border-radius);
       border: 1px solid var(--primary);
       color: var(--primary);
+
+      &:disabled {
+        background-color: var(--background);
+        border: 1px solid var(--color-5);
+        color: var(--color-5);
+        width: 100%;
+      }
     }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  section.page.notifications .box label.wider {
+    min-width: 100%;
+  }
+
+  section.page.notifications .box .btn-row {
+    flex-direction: column;
+    gap: unset;
   }
 }

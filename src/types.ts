@@ -56,3 +56,49 @@ export interface PriceJSON {
     };
   };
 }
+
+export interface ModuleData {
+  notifications: {
+    status: boolean;
+    message: string;
+    options: {
+      contents: {
+        [key: string]: string;
+      };
+      types: {
+        [key: string]: string;
+      };
+    };
+    subscription?: {
+      id: string;
+      endpoint: PushSubscription;
+      type: subscriptionType;
+    };
+  };
+}
+
+export interface ModalHandlerProps {
+  title: string;
+  jsx: JSX.Element | null;
+  icon: JSX.Element | null;
+  closeText?: string;
+  onClose: () => void;
+  action?: () => void;
+  disableOutsideClick?: boolean;
+}
+
+export interface ErrorProps {
+  message: string;
+  isCritical: boolean;
+}
+
+export interface subscriptionJSON {
+  id: string;
+  endpoint: PushSubscription;
+  type: subscriptionType;
+}
+
+export interface subscriptionType {
+  content: string;
+  when: string;
+}
