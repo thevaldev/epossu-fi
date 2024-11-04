@@ -4,7 +4,7 @@
  * @returns The color
  */
 export function colorizePrice(price: number | null) {
-  if (price === null || price === undefined) return "white";
+  if (price === null || price === undefined) return "var(--primary)";
 
   for (const key in colorMap) {
     if (key === price.toString()) return colorMap[key as keyof typeof colorMap];
