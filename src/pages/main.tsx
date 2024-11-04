@@ -4,12 +4,10 @@ import {
   faCode,
   faExclamationCircle,
   faPalette,
-  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
-import { AlertsJSON, PriceData } from "../types";
+import { AlertsJSON, ErrorProps, PriceData } from "../types";
 import Chart from "../elements/Chart";
 import { colorMap, colorizePrice } from "../components/Colorizer";
 import "../css/pages/Main.scss";
@@ -20,54 +18,20 @@ import TomorrowInfo from "../elements/PriceBoxes/TomorrowsInfo";
 import { setMeta } from "../components/Utils";
 
 interface MainProps {
-  _marketData: PriceData | undefined;
-  _alertData: AlertsJSON | undefined;
-  isReady: boolean;
-  APIError?: string;
+  marketData: PriceData;
+  alerts: AlertsJSON;
+  error: undefined | ErrorProps;
 }
 
-interface ErrorProps {
-  message: string;
-  isCritical: boolean;
-}
-
-const Main = ({ _marketData, _alertData, isReady, APIError }: MainProps) => {
+const Main = ({ marketData, alerts, error }: MainProps) => {
   setMeta(
     "Pörssisähkön hinnat Suomessa",
     "Pörssisähkön ajankohtaiset hinnat tunneittain. Seuraa sähkönhintoja tuntikohtaisesti kuvaajalta ja hyödynnä edullisimmat tunnit."
   );
 
-  const [error, setError] = useState<undefined | ErrorProps>(); // Error message
-  const [alerts, setAlerts] = useState<undefined | AlertsJSON>(); // Alert message
-  const [marketData, setMarketData] = useState<undefined | PriceData>(); // Market data
-  const [displayLoading, setDisplayLoading] = useState<boolean>(false); // Display loading spinner
-
-  useEffect(() => {
-    // Display error message if data is not ready
-    if (APIError !== undefined) {
-      setDisplayLoading(false);
-      setError({
-        message: APIError,
-        isCritical: true,
-      });
-      return;
-    }
-
-    // Display loading spinner if data is not ready
-    const timer = setTimeout(() => {
-      if (!isReady && _marketData === undefined && !displayLoading) {
-        setDisplayLoading(true);
-      }
-    }, 500);
-
-    // Set alerts and market data if data is ready
-    if (isReady) {
-      setAlerts(_alertData);
-      setMarketData(_marketData);
-    }
-
-    return () => clearTimeout(timer);
-  }, [isReady, displayLoading, _marketData, _alertData, APIError]);
+  const setAlerts = (newAlerts: AlertsJSON) => {
+    alerts = newAlerts;
+  };
 
   return (
     <>
@@ -76,13 +40,6 @@ const Main = ({ _marketData, _alertData, isReady, APIError }: MainProps) => {
         Tästä näet pörssisähkön hinnan nyt ja huomenna. Sivun tiedot päivittyvät
         automaattisesti.
       </p>
-
-      {displayLoading && !isReady && (
-        <div className="alert info">
-          <FontAwesomeIcon icon={faSpinner} spin size="10x" />
-          <p>Ladataan hintatietoja...</p>
-        </div>
-      )}
 
       {error !== undefined && (
         <div className={`alert ${error.isCritical ? "critical" : "warning"}`}>
@@ -217,15 +174,15 @@ const Main = ({ _marketData, _alertData, isReady, APIError }: MainProps) => {
                   .map((key, index) => {
                     if (key.startsWith("-")) return null;
                     return (
-                      <span
-                        className="color"
-                        style={{
-                          backgroundColor: colorizePrice(parseInt(key)),
-                        }}
-                        key={index}
-                      >
+                      <div className="color-wrap" key={index}>
+                        <span
+                          className="color"
+                          style={{
+                            backgroundColor: colorizePrice(parseInt(key)),
+                          }}
+                        ></span>
                         <p>{key}</p>
-                      </span>
+                      </div>
                     );
                   })}
               </div>
