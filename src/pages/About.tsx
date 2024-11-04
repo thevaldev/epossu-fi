@@ -19,21 +19,25 @@ const Scenes = () => {
         <h2>Mikä on tämän palvelun tarkoitus?</h2>
         <p className="lead">
           Sivuston tarkoitus on tarjota käyttäjille mahdollisuus seurata
-          pörssisähkön hintoja reaaliaikaisesti, helposti ja ilman häiriöitä.
+          pörssisähkön hintoja <b>reaaliaikaisesti</b>, <b>helposti</b> ja{" "}
+          <b>ilman häiriöitä.</b>
           <br />
-          Tämän lisäksi palvelu tarjoaa ilmaisen API-rajapinnan ja lukuisia
-          ominaisuuksia helpottamaan sähkön reaaliaikaista seuraamista, <br />
-          kuten esimerkiksi ilmoitukset eri laitteille sähkön hinnan noustessa
-          tai laskiessa.
+          Tämän lisäksi palvelu tarjoaa <b>ilmaisen API-rajapinnan</b> ja{" "}
+          <b>lukuisia ominaisuuksia</b> helpottamaan sähkön reaaliaikaista
+          seuraamista, <br />
+          kuten esimerkiksi ilmoitukset eri laitteille tiettyyn kellonaikaan
+          valitsemallasi sisällöllä
           <br />
           <br />
-          Palvelua kehitetään jatkuvasti ja uusia ominaisuuksia lisätään
-          säännöllisesti.
+          <b>
+            Palvelua kehitetään jatkuvasti ja uusia ominaisuuksia lisätään
+            säännöllisesti.
+          </b>
         </p>
 
         <h2>Sisältävätkö hinnat arvolisäveron?</h2>
         <p className="lead">
-          Kyllä, kaikki hinnat sisältävät nykyisen arvonlisäveron{" "}
+          <b>Kyllä</b>, kaikki hinnat sisältävät nykyisen arvonlisäveron{" "}
           <span className="number">
             <b>(25.5%)</b>
           </span>
@@ -46,9 +50,9 @@ const Scenes = () => {
           <strong>
             noin kello <span className="number">14.00</span>
           </strong>{" "}
-          aikoihin kun Nord Pool julkaisee ne.
+          aikoihin kun <b>Nord Pool</b> julkaisee ne.
           <br />
-          Mikäli hinnat ovat myöhässä ilmoittaa palvelu siitä.
+          Mikäli hinnat ovat myöhässä palvelu ilmoittaa siitä.
         </p>
 
         <h2>Missä voin ilmoittaa virheestä tai pyytää ominaisuutta?</h2>

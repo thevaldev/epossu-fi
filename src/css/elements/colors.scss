@@ -22,24 +22,33 @@
 
   p {
     color: var(--color-6);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-family: "Lato", sans-serif;
     margin: unset;
     font-weight: 400;
     margin-bottom: 15px;
   }
 
-  .color {
+  .color-wrap {
     display: flex;
-    width: 41px;
-    height: 41px;
-    margin: unset;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+
+    .color {
+      display: flex;
+      width: 41px;
+      height: 41px;
+      margin: unset;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 5px;
+      border-radius: 3px;
+    }
 
     p {
-      color: white;
+      font-size: 1.9rem;
+      color: var(--color-6);
       margin: unset;
     }
   }

@@ -16,7 +16,7 @@ h2.title {
   width: 100%;
   font-size: 2rem;
   font-weight: 500;
-  color: #808080;
+  color: var(--color-6);
   text-align: left;
   margin-bottom: 0px;
   padding: 10px 32px;
@@ -27,7 +27,7 @@ h3 {
   width: 100%;
   font-size: 2rem;
   font-weight: 500;
-  color: #808080;
+  color: var(--color-6);
   text-align: left;
   margin-bottom: 0px;
   padding: 10px 32px;
@@ -39,7 +39,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  margin-top: 25px;
+  margin-top: 15px;
 
   &.nospacing {
     margin-top: 0px;

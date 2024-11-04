@@ -16,8 +16,9 @@ const ApiDocs = () => {
 
         <p className="lead">
           Tämä sivu sisältää ohjeet ja esimerkkejä epossu.fi:n rajapinnan
-          käytöstä. Rajapintamme tarjoaa sähkömarkkinahintoja, jotka ovat
-          peräisin Nord Pool -sähköpörssistä.
+          käytöstä. <br />
+          Rajapintamme tarjoaa sähkömarkkinahintoja, jotka ovat peräisin Nord
+          Pool -sähköpörssistä.
           <br />
           epossu.fi:n rajapinta on ilmainen ja avoin kaikille käyttäjille,
           rajapintaa voi käyttää esimerkiksi sähkömarkkinahintojen seuraamiseen
@@ -34,7 +35,7 @@ const ApiDocs = () => {
         </p>
 
         <div className="event">
-          <p className="definition">Hae uusimmat pörssitiedot</p>
+          <p className="definition bolder">Hae uusimmat pörssitiedot</p>
           <pre>
             <code>
               <code className="type">GET</code>
@@ -43,17 +44,22 @@ const ApiDocs = () => {
           </pre>
           <p className="info">
             Palauttaa uusimmat pörssisähköhinnat{" "}
-            <span className="number">48</span> tunnin ajalta.
+            <span className="number">
+              <b>48</b>
+            </span>{" "}
+            tunnin ajalta.
             <br />
             Seuraavan päivän tiedot ovat saatavilla noin kello{" "}
-            <span className="number">14:00</span>
+            <b>
+              <span className="number">14:00</span>
+            </b>
           </p>
 
           <ul>
             <li>
               Hinnat sisältävät nykyisen arvonlisäveron{" "}
               <b>
-                <span className="number">(24%)</span>
+                <span className="number">(25.5%)</span>
               </b>
               .
             </li>
@@ -68,8 +74,10 @@ const ApiDocs = () => {
             </li>
             <li>
               Tietojen päivitys tapahtuu noin kello{" "}
-              <span className="number">14:00</span>, jolloin tietoihin sisältyy
-              myös seuraavan päivän hintatiedot.
+              <span className="number">
+                <b>14:00</b>
+              </span>
+              , jolloin tietoihin sisältyy myös seuraavan päivän hintatiedot.
             </li>
             <li>
               Mikäli huomisen dataa ei ole saatavilla palauttaa <b>data_ok</b>{" "}
@@ -77,7 +85,7 @@ const ApiDocs = () => {
             </li>
           </ul>
 
-          <p>Vastaukset</p>
+          <p className="bolder">Vastaukset</p>
           <pre>
             <code className="type">200 </code>
             <code>Hintojen haku onnistui</code>
@@ -87,7 +95,7 @@ const ApiDocs = () => {
             <code>Liian monta pyyntöä. Yritä uudelleen myöhemmin.</code>
           </pre>
 
-          <p>Parametrit</p>
+          <p className="bolder">Parametrit</p>
           <p className="info">
             Parametrien käyttö ei ole pakollista, mutta voit muokata
             palautettuja tietoja seuraavilla parametreilla.
@@ -124,14 +132,14 @@ const ApiDocs = () => {
             </tbody>
           </table>
 
-          <p>JS Esimerkki koodi</p>
+          <p className="bolder">JS Esimerkki koodi</p>
           <pre>
             <code className="inner break-lines">
               <CodeExample />
             </code>
           </pre>
 
-          <p>Vastaus</p>
+          <p className="bolder">Vastaus</p>
           <pre className="inner">
             <JsonExample />
           </pre>

@@ -52,24 +52,6 @@ section.api-docs {
       }
     }
 
-    .button.example {
-      margin-top: 15px;
-      background-color: var(--primary);
-      padding: 12px 18px;
-      border-radius: var(--border-radius);
-      color: var(--container);
-      font-size: 2rem;
-      cursor: pointer;
-
-      &:hover {
-        background-color: var(--color-3);
-      }
-
-      svg {
-        margin-right: 10px;
-      }
-    }
-
     pre {
       font-size: 1.75rem;
       width: 100%;

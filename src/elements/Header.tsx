@@ -24,8 +24,6 @@ const Header = () => {
             viewBox="0 0 247.65 226.02"
             x="0px"
             y="0px"
-            width={54}
-            height={54}
             xmlSpace="preserve"
             className="logo"
           >
