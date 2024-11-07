@@ -56,7 +56,7 @@ const Themes = {
     document.body.classList.remove("light");
     document.documentElement.style.setProperty("--color-3", "#f8fafb");
     document.documentElement.style.setProperty("--color-6", "#ccc");
-    document.documentElement.style.setProperty("--container", "#181d22");
+    document.documentElement.style.setProperty("--container", "#171c21");
     document.documentElement.style.setProperty("--primary", "#ff9073");
     document.documentElement.style.setProperty("--primary2", "#ff7c5a");
     document.documentElement.style.setProperty(
