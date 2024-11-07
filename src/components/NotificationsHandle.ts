@@ -67,6 +67,29 @@ const NotificationsHandle = {
 
     return null;
   },
+  async editSubscription(
+    subscription: subscriptionJSON,
+    content: string,
+    when: string
+  ) {
+    const response = await fetch("https://api.epossu.fi/v2/subscribe", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: localStorage.getItem("subscriptionId"),
+        subscription: subscription,
+        type: {
+          content: content,
+          when: when,
+        },
+      }),
+    });
+
+    const data = await response.json();
+    return data;
+  },
   async Subscribe(content: string, when: string) {
     const subscription = await this.registerSW();
 

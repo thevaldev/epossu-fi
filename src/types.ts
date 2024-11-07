@@ -100,5 +100,7 @@ export interface subscriptionJSON {
 
 export interface subscriptionType {
   content: string;
+  content_type: string;
   when: string;
+  when_type: string;
 }

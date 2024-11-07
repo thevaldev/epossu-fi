@@ -3,6 +3,9 @@ import { setMeta } from "../components/Utils";
 import {
   faBullhorn,
   faCheckCircle,
+  faPencil,
+  faTimes,
+  faTrash,
   faWarning,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,12 +27,16 @@ const Notifications = ({
 
   const content = useRef<HTMLSelectElement>(null);
   const when = useRef<HTMLSelectElement>(null);
+
+  const content_edit = useRef<HTMLSelectElement>(null);
+  const when_edit = useRef<HTMLSelectElement>(null);
   const [error, setError] = useState<string | undefined>(undefined);
   const doesDeviceSupport = NotificationsHandle.verifyDeviceSupport();
   const [notificationSubscription, setNotificationSubscription] = useState<
     subscriptionJSON | undefined
   >(undefined);
   const [ready, setReady] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
   async function recoverSubscription() {
     const response = await NotificationsHandle.recoverSubscription();
@@ -137,6 +144,65 @@ const Notifications = ({
       setReady(true);
     }
   }, [moduleData, notificationSubscription, ready]);
+
+  async function saveEdits() {
+    if (
+      content_edit.current === null ||
+      when_edit.current === null ||
+      content_edit.current.value === undefined ||
+      when_edit.current.value === undefined ||
+      moduleData.notifications.subscription === undefined
+    ) {
+      setError("Virheelliset tiedot");
+      return;
+    }
+
+    const response = await NotificationsHandle.editSubscription(
+      moduleData.notifications.subscription,
+      content_edit.current.value,
+      when_edit.current.value
+    );
+
+    if (!response.success) {
+      modalCallback({
+        title: "Virhe ilmoituksen muokkaamisessa",
+        jsx: (
+          <>
+            <p>
+              Ilmoituksen muokkaaminen epäonnistui. Yritä myöhemmin uudelleen.
+            </p>
+          </>
+        ),
+        icon: <FontAwesomeIcon icon={faWarning} />,
+        onClose: () => {
+          modalCallback(undefined);
+        },
+      });
+      return;
+    }
+
+    if (response.success) {
+      setNotificationSubscription(response.data);
+      setError(undefined);
+      setEdit(false);
+
+      modalCallback({
+        title: "Tilauksen muokkaus onnistui",
+        jsx: (
+          <>
+            <p>
+              Ilmoitukset on muokattu onnistuneesti. Saat ilmoituksen kun
+              valitsemasi ehdot täyttyvät.
+            </p>
+          </>
+        ),
+        icon: <FontAwesomeIcon icon={faCheckCircle} />,
+        onClose: () => {
+          modalCallback(undefined);
+        },
+      });
+    } else setError(response.message);
+  }
 
   return (
     <>
@@ -252,6 +318,7 @@ const Notifications = ({
                   {error}
                 </span>
               )}
+
               <button
                 className="btn"
                 onClick={subscribe}
@@ -292,11 +359,10 @@ const Notifications = ({
               Tilaamasi ilmoitukset
             </h2>
             <p className="description">
-              Olet tilannut ilmoitukset laitteellesi. Voit peruuttaa tilauksen
-              koska tahansa.
+              Tästä näet tilaamasi ilmoitukset tälle laitteelle.
               <br />
               <strong>HUOM:</strong> Jos tyhjennät selaimesi välimuistin, tilaus
-              poistuu.
+              voi kadota.
             </p>
 
             <label className="wider">
@@ -309,108 +375,175 @@ const Notifications = ({
             </label>
             <label className="wider">
               Ilmoituksen sisältö
-              <input
-                type="disabled"
-                disabled
-                value={notificationSubscription.type.content}
-              />
+              <select
+                name="content"
+                ref={content_edit}
+                disabled={!edit}
+                defaultValue={notificationSubscription.type.content_type}
+              >
+                {Object.keys(moduleData.notifications.options.contents).map(
+                  (key) => (
+                    <option key={key} value={key}>
+                      {moduleData.notifications.options !== undefined
+                        ? moduleData.notifications.options.contents[key]
+                        : "Tuntematon"}
+                    </option>
+                  )
+                )}
+              </select>
             </label>
             <label className="wider">
               Ilmoituksen lähetys aika
-              <input
-                type="disabled"
-                disabled
-                value={notificationSubscription.type.when}
-              />
+              <select
+                name="when"
+                ref={when_edit}
+                disabled={!edit}
+                defaultValue={notificationSubscription.type.when_type}
+              >
+                {Object.keys(moduleData.notifications.options.types).map(
+                  (key) => (
+                    <option key={key} value={key}>
+                      {moduleData.notifications.options !== undefined
+                        ? moduleData.notifications.options.types[key]
+                        : "Tuntematon"}
+                    </option>
+                  )
+                )}
+              </select>
             </label>
 
             <div className="btn-row">
-              <button
-                className="btn"
-                onClick={() => {
-                  NotificationsHandle.requestTestNotification(
-                    notificationSubscription
-                  );
+              {!edit && (
+                <button
+                  className="btn"
+                  onClick={async () => {
+                    const response =
+                      await NotificationsHandle.requestTestNotification(
+                        notificationSubscription
+                      );
 
-                  modalCallback({
-                    title: "Pyyntö lähetetty",
-                    jsx: (
-                      <>
-                        <p>
-                          Saat ilmoituksen muutaman sekunnin sisällä. Tarkista
-                          onko ilmoitus tullut laitteellesi.
-                        </p>
-                      </>
-                    ),
-                    icon: <FontAwesomeIcon icon={faCheckCircle} />,
-                    onClose: () => {
-                      modalCallback(undefined);
-                    },
-                  });
-                }}
-              >
-                Testaa ilmoitusta
-              </button>
-              <button
-                className="btn red"
-                onClick={() => {
-                  modalCallback({
-                    title: "Haluatko varmasti peruuttaa tilauksesi?",
-                    jsx: (
-                      <>
-                        <p>
-                          Et saa enään ilmoituksia tälle laitteelle kun tilaus
-                          on peruutettu.
-                        </p>
+                    if (!response.success) {
+                      modalCallback({
+                        title: "Ilmoituksen testaus epäonnistui",
+                        jsx: (
+                          <>
+                            <p>
+                              Ilmoituksen testaus epäonnistui. Yritä myöhemmin
+                              uudelleen.
+                            </p>
+                          </>
+                        ),
+                        icon: <FontAwesomeIcon icon={faWarning} />,
+                        onClose: () => {
+                          modalCallback(undefined);
+                        },
+                      });
+                      return;
+                    }
 
-                        <div className="btn-row">
-                          <button
-                            className="btn"
-                            onClick={() => {
-                              modalCallback(undefined);
-                            }}
-                          >
-                            Jatka tilausta
-                          </button>
-                          <button
-                            className="btn red"
-                            onClick={() => {
-                              NotificationsHandle.unregisterToAPI(
-                                notificationSubscription
-                              );
-                              setNotificationSubscription(undefined);
-                              modalCallback({
-                                title: "Tilaus on peruutettu onnistuneesti",
-                                jsx: (
-                                  <>
-                                    <p>
-                                      Emme lähetä enään ilmoituksia tälle
-                                      laitteelle.
-                                    </p>
-                                  </>
-                                ),
-                                icon: <FontAwesomeIcon icon={faCheckCircle} />,
-                                onClose: () => {
-                                  modalCallback(undefined);
-                                },
-                              });
-                            }}
-                          >
-                            Peruuta tilaus
-                          </button>
-                        </div>
-                      </>
-                    ),
-                    icon: <FontAwesomeIcon icon={faBullhorn} />,
-                    onClose: () => {
-                      modalCallback(undefined);
-                    },
-                    closeText: "",
-                  });
-                }}
+                    modalCallback({
+                      title: "Pyyntö lähetetty",
+                      jsx: (
+                        <>
+                          <p>
+                            Saat ilmoituksen muutaman sekunnin sisällä. Tarkista
+                            onko ilmoitus tullut laitteellesi.
+                          </p>
+                        </>
+                      ),
+                      icon: <FontAwesomeIcon icon={faCheckCircle} />,
+                      onClose: () => {
+                        modalCallback(undefined);
+                      },
+                    });
+                  }}
+                >
+                  <FontAwesomeIcon icon={faBullhorn} />
+                  Testaa ilmoitusta
+                </button>
+              )}
+              {edit && (
+                <button onClick={saveEdits}>
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  Tallenna
+                </button>
+              )}
+              <button
+                onClick={() => setEdit(!edit)}
+                className={edit ? "red" : ""}
               >
-                Peruuta tilaus
+                {edit ? (
+                  <FontAwesomeIcon icon={faTimes} />
+                ) : (
+                  <FontAwesomeIcon icon={faPencil} />
+                )}
+                {edit ? "Peruuta muokkaus" : "Muokkaa"}
               </button>
+              {!edit && (
+                <button
+                  className="btn red"
+                  onClick={() => {
+                    modalCallback({
+                      title: "Haluatko varmasti peruuttaa tilauksesi?",
+                      jsx: (
+                        <>
+                          <p>
+                            Et saa enään ilmoituksia tälle laitteelle kun tilaus
+                            on peruutettu.
+                          </p>
+
+                          <div className="btn-row">
+                            <button
+                              className="btn"
+                              onClick={() => {
+                                modalCallback(undefined);
+                              }}
+                            >
+                              Jatka tilausta
+                            </button>
+                            <button
+                              className="btn red"
+                              onClick={() => {
+                                NotificationsHandle.unregisterToAPI(
+                                  notificationSubscription
+                                );
+                                setNotificationSubscription(undefined);
+                                modalCallback({
+                                  title: "Tilaus on peruutettu onnistuneesti",
+                                  jsx: (
+                                    <>
+                                      <p>
+                                        Emme lähetä enään ilmoituksia tälle
+                                        laitteelle.
+                                      </p>
+                                    </>
+                                  ),
+                                  icon: (
+                                    <FontAwesomeIcon icon={faCheckCircle} />
+                                  ),
+                                  onClose: () => {
+                                    modalCallback(undefined);
+                                  },
+                                });
+                              }}
+                            >
+                              Peruuta tilaus
+                            </button>
+                          </div>
+                        </>
+                      ),
+                      icon: <FontAwesomeIcon icon={faBullhorn} />,
+                      onClose: () => {
+                        modalCallback(undefined);
+                      },
+                      closeText: "",
+                    });
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                  Peruuta tilaus
+                </button>
+              )}
             </div>
           </div>
         )}
