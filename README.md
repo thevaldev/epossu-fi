@@ -72,14 +72,14 @@ This project is licensed under the [MIT license](https://raw.githubusercontent.c
 
 ## Screenshots
 
-#### Landing desktop
+#### Landing on desktop
 
 <img src="https://raw.githubusercontent.com/thevaldev/epossu-fi/main/src/assets/landing-desktop.png" alt="landing desktop">
 
-#### Landing tablet
+#### Landing on tablet
 
-<img src="https://raw.githubusercontent.com/thevaldev/epossu-fi/main/src/assets/landing-tablet.png" alt="landing tablet" height="500">
+<img src="https://raw.githubusercontent.com/thevaldev/epossu-fi/main/src/assets/landing-tablet.png" alt="landing tablet">
 
-#### Landing phone
+#### Landing on mobile
 
-<img src="https://raw.githubusercontent.com/thevaldev/epossu-fi/main/src/assets/landing-phone.png" alt="landing phone" height="600">
+<img src="https://raw.githubusercontent.com/thevaldev/epossu-fi/main/src/assets/landing-phone.png" alt="landing phone">
