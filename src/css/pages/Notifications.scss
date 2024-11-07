@@ -150,13 +150,24 @@ section.page.notifications {
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 550px) {
   section.page.notifications .box label.wider {
-    min-width: 100%;
+    width: 100%;
   }
 
   section.page.notifications .box .btn-row {
     flex-direction: column;
-    gap: unset;
+    width: 100%;
+    gap: 5px;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  section.page.notifications .box label.wider {
+    min-width: 100%;
   }
 }
