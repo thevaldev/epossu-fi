@@ -157,6 +157,16 @@ const Notifications = ({
       return;
     }
 
+    if (
+      moduleData.notifications.subscription.type.content_type ===
+        content_edit.current.value &&
+      moduleData.notifications.subscription.type.when_type ===
+        when_edit.current.value
+    ) {
+      setEdit(false);
+      return;
+    }
+
     const response = await NotificationsHandle.editSubscription(
       moduleData.notifications.subscription,
       content_edit.current.value,
@@ -185,22 +195,6 @@ const Notifications = ({
       setNotificationSubscription(response.data);
       setError(undefined);
       setEdit(false);
-
-      modalCallback({
-        title: "Tilauksen muokkaus onnistui",
-        jsx: (
-          <>
-            <p>
-              Ilmoitukset on muokattu onnistuneesti. Saat ilmoituksen kun
-              valitsemasi ehdot täyttyvät.
-            </p>
-          </>
-        ),
-        icon: <FontAwesomeIcon icon={faCheckCircle} />,
-        onClose: () => {
-          modalCallback(undefined);
-        },
-      });
     } else setError(response.message);
   }
 
