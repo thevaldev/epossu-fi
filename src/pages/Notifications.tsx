@@ -31,6 +31,46 @@ const Notifications = ({
   >(undefined);
   const [ready, setReady] = useState<boolean>(false);
 
+  async function recoverSubscription() {
+    const response = await NotificationsHandle.recoverSubscription();
+
+    if (response == null || !response.success) {
+      modalCallback({
+        title: "Tilausta ei löytynyt",
+        jsx: (
+          <>
+            <p>
+              Emme valitettavasti löytänyt tilaustasi palvelimelta. Tilaa
+              ilmoitukset uudelleen tälle laitteelle.
+            </p>
+          </>
+        ),
+        icon: <FontAwesomeIcon icon={faWarning} />,
+        onClose: () => {
+          modalCallback(undefined);
+        },
+      });
+      return;
+    }
+
+    setNotificationSubscription(response.data);
+    modalCallback({
+      title: "Tilaus palautettu",
+      jsx: (
+        <>
+          <p>
+            Tilaus on palautettu onnistuneesti. Voit peruuttaa tilauksen milloin
+            tahansa.
+          </p>
+        </>
+      ),
+      icon: <FontAwesomeIcon icon={faCheckCircle} />,
+      onClose: () => {
+        modalCallback(undefined);
+      },
+    });
+  }
+
   async function subscribe() {
     if (
       content.current === null ||
@@ -157,13 +197,24 @@ const Notifications = ({
                 <FontAwesomeIcon icon={faBullhorn} />
                 Tilaa ilmoitukset laitteellesi
               </h2>
-              <p className="description">
-                Tästä voit tilata ilmoitukset nykyiselle laitteellesi
-              </p>
+              {moduleData.notifications.status === false ? (
+                <span className="red-notice">
+                  <FontAwesomeIcon icon={faWarning} />
+                  {moduleData.notifications.message}
+                </span>
+              ) : (
+                <p className="description">
+                  Tästä voit tilata ilmoitukset nykyiselle laitteellesi
+                </p>
+              )}
 
               <label className="wider">
                 Mitä haluat ilmoituksen sisältävän?
-                <select name="content" ref={content}>
+                <select
+                  name="content"
+                  ref={content}
+                  disabled={moduleData.notifications.status === false}
+                >
                   {Object.keys(moduleData.notifications.options.contents).map(
                     (key) => (
                       <option key={key} value={key}>
@@ -178,7 +229,11 @@ const Notifications = ({
 
               <label className="wider">
                 Millon haluat ilmoituksen?
-                <select name="when" ref={when}>
+                <select
+                  name="when"
+                  ref={when}
+                  disabled={moduleData.notifications.status === false}
+                >
                   {Object.keys(moduleData.notifications.options.types).map(
                     (key) => (
                       <option key={key} value={key}>
@@ -200,10 +255,33 @@ const Notifications = ({
               <button
                 className="btn"
                 onClick={subscribe}
-                disabled={error !== undefined}
+                disabled={
+                  error !== undefined ||
+                  moduleData.notifications.status === false
+                }
               >
                 Tilaa ilmoitukset
               </button>
+            </div>
+          )}
+
+        {doesDeviceSupport &&
+          notificationSubscription === undefined &&
+          moduleData !== undefined &&
+          moduleData.notifications.status !== false && (
+            <div className="box no-padding">
+              <h2>
+                <FontAwesomeIcon icon={faBullhorn} />
+                Katosiko tilauksesi?
+              </h2>
+
+              <p className="description">
+                Jos esimerkiksi tyhjensit selaimesi välimuistin, tilaus voi olla
+                kadonnut, mutta se voi vielä olla olemassa palvelimella.
+                <br />
+                Voit palauttaa tilauksen alla olevalla napilla.
+              </p>
+              <button onClick={recoverSubscription}>Palauta tilaus</button>
             </div>
           )}
 

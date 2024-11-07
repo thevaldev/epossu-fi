@@ -9,7 +9,7 @@ const NotificationsHandle = {
     );
   },
   async registerSW() {
-    await navigator.serviceWorker.register("/sw.js", {
+    await navigator.serviceWorker.register("/ilmoitukset-1.0.0.js", {
       scope: "/",
     });
 
@@ -31,6 +31,41 @@ const NotificationsHandle = {
     );
 
     return subscription;
+  },
+  checkForSW() {
+    return navigator.serviceWorker.controller;
+  },
+  async recoverSubscription() {
+    if (!navigator.serviceWorker.controller) return null;
+
+    const subscription = await navigator.serviceWorker.ready.then(
+      async (sw) => {
+        return sw.pushManager.getSubscription().then((subscription) => {
+          return subscription?.toJSON();
+        });
+      }
+    );
+
+    if (subscription) {
+      const response = await fetch(
+        "https://api.epossu.fi/v2/recoverSubscription",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subscription: subscription,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      if (data.success) localStorage.setItem("subscriptionId", data.data.id);
+      return data;
+    }
+
+    return null;
   },
   async Subscribe(content: string, when: string) {
     const subscription = await this.registerSW();
@@ -95,22 +130,6 @@ const NotificationsHandle = {
     }).then((response) => response.json());
 
     return response;
-  },
-  async getSubscription(id: string) {
-    const data = await fetch(`https://api.epossu.fi/v2/subscribe?id=${id}`, {
-      method: "GET",
-    }).then((response) => response.json());
-
-    if (!data.success) localStorage.removeItem("subscriptionId");
-
-    return data;
-  },
-  async getSettings() {
-    const data = await fetch("https://api.epossu.fi/v2/subscriptionSettings", {
-      method: "GET",
-    }).then((response) => response.json());
-
-    return data;
   },
 };
 

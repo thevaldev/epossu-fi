@@ -20,6 +20,7 @@ import Header from "./elements/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ModalHandler from "./elements/ModalHandler";
+import NotificationsHandle from "./components/NotificationsHandle";
 
 function App() {
   const [priceData, setPriceData] = useState<PriceData | undefined>(undefined); // Price data
@@ -53,6 +54,14 @@ function App() {
           setDisplayLoading(true);
         }
       }, 500);
+
+      if (
+        (localStorage.getItem("subscriptionId") !== null ||
+          localStorage.getItem("subscriptionId") !== undefined) &&
+        NotificationsHandle.checkForSW() == null
+      ) {
+        localStorage.removeItem("subscriptionId");
+      }
 
       fetch(
         "https://api.epossu.fi/v2/production?dev=true&subscriptionId=" +
