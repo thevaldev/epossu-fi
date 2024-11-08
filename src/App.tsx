@@ -64,7 +64,7 @@ function App() {
       }
 
       fetch(
-        "https://api.epossu.fi/v2/production?dev=true&subscriptionId=" +
+        "https://api.epossu.fi/v2/production?subscriptionId=" +
           localStorage.getItem("subscriptionId")
       )
         .then((response) => response.json())
