@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [1.1.4] - 8.11.2024
+
+### Added
+
+- Added notifications v1.0.0
+  - Users can now subscribe to free webPush notifications about electricity prices.
+- Added new modal popup for errors and messages
+
+### Updated
+
+- Updated recharts version
+- Updated API error handling
+- Updated back-end code to handle daylight time savings correctly
+- Updated rendering for Apidocs to no longer use `dangerouslySetInnerHTML`
+- Updated theme colors to improve usability
+- Updated UI elements to improve usability
+- Updated header logo text from `sähköpossu` to `epossu.fi`
+- Updated some of the website texts
+- Updated the footer
+
+### Fixed
+
+- Fixed issue where price change percentage would go orange instead of red/green
+- Fixed issue causing chart selection to not work
+- Fixed issue causing the error 002 to appear for no reason
+- Fixed VAT % in apidocs
+- Fixed issue where footer would load before main page causing a weird effect
+- Fixed font loading issues
+
 ## [1.1.3] - 19.9.2024
 
 ### Added
