@@ -1,7 +1,7 @@
 import "../css/pages/About.scss";
 import { setMeta } from "../components/Utils";
 
-const Scenes = () => {
+const About = () => {
   setMeta(
     "Tietoa palvelusta",
     "Tietoa epossu.fi-palvelusta. Lue usein kysytyt kysymykset ja vastaukset."
@@ -71,4 +71,4 @@ const Scenes = () => {
   );
 };
 
-export default Scenes;
+export default About;
