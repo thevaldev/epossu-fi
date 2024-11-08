@@ -9,9 +9,9 @@ self.addEventListener("push", (event) => {
   const notification = event.data.json();
   event.waitUntil(self.registration.showNotification(notification.title, {
     body: notification.body,
-    data: { url: "https://dev.epossu.fi/" },
-    badge: "https://dev.epossu.fi/apple-touch-icon.png",
-    icon: "https://dev.epossu.fi/apple-touch-icon.png",
+    data: { url: "https://epossu.fi/" },
+    badge: "https://epossu.fi/apple-touch-icon.png",
+    icon: "https://epossu.fi/apple-touch-icon.png",
     vibrate: [100, 50, 100],
     actions: [{ action: "open", title: "Avaa" }, { action: "close", title: "Sulje" }]
   }));
