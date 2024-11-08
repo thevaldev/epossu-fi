@@ -7,7 +7,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-Thin.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-Thin.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -17,7 +17,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-ExtraLight.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-ExtraLight.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -27,7 +27,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-Light.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-Light.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -37,7 +37,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-Regular.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-Regular.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -47,7 +47,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-Medium.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-Medium.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -57,7 +57,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-SemiBold.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-SemiBold.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -67,7 +67,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-Bold.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-Bold.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -77,7 +77,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-ExtraBold.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-ExtraBold.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -87,7 +87,7 @@
   font-style: normal;
   font-display: swap;
   src: Local("Raleway"),
-    url("../assets/fonts/raleway/Raleway-Black.woff2") format("woff2");
+    url("/fonts/raleway/Raleway-Black.woff2") format("woff2");
   unicode-range: U+000-5FF;
 }
 
@@ -99,8 +99,7 @@
   font-weight: 100;
   font-style: normal;
   font-display: swap;
-  src: local("Lato"),
-    url("../assets/fonts/lato/lato-thin-webfont.woff2") format("woff2");
+  src: local("Lato"), url("/fonts/lato/lato-thin-webfont.woff2") format("woff2");
 }
 
 @font-face {
@@ -109,7 +108,7 @@
   font-style: normal;
   font-display: swap;
   src: local("Lato"),
-    url("../assets/fonts/lato/lato-light-webfont.woff2") format("woff2");
+    url("/fonts/lato/lato-light-webfont.woff2") format("woff2");
 }
 
 @font-face {
@@ -118,7 +117,7 @@
   font-style: normal;
   font-display: swap;
   src: local("Lato"),
-    url("../assets/fonts/lato/lato-regular-webfont.woff2") format("woff2");
+    url("/fonts/lato/lato-regular-webfont.woff2") format("woff2");
 }
 
 @font-face {
@@ -126,8 +125,7 @@
   font-weight: bold;
   font-style: normal;
   font-display: swap;
-  src: local("Lato"),
-    url("../assets/fonts/lato/lato-bold-webfont.woff2") format("woff2");
+  src: local("Lato"), url("/fonts/lato/lato-bold-webfont.woff2") format("woff2");
 }
 
 @font-face {
@@ -136,5 +134,5 @@
   font-style: normal;
   font-display: swap;
   src: local("Lato"),
-    url("../assets/fonts/lato/lato-black-webfont.woff2") format("woff2");
+    url("/fonts/lato/lato-black-webfont.woff2") format("woff2");
 }

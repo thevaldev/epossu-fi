@@ -36,7 +36,7 @@ const Themes = {
     document.body.classList.add("light");
     document.documentElement.style.setProperty("--color-3", "#333c45");
     document.documentElement.style.setProperty("--color-6", "#404b56");
-    document.documentElement.style.setProperty("--container", "#f7f7f7");
+    document.documentElement.style.setProperty("--container", "#fafafa");
     document.documentElement.style.setProperty("--primary", "#ff7c5a");
     document.documentElement.style.setProperty("--primary2", "#ff6841");
     document.documentElement.style.setProperty(
@@ -47,7 +47,7 @@ const Themes = {
       "--color-chart-cursor-2",
       "rgba(0, 0, 0, 0.9)"
     );
-    document.documentElement.style.setProperty("--background", "#f0f0f0");
+    document.documentElement.style.setProperty("--background", "#f3f4f4");
   },
   /**
    * Set the dark theme
@@ -56,7 +56,7 @@ const Themes = {
     document.body.classList.remove("light");
     document.documentElement.style.setProperty("--color-3", "#f8fafb");
     document.documentElement.style.setProperty("--color-6", "#ccc");
-    document.documentElement.style.setProperty("--container", "#181d22");
+    document.documentElement.style.setProperty("--container", "#171c21");
     document.documentElement.style.setProperty("--primary", "#ff9073");
     document.documentElement.style.setProperty("--primary2", "#ff7c5a");
     document.documentElement.style.setProperty(

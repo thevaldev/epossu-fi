@@ -7,17 +7,36 @@ import Notifications from "./pages/Notifications";
 import { useState, useEffect } from "react";
 import Timings from "./components/Timings";
 import Themes from "./components/Themes";
-import { AlertsJSON, PriceData } from "./types";
+import {
+  AlertsJSON,
+  ErrorProps,
+  ModalHandlerProps,
+  ModuleData,
+  PriceData,
+} from "./types";
 import Settings from "./pages/Settings";
 import Footer from "./elements/Footer";
 import Header from "./elements/Header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import ModalHandler from "./elements/ModalHandler";
+import NotificationsHandle from "./components/NotificationsHandle";
 
 function App() {
   const [priceData, setPriceData] = useState<PriceData | undefined>(undefined); // Price data
-  const [alertData, setAlerts] = useState<undefined | AlertsJSON>(); // Alert data
+  const [alertData, setAlerts] = useState<AlertsJSON>({}); // Alert data
+  const [moduleData, setModuleData] = useState<ModuleData | undefined>(
+    undefined
+  ); // Module data
 
   const [DataReadyState, setDataReadyState] = useState<boolean>(false);
   const [hasTomorrowData, setHasTomorrowData] = useState<boolean>(false);
+  const [APIError, setAPIError] = useState<undefined | ErrorProps>(undefined);
+
+  const [displayLoading, setDisplayLoading] = useState<boolean>(false); // Display loading spinner
+  const [modalHandler, setModalHandler] = useState<
+    undefined | ModalHandlerProps
+  >();
 
   useEffect(() => {
     Themes.initTheme();
@@ -29,17 +48,38 @@ function App() {
     }
 
     async function fetchNewData() {
-      fetch("https://api.epossu.fi/v2/production")
+      // Display loading spinner if data is not ready
+      const timer = setTimeout(() => {
+        if (!DataReadyState && priceData === undefined && !displayLoading) {
+          setDisplayLoading(true);
+        }
+      }, 500);
+
+      if (
+        (localStorage.getItem("subscriptionId") !== null ||
+          localStorage.getItem("subscriptionId") !== undefined) &&
+        NotificationsHandle.checkForSW() == null
+      ) {
+        localStorage.removeItem("subscriptionId");
+      }
+
+      fetch(
+        "https://api.epossu.fi/v2/production?subscriptionId=" +
+          localStorage.getItem("subscriptionId")
+      )
         .then((response) => response.json())
         .then((response) => {
           // Handling the possible server error
           if (response == null || response == undefined) {
             setDataReadyState(true);
             setPriceData(undefined);
-            throw new Error(
-              "Server returned null or undefined. Check the server status: " +
-                response
-            );
+            setModuleData(undefined);
+            setAPIError({
+              message:
+                "Palvelin ei palauttanut hintoja, päivitä sivu ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä ylläpitoon. (E1)",
+              isCritical: true,
+            });
+            return;
           }
 
           // setting tomorrows data status
@@ -47,6 +87,9 @@ function App() {
 
           // setting the data
           setPriceData(response.data.marketData);
+
+          // setting the module data
+          setModuleData(response.data.modules);
 
           // setting alerts
           if (response.data.alerts.length > 0) {
@@ -80,11 +123,17 @@ function App() {
           // setting the data ready state
           setDataReadyState(true);
         })
-        .catch((error) => {
+        .catch(() => {
           setDataReadyState(true);
           setPriceData(undefined);
-          throw new Error("Data fetch failed due to an error: " + error);
+          setAPIError({
+            message:
+              "Palvelin ei palauttanut hintoja, päivitä sivu ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä ylläpitoon. (E2)",
+            isCritical: true,
+          });
         });
+
+      return () => clearTimeout(timer);
     }
 
     // function for handling date changes and fetching new data
@@ -111,28 +160,91 @@ function App() {
     return () => {
       clearInterval(interval);
     };
-  }, [priceData, DataReadyState, hasTomorrowData]);
+  }, [priceData, DataReadyState, hasTomorrowData, displayLoading]);
 
   return (
     <Router>
       <div className="wrap">
         <div className="container">
+          {modalHandler !== undefined && (
+            <ModalHandler
+              title={modalHandler.title}
+              jsx={modalHandler.jsx}
+              icon={modalHandler.icon}
+              closeText={modalHandler.closeText}
+              onClose={() => {
+                setModalHandler(undefined);
+              }}
+              action={modalHandler.action}
+              disableOutsideClick={modalHandler.disableOutsideClick}
+            />
+          )}
           <div className="row">
             <Header />
             <Routes>
               <Route
                 path="/"
                 element={
-                  <Main
-                    _marketData={priceData}
-                    _alertData={alertData}
-                    isReady={DataReadyState}
-                  />
+                  priceData !== undefined ? (
+                    <Main
+                      marketData={priceData}
+                      alerts={alertData}
+                      error={APIError}
+                    />
+                  ) : (
+                    <>
+                      <h1 className="title">Pörssisähkön tiedot</h1>
+                      <p className="description">
+                        Tästä näet pörssisähkön hinnan nyt ja huomenna. Sivun
+                        tiedot päivittyvät automaattisesti.
+                      </p>
+
+                      {displayLoading && (
+                        <div className="alert info">
+                          <FontAwesomeIcon icon={faSpinner} spin size="10x" />
+                          <p>Ladataan hintatietoja...</p>
+                        </div>
+                      )}
+                    </>
+                  )
                 }
               />
               <Route path="/tietoa" element={<About />} />
               <Route path="/api" element={<ApiDocs />} />
-              <Route path="/ilmoitukset" element={<Notifications />} />
+              <Route
+                path="/ilmoitukset"
+                element={
+                  moduleData !== undefined ? (
+                    <Notifications
+                      moduleData={moduleData}
+                      modalCallback={setModalHandler}
+                    />
+                  ) : (
+                    <section className="page notifications">
+                      <h1 className="title with-label">Ilmoitukset</h1>
+                      <p className="lead">
+                        Tältä sivulta voit tilata ilmoitukset laitteellesi
+                        valitsemillasi ehdoilla ja haluamallasi sisällöllä.
+                        <br />
+                        Ilmoitukset ovat <strong>maksuttomia</strong> ja saat ne
+                        välittömästi kun valitut ehdot tai aikaikkuna täyttyvät.
+                        <br />
+                        <br />
+                        <strong>
+                          Lupaamme ettemme lähetä sinulle turhia ilmoituksia,
+                          saat pelkästään ne ilmoitukset jotka olet tilannut.
+                        </strong>
+                        {displayLoading && (
+                          <div className="alert info">
+                            <FontAwesomeIcon icon={faSpinner} spin size="10x" />
+                            <p>Ladataan asetuksia...</p>
+                          </div>
+                        )}
+                      </p>
+                    </section>
+                  )
+                }
+              />
               <Route path="/asetukset" element={<Settings />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>

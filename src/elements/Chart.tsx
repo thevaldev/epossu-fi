@@ -86,8 +86,6 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
       changeDate(0, value === null ? "Kaikki tiedot" : value);
       return;
     }
-
-    setDataset(data.dataset);
   }, [data, changeDate, date_selector]);
 
   return (

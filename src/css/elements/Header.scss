@@ -37,8 +37,16 @@ header {
       font-size: 3rem;
       margin: 0;
       font-weight: 600;
-      padding-left: 15px;
-      border-left: 2px solid var(--color-2);
+    }
+  }
+
+  a:hover > .logo-wrap {
+    svg {
+      fill: var(--primary);
+    }
+
+    span {
+      color: var(--primary);
     }
   }
 

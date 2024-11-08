@@ -51,7 +51,7 @@ body {
     section.chart,
     section.box,
     .col-row.header .single-box {
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.08);
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
     }
 
     .chart .chart-tooltip {
@@ -86,7 +86,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    padding-top: 50px;
+    padding-top: 25px;
     padding-bottom: 25px;
   }
 }
@@ -113,13 +113,16 @@ section.page {
   flex-direction: column;
   align-items: start;
   text-align: left;
-  margin-top: 10px;
 
   p {
     font-size: 2.3rem;
     font-weight: 500;
-    color: var(--primary);
+    color: var(--color-3);
     margin-bottom: 15px;
+
+    &.bolder {
+      font-weight: 600;
+    }
 
     &.lead {
       font-size: 1.9rem;
@@ -232,14 +235,128 @@ section.page {
   }
 }
 
+.modal-popup {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background-color: #00000071;
+  left: 0;
+  top: 0;
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+
+  &.notification {
+    z-index: 9999999;
+  }
+
+  .modal-container {
+    min-width: 350px;
+    max-width: 450px;
+    height: auto;
+    background-color: var(--container);
+    padding: 40px 20px 40px 20px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: 2.7rem;
+      text-align: center;
+    }
+
+    svg {
+      font-size: 4.5rem;
+      margin-bottom: 5px;
+    }
+
+    p {
+      margin-top: 0px;
+      margin-bottom: 35px;
+      font-size: 1.4rem;
+      font-weight: 400;
+      width: 90%;
+      text-align: center;
+
+      &.error {
+        margin-top: 0px;
+        color: var(--red);
+        margin-bottom: 20px;
+        display: block;
+      }
+    }
+
+    .row {
+      width: 100%;
+    }
+
+    .btn-row {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    button {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background-color: var(--primary);
+      border-radius: 20px;
+      padding: 11px 37px;
+      width: auto;
+      display: flex;
+      font-weight: 400;
+      font-size: 1.6rem;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      align-items: center;
+      justify-content: center;
+
+      &:disabled {
+        background-color: #858585;
+        cursor: not-allowed;
+
+        &:hover {
+          background-color: #858585;
+        }
+      }
+
+      &:hover {
+        background-color: var(--primary2);
+      }
+
+      svg {
+        margin-left: 5px;
+        margin-top: 2.5px;
+      }
+
+      &.red {
+        background-color: var(--red);
+
+        &:hover {
+          background-color: var(--warning-red);
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (min-width: 2000px) {
   html,
   body {
     font-size: 72%;
   }
   header .logo-wrap .logo {
-    width: 54px;
-    height: 54px;
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -267,6 +384,19 @@ section.page {
   html,
   body {
     font-size: 47%;
+  }
+
+  .modal-popup .modal-container {
+    min-width: unset;
+    max-width: unset;
+    width: 85%;
+    .btn-row {
+      flex-wrap: wrap;
+
+      button {
+        width: 100%;
+      }
+    }
   }
 
   .wrap .container {

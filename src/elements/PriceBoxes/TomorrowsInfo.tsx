@@ -39,8 +39,9 @@ const TomorrowInfo = ({ data }: BoxTypes) => {
                 }${
                   percentChange !== null &&
                   (Number(percentChange) >= 5000 ||
-                    Number(percentChange) <= -5000) &&
-                  " shake"
+                    Number(percentChange) <= -5000)
+                    ? " shake"
+                    : ""
                 }`}
               >
                 {percentChange !== null ? Number(percentChange) > 0 && "+" : ""}

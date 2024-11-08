@@ -2,216 +2,207 @@ footer {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  text-align: left;
   flex-direction: column;
   margin-top: 150px;
   font-size: 1.5rem;
   font-weight: 300;
   color: var(--color-3);
   animation: pageEnter 0.5s ease;
+  background-color: var(--container);
+  padding: 25px 32px;
+  border-radius: var(--border-radius);
 
-  .footer-content {
-    background-color: var(--container);
-    width: 100%;
+  .logos {
+    width: 30%;
     display: flex;
-    justify-content: space-between;
-    padding: 28px 32px;
-    min-height: 300px;
-    align-items: start;
-    flex-wrap: wrap;
-    gap: 40px 0px;
-    border-radius: var(--border-radius);
+    justify-content: start;
+    align-items: end;
+    height: 100%;
+    gap: 20px;
 
-    .logo-wrap {
-      display: flex;
-      justify-content: start;
-      align-items: start;
-      color: unset;
-      flex-direction: column;
-      text-align: left;
-      width: 25%;
-
-      a {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        color: unset;
-
-        svg {
-          width: 42px;
-          height: 42px;
-          margin-right: 12px;
-          fill: var(--color-3);
-        }
-
-        span {
-          font-size: 2.6rem;
-          margin: 0;
-          font-weight: 600;
-        }
-      }
-    }
-
-    .footer-row {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-    }
-
-    .col {
+    a {
       display: flex;
       justify-content: end;
       align-items: start;
+      color: var(--color-5);
       flex-direction: column;
-      width: 10%;
-      text-align: left;
+      font-size: 1.4rem;
+      font-weight: 500;
 
-      &.bigger {
-        width: 18%;
+      &.github {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 0.9;
+        color: var(--color-5);
+
+        svg {
+          margin-top: unset;
+          margin-right: 10px;
+        }
       }
 
+      svg {
+        margin-top: 5px;
+        height: 28px;
+        fill: var(--color-5);
+      }
+
+      &:hover {
+        color: var(--primary);
+
+        svg {
+          fill: var(--primary);
+        }
+      }
+    }
+  }
+
+  .logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    width: 50%;
+
+    p {
+      color: var(--color-3);
+      font-size: 1.5rem;
+    }
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    span {
+      margin: 0;
+      font-size: 2.6rem;
+      margin: 0;
+      font-weight: 600;
+      color: var(--color-3);
+    }
+
+    svg {
+      width: 42px;
+      height: 42px;
+      margin-right: 12px;
+      fill: var(--color-3);
+    }
+  }
+
+  .footer-row {
+    &.copyright {
+      margin-top: 15px;
+      font-size: 1.6rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+  }
+
+  .col-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: 5px;
+
+    &.header {
+      margin-top: unset;
+    }
+
+    .col {
+      width: 30%;
+
       p {
-        font-size: 1.8rem;
-        margin-top: 0px;
         font-weight: 600;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
+        font-size: 2.1rem;
+        color: var(--color-3);
+        margin-bottom: 10px;
       }
 
       ul {
         list-style: none;
         padding: 0;
-        margin: 0;
+        margin-top: 5px;
 
         li {
-          font-size: 1.4rem;
+          color: var(--color-6);
+          margin-bottom: 2px;
           font-weight: 400;
-          transition: all 0.2s ease;
-          margin-bottom: 4px;
-          color: var(--primary);
-
-          span.number {
-            font-weight: 600;
-            margin-right: 2px;
-
-            &.no-b {
-              font-weight: 500;
-            }
-          }
+          font-size: 1.4rem;
 
           a {
-            color: var(--primary);
-            gap: 0px 5px;
-            display: flex;
-            align-items: center;
+            color: var(--color-6);
 
             &:hover {
-              color: var(--color-5);
-              text-decoration: underline;
+              color: var(--primary);
+            }
+          }
+
+          .number {
+            font-weight: bold;
+            margin-right: 3px;
+
+            &.no-b {
+              font-weight: 300;
             }
           }
         }
       }
     }
-
-    .github {
-      width: 100%;
-      font-size: 1.3rem;
-
-      a {
-        color: var(--primary);
-        text-decoration: underline;
-
-        &:hover {
-          color: var(--color-5);
-        }
-      }
-    }
   }
+}
 
-  .dev a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@media (max-width: 1300px) {
+  footer .logos {
     flex-direction: column;
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: var(--primary);
-    margin-top: 25px;
-
-    svg {
-      margin-bottom: 5px;
-      width: 40px;
-      height: 40px;
-      fill: var(--primary);
-    }
-
-    &:hover {
-      color: var(--color-5);
-      svg {
-        fill: var(--color-5);
-      }
-    }
+    align-items: start;
   }
 
-  svg {
-    margin-right: unset;
-    width: 32px;
-    height: 32px;
-    fill: var(--primary);
+  footer .logos a.github {
+    line-height: 1;
   }
 }
 
-@media only screen and (max-width: 750px) {
-  footer .footer-content .logo-wrap {
+@media (max-width: 900px) {
+  footer .logos a svg {
+    height: 24px;
+  }
+  footer .col-row {
+    flex-wrap: wrap;
+  }
+
+  footer .col-row .col {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  footer .logo-wrap {
     width: 100%;
   }
 
-  footer .footer-content {
-    gap: 20px 0px;
+  footer .logos {
+    flex-direction: row;
+    align-items: end;
+    justify-content: start;
   }
 
-  footer .footer-content .col {
-    align-items: center;
-    width: 30%;
-    text-align: center;
-
-    &.bigger {
-      width: 40%;
-    }
-
-    p {
-      margin-bottom: 5px;
-    }
-
-    ul li a {
-      justify-content: center;
-    }
-  }
-
-  footer .footer-content .logo-wrap {
-    text-align: center;
-    align-items: center;
-  }
-}
-@media only screen and (max-width: 500px) {
-  footer .footer-content .col {
-    width: 50%;
-
-    &.bigger {
-      width: 100%;
-    }
-  }
-
-  footer .footer-content {
-    justify-content: center;
-  }
-}
-@media only screen and (max-width: 275px) {
-  footer .footer-content .col {
+  footer .logos {
+    margin-bottom: 15px;
     width: 100%;
+  }
+}
+@media (max-width: 400px) {
+  footer .logos {
+    flex-direction: column;
+    align-items: start;
   }
 }
