@@ -1,5 +1,7 @@
-@import "../_variables";
-@import "../elements/alert.scss";
+@use "../_variables";
+@use "../elements/alert";
+@use "../elements/chart.scss";
+@use "../elements/colors.scss";
 
 @keyframes pageEnter {
   0% {
@@ -193,9 +195,6 @@ h3 {
     }
   }
 }
-
-@import "../elements/chart.scss";
-@import "../elements/colors.scss";
 
 // 2k
 @media screen and (min-width: 2000px) {
