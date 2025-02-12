@@ -21,15 +21,10 @@ interface ChartProps {
     date: string;
     price: number;
   }[];
-  shouldDrawRef: boolean;
   shouldResizeFonts: boolean;
 }
 
-const DayChart = ({
-  dataset,
-  shouldDrawRef,
-  shouldResizeFonts,
-}: ChartProps) => {
+const DayChart = ({ dataset, shouldResizeFonts }: ChartProps) => {
   const [ref_line_spot, setRefLineSpot] = useState<Date>(new Date());
   const refSpotTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
 

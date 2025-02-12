@@ -105,9 +105,6 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
 
       <DayChart
         dataset={dataset}
-        shouldDrawRef={
-          date_selector === "Tänään" || date_selector === "Kaikki tiedot"
-        }
         shouldResizeFonts={date_selector !== "Kaikki tiedot"}
       />
     </>
