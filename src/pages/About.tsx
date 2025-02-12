@@ -63,8 +63,9 @@ const About = () => {
             target="_blank"
           >
             GitHubissa
-          </a>
-          .
+          </a>{" "}
+          tai sähköpostilla{" "}
+          <a href="mailto:hello@theval.dev">hello@theval.dev</a>.
         </p>
       </section>
     </>

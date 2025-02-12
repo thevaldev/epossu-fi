@@ -1,7 +1,7 @@
-@import "fonts.scss";
-@import "_variables";
-@import "./elements/Header.scss";
-@import "./elements/Footer.scss";
+@use "fonts";
+@use "_variables";
+@use "./elements/Header";
+@use "./elements/Footer";
 
 * {
   box-sizing: border-box;

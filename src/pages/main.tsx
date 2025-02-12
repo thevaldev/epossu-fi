@@ -16,6 +16,7 @@ import NextPrice from "../elements/PriceBoxes/NextPrice";
 import GeneralInfo from "../elements/PriceBoxes/GeneralInfo";
 import TomorrowInfo from "../elements/PriceBoxes/TomorrowsInfo";
 import { setMeta } from "../components/Utils";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 interface MainProps {
   marketData: PriceData;
@@ -43,7 +44,7 @@ const Main = ({ marketData, alerts, error }: MainProps) => {
 
       {error !== undefined && (
         <div className={`alert ${error.isCritical ? "critical" : "warning"}`}>
-          <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
+          <FontAwesomeIcon icon={faInfoCircle as IconProp}></FontAwesomeIcon>
           <p>{error.message}</p>
         </div>
       )}
@@ -57,11 +58,15 @@ const Main = ({ marketData, alerts, error }: MainProps) => {
                 {alert.type === "error" ||
                 alert.type === "critical" ||
                 alert.type === "warning" ? (
-                  <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
+                  <FontAwesomeIcon
+                    icon={faExclamationCircle as IconProp}
+                  ></FontAwesomeIcon>
                 ) : alert.type === "code" ? (
-                  <FontAwesomeIcon icon={faCode}></FontAwesomeIcon>
+                  <FontAwesomeIcon icon={faCode as IconProp}></FontAwesomeIcon>
                 ) : (
-                  <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
+                  <FontAwesomeIcon
+                    icon={faInfoCircle as IconProp}
+                  ></FontAwesomeIcon>
                 )}
                 {alert.message}
               </p>
@@ -132,7 +137,7 @@ const Main = ({ marketData, alerts, error }: MainProps) => {
 
           <section className="col-row info">
             <h2 className="title">
-              <FontAwesomeIcon icon={faCalendarDay} />
+              <FontAwesomeIcon icon={faCalendarDay as IconProp} />
               Huomisen tiedot
             </h2>
             {marketData !== undefined ? (
@@ -146,7 +151,7 @@ const Main = ({ marketData, alerts, error }: MainProps) => {
 
           <section className="chart">
             <h3 className="title">
-              <FontAwesomeIcon icon={faChartArea}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faChartArea as IconProp}></FontAwesomeIcon>
               Pörssisähkön hinnat taulukolla
             </h3>
             {marketData !== undefined ? (
@@ -164,7 +169,7 @@ const Main = ({ marketData, alerts, error }: MainProps) => {
           <section className="box">
             <div className="colors">
               <h3>
-                <FontAwesomeIcon icon={faPalette} />
+                <FontAwesomeIcon icon={faPalette as IconProp} />
                 Värien selitykset
               </h3>
               <p>Värit muuttuvat sähköhinnan mukaan.</p>

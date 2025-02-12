@@ -33,6 +33,8 @@ const NotificationsHandle = {
     return subscription;
   },
   checkForSW() {
+    if (!navigator.serviceWorker || !navigator.serviceWorker.controller)
+      return null;
     return navigator.serviceWorker.controller;
   },
   async recoverSubscription() {

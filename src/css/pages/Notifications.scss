@@ -1,10 +1,18 @@
-@import "../_variables";
+@use "../_variables";
 
 section.page.notifications {
   h2 {
     font-size: 2.3rem;
     font-weight: 600;
     color: var(--primary);
+  }
+
+  p.description.no-spacing svg {
+    margin-right: 10px;
+  }
+
+  p.description.spaced {
+    margin-top: 25px;
   }
 
   .lead {
@@ -50,7 +58,7 @@ section.page.notifications {
       background-color: var(--green);
 
       &:hover {
-        background-color: lighten(#4a9b69, 10%);
+        background-color: #6aba89;
       }
     }
 
@@ -66,6 +74,29 @@ section.page.notifications {
     align-items: start;
     justify-content: start;
     padding-bottom: 25px;
+
+    &.status {
+      background-color: var(--primary);
+      color: var(--color-5);
+
+      p {
+        color: #171c21;
+      }
+
+      button {
+        background-color: #171c21;
+        color: var(--primary);
+
+        &:hover {
+          background-color: black;
+        }
+      }
+
+      h2 {
+        color: #171c21;
+        margin-bottom: 10px;
+      }
+    }
 
     &.fixed-height {
       height: 450px;

@@ -19,6 +19,7 @@ import Footer from "./elements/Footer";
 import Header from "./elements/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import ModalHandler from "./elements/ModalHandler";
 import NotificationsHandle from "./components/NotificationsHandle";
 
@@ -201,7 +202,11 @@ function App() {
 
                       {displayLoading && (
                         <div className="alert info">
-                          <FontAwesomeIcon icon={faSpinner} spin size="10x" />
+                          <FontAwesomeIcon
+                            icon={faSpinner as IconProp}
+                            spin
+                            size="10x"
+                          />
                           <p>Ladataan hintatietoja...</p>
                         </div>
                       )}
@@ -236,7 +241,11 @@ function App() {
                         </strong>
                         {displayLoading && (
                           <div className="alert info">
-                            <FontAwesomeIcon icon={faSpinner} spin size="10x" />
+                            <FontAwesomeIcon
+                              icon={faSpinner as IconProp}
+                              spin
+                              size="10x"
+                            />
                             <p>Ladataan asetuksia...</p>
                           </div>
                         )}
