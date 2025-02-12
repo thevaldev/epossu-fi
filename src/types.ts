@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 export interface PriceData {
   today: PriceJSON;
   tomorrow: {
@@ -79,8 +81,8 @@ export interface ModuleData {
 
 export interface ModalHandlerProps {
   title: string;
-  jsx: JSX.Element | null;
-  icon: JSX.Element | null;
+  jsx: ReactElement | null;
+  icon: ReactElement | null;
   closeText?: string;
   onClose: () => void;
   action?: () => void;
