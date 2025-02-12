@@ -10,6 +10,7 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import Themes from "../components/Themes";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const Settings = () => {
   setMeta("Sivun asetukset", "Muokkaa ja hallinnoi sivuston asetuksia");
@@ -77,7 +78,7 @@ const Settings = () => {
 
         <div className="box">
           <h2>
-            <FontAwesomeIcon icon={faSun} />
+            <FontAwesomeIcon icon={faSun as IconProp} />
             Sivuston teema
           </h2>
           <div className="setting-group">
@@ -88,7 +89,7 @@ const Settings = () => {
           </div>
 
           <h2>
-            <FontAwesomeIcon icon={faFlag} />
+            <FontAwesomeIcon icon={faFlag as IconProp} />
             Sivuston kieli
           </h2>
           <div className="setting-group">
@@ -96,7 +97,7 @@ const Settings = () => {
           </div>
 
           <h2>
-            <FontAwesomeIcon icon={faChartArea} />
+            <FontAwesomeIcon icon={faChartArea as IconProp} />
             Kuvaajan asetukset
           </h2>
           <div className="setting-group has-inner">
@@ -113,7 +114,7 @@ const Settings = () => {
           </div>
 
           <h2>
-            <FontAwesomeIcon icon={faCalendarAlt} />
+            <FontAwesomeIcon icon={faCalendarAlt as IconProp} />
             Aika ja päivämäärä asetukset
           </h2>
           <div className="setting-group has-inner">
@@ -138,7 +139,7 @@ const Settings = () => {
           </div>
 
           <h2 className="red">
-            <FontAwesomeIcon icon={faTrashCan} />
+            <FontAwesomeIcon icon={faTrashCan as IconProp} />
             Nollaa asetukset
           </h2>
           <div className="setting-group">

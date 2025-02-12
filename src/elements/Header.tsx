@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const Header = () => {
   const [mobileNav, setMobileNav] = useState(false);
@@ -42,37 +43,37 @@ const Header = () => {
         className="mobile-nav"
         onClick={() => setMobileNav(!mobileNav)}
       >
-        <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
+        <FontAwesomeIcon icon={faBars as IconProp}></FontAwesomeIcon>
       </button>
 
       <ul className={mobileNav ? "visible" : "hidden"}>
         <li>
           <Link to="/">
-            <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faHome as IconProp}></FontAwesomeIcon>
             <span>Etusivu</span>
           </Link>
         </li>
         <li>
           <Link to="/tietoa">
-            <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faInfoCircle as IconProp}></FontAwesomeIcon>
             <span>Tietoja</span>
           </Link>
         </li>
         <li>
           <Link to="/ilmoitukset">
-            <FontAwesomeIcon icon={faBell}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faBell as IconProp}></FontAwesomeIcon>
             <span>Ilmoitukset</span>
           </Link>
         </li>
         <li>
           <Link to="/api">
-            <FontAwesomeIcon icon={faServer}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faServer as IconProp}></FontAwesomeIcon>
             <span>API-Rajapinta</span>
           </Link>
         </li>
         <li>
           <Link to="/asetukset">
-            <FontAwesomeIcon icon={faCog}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faCog as IconProp}></FontAwesomeIcon>
             <span>Asetukset</span>
           </Link>
         </li>

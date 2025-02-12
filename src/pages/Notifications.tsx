@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import NotificationsHandle from "../components/NotificationsHandle";
 import { ModalHandlerProps, ModuleData, subscriptionJSON } from "../types";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const Notifications = ({
   moduleData,
@@ -52,7 +53,7 @@ const Notifications = ({
             </p>
           </>
         ),
-        icon: <FontAwesomeIcon icon={faWarning} />,
+        icon: <FontAwesomeIcon icon={faWarning as IconProp} />,
         onClose: () => {
           modalCallback(undefined);
         },
@@ -71,7 +72,7 @@ const Notifications = ({
           </p>
         </>
       ),
-      icon: <FontAwesomeIcon icon={faCheckCircle} />,
+      icon: <FontAwesomeIcon icon={faCheckCircle as IconProp} />,
       onClose: () => {
         modalCallback(undefined);
       },
@@ -104,7 +105,7 @@ const Notifications = ({
             </p>
           </>
         ),
-        icon: <FontAwesomeIcon icon={faWarning} />,
+        icon: <FontAwesomeIcon icon={faWarning as IconProp} />,
         onClose: () => {
           modalCallback(undefined);
         },
@@ -126,7 +127,7 @@ const Notifications = ({
             </p>
           </>
         ),
-        icon: <FontAwesomeIcon icon={faCheckCircle} />,
+        icon: <FontAwesomeIcon icon={faCheckCircle as IconProp} />,
         onClose: () => {
           modalCallback(undefined);
         },
@@ -183,7 +184,7 @@ const Notifications = ({
             </p>
           </>
         ),
-        icon: <FontAwesomeIcon icon={faWarning} />,
+        icon: <FontAwesomeIcon icon={faWarning as IconProp} />,
         onClose: () => {
           modalCallback(undefined);
         },
@@ -219,7 +220,7 @@ const Notifications = ({
         {!doesDeviceSupport && (
           <div className="box no-padding red">
             <h2>
-              <FontAwesomeIcon icon={faBullhorn} />
+              <FontAwesomeIcon icon={faBullhorn as IconProp} />
               laitteesi ei valitettavasti tue ilmoituksia
             </h2>
 
@@ -254,12 +255,12 @@ const Notifications = ({
           moduleData.notifications.options !== undefined && (
             <div className="box fixed-height">
               <h2>
-                <FontAwesomeIcon icon={faBullhorn} />
+                <FontAwesomeIcon icon={faBullhorn as IconProp} />
                 Tilaa ilmoitukset laitteellesi
               </h2>
               {moduleData.notifications.status === false ? (
                 <span className="red-notice">
-                  <FontAwesomeIcon icon={faWarning} />
+                  <FontAwesomeIcon icon={faWarning as IconProp} />
                   {moduleData.notifications.message}
                 </span>
               ) : (
@@ -308,7 +309,7 @@ const Notifications = ({
 
               {error !== undefined && (
                 <span className="red-notice">
-                  <FontAwesomeIcon icon={faWarning} />
+                  <FontAwesomeIcon icon={faWarning as IconProp} />
                   {error}
                 </span>
               )}
@@ -332,7 +333,7 @@ const Notifications = ({
           moduleData.notifications.status !== false && (
             <div className="box no-padding">
               <h2>
-                <FontAwesomeIcon icon={faBullhorn} />
+                <FontAwesomeIcon icon={faBullhorn as IconProp} />
                 Katosiko tilauksesi?
               </h2>
 
@@ -349,7 +350,7 @@ const Notifications = ({
         {notificationSubscription !== undefined && (
           <div className="box">
             <h2>
-              <FontAwesomeIcon icon={faBullhorn} />
+              <FontAwesomeIcon icon={faBullhorn as IconProp} />
               Tilaamasi ilmoitukset
             </h2>
             <p className="description">
@@ -427,7 +428,7 @@ const Notifications = ({
                             </p>
                           </>
                         ),
-                        icon: <FontAwesomeIcon icon={faWarning} />,
+                        icon: <FontAwesomeIcon icon={faWarning as IconProp} />,
                         onClose: () => {
                           modalCallback(undefined);
                         },
@@ -445,20 +446,22 @@ const Notifications = ({
                           </p>
                         </>
                       ),
-                      icon: <FontAwesomeIcon icon={faCheckCircle} />,
+                      icon: (
+                        <FontAwesomeIcon icon={faCheckCircle as IconProp} />
+                      ),
                       onClose: () => {
                         modalCallback(undefined);
                       },
                     });
                   }}
                 >
-                  <FontAwesomeIcon icon={faBullhorn} />
+                  <FontAwesomeIcon icon={faBullhorn as IconProp} />
                   Testaa ilmoitusta
                 </button>
               )}
               {edit && (
                 <button onClick={saveEdits}>
-                  <FontAwesomeIcon icon={faCheckCircle} />
+                  <FontAwesomeIcon icon={faCheckCircle as IconProp} />
                   Tallenna
                 </button>
               )}
@@ -467,9 +470,9 @@ const Notifications = ({
                 className={edit ? "red" : ""}
               >
                 {edit ? (
-                  <FontAwesomeIcon icon={faTimes} />
+                  <FontAwesomeIcon icon={faTimes as IconProp} />
                 ) : (
-                  <FontAwesomeIcon icon={faPencil} />
+                  <FontAwesomeIcon icon={faPencil as IconProp} />
                 )}
                 {edit ? "Peruuta muokkaus" : "Muokkaa"}
               </button>
@@ -513,7 +516,9 @@ const Notifications = ({
                                     </>
                                   ),
                                   icon: (
-                                    <FontAwesomeIcon icon={faCheckCircle} />
+                                    <FontAwesomeIcon
+                                      icon={faCheckCircle as IconProp}
+                                    />
                                   ),
                                   onClose: () => {
                                     modalCallback(undefined);
@@ -526,7 +531,7 @@ const Notifications = ({
                           </div>
                         </>
                       ),
-                      icon: <FontAwesomeIcon icon={faBullhorn} />,
+                      icon: <FontAwesomeIcon icon={faBullhorn as IconProp} />,
                       onClose: () => {
                         modalCallback(undefined);
                       },
@@ -534,7 +539,7 @@ const Notifications = ({
                     });
                   }}
                 >
-                  <FontAwesomeIcon icon={faTrash} />
+                  <FontAwesomeIcon icon={faTrash as IconProp} />
                   Peruuta tilaus
                 </button>
               )}

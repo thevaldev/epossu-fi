@@ -3,6 +3,7 @@ import { ChartData } from "../types";
 import DayChart from "./DayChart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 interface ChartProps {
   data: ChartData;
@@ -93,11 +94,11 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
       {
         <div className="box-row">
           <button aria-label="previous" onClick={() => changeDate(-1)}>
-            <FontAwesomeIcon icon={faCaretLeft} />
+            <FontAwesomeIcon icon={faCaretLeft as IconProp} />
           </button>
           <p>{date_selector}</p>
           <button aria-label="next" onClick={() => changeDate(1)}>
-            <FontAwesomeIcon icon={faCaretRight} />
+            <FontAwesomeIcon icon={faCaretRight as IconProp} />
           </button>
         </div>
       }
