@@ -57,11 +57,17 @@ const Chart = ({ data, hasTomorrows }: ChartProps) => {
       const filtered = data.dataset.filter((item) => {
         const date = new Date(item.date);
         if (chart_selection === "Eilen") {
-          return date.getDate() === new Date().getDate() - 1;
+          return (
+            date.getDate() ===
+            new Date(new Date().setDate(new Date().getDate() - 1)).getDate()
+          );
         } else if (chart_selection === "Tänään") {
           return date.getDate() === new Date().getDate();
         } else if (chart_selection === "Huomenna") {
-          return date.getDate() === new Date().getDate() + 1;
+          return (
+            date.getDate() ===
+            new Date(new Date().setDate(new Date().getDate() + 1)).getDate()
+          );
         } else {
           return true;
         }
