@@ -7,18 +7,17 @@
 // handle push event
 self.addEventListener("push", (event) => {
   const notification = event.data.json();
+  const backend_options = notification.options;
+
   event.waitUntil(self.registration.showNotification(notification.title, {
     body: notification.body,
-    data: { url: "https://epossu.fi/" },
-    badge: "https://epossu.fi/apple-touch-icon.png",
-    icon: "https://epossu.fi/apple-touch-icon.png",
-    vibrate: [100, 50, 100],
-    actions: [{ action: "open", title: "Avaa" }, { action: "close", title: "Sulje" }]
+    ...backend_options,
   }));
 });
 
 // handle notification click
 self.addEventListener("notificationclick", (event) => {
+  event.preventDefault();
+  event.waitUntil(self.clients.openWindow("https://www.epossu.fi/"));
   event.notification.close();
-  event.waitUntil(self.clients.openWindow(event.notification.data.url));
 });
