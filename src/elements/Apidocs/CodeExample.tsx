@@ -47,7 +47,7 @@ const CodeExample = () => {
       {"\t"}
       <span style={{ color: "#52b7e5" }}>const</span> json ={" "}
       <span style={{ color: "#f92672" }}>await</span> response
-      <span className="json">.josn</span>
+      <span className="json">.json</span>
       <span className="bracket">(</span>
       <span className="bracket">)</span>
       <span className="semicolon">;</span>{" "}

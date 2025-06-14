@@ -21,15 +21,10 @@ interface ChartProps {
     date: string;
     price: number;
   }[];
-  shouldDrawRef: boolean;
   shouldResizeFonts: boolean;
 }
 
-const DayChart = ({
-  dataset,
-  shouldDrawRef,
-  shouldResizeFonts,
-}: ChartProps) => {
+const DayChart = ({ dataset, shouldResizeFonts }: ChartProps) => {
   const [ref_line_spot, setRefLineSpot] = useState<Date>(new Date());
   const refSpotTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
 
@@ -104,29 +99,26 @@ const DayChart = ({
           strokeWidth={1}
         />
 
-        {shouldDrawRef && (
-          <>
-            <ReferenceLine
-              x={ref_line_spot.getTime() / 1000}
-              stroke="var(--color-chart-cursor-2)"
-              strokeWidth={2}
-              label={{
-                value: "Nykyinen tunti",
-                position: "insideTopRight",
-                fill: "var(--color-chart-cursor-2)",
-                fontSize: 18,
-                offset: 20,
-                angle: -90,
-              }}
-            />
-            <ReferenceArea
-              x1={dataset[0].timestamp}
-              x2={ref_line_spot.getTime() / 1000}
-              fill="var(--color-chart-cursor)"
-              stroke="none"
-            />
-          </>
-        )}
+        <ReferenceLine
+          x={ref_line_spot.getTime() / 1000}
+          stroke="var(--color-chart-cursor-2)"
+          strokeWidth={2}
+          label={{
+            value: "Nykyinen tunti",
+            position: "insideTopRight",
+            fill: "var(--color-chart-cursor-2)",
+            fontSize: 18,
+            offset: 20,
+            angle: -90,
+          }}
+        />
+        <ReferenceArea
+          x1={dataset[0].timestamp}
+          x2={ref_line_spot.getTime() / 1000}
+          fill="var(--color-chart-cursor)"
+          stroke="none"
+        />
+
         <Tooltip
           isAnimationActive={false}
           cursor={{

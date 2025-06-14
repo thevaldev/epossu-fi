@@ -17,6 +17,7 @@ import GeneralInfo from "../elements/PriceBoxes/GeneralInfo";
 import TomorrowInfo from "../elements/PriceBoxes/TomorrowsInfo";
 import { setMeta } from "../components/Utils";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { useState } from "react";
 
 interface MainProps {
   marketData: PriceData;
@@ -29,10 +30,7 @@ const Main = ({ marketData, alerts, error }: MainProps) => {
     "Pörssisähkön hinnat Suomessa",
     "Pörssisähkön ajankohtaiset hinnat tunneittain. Seuraa sähkönhintoja tuntikohtaisesti kuvaajalta ja hyödynnä edullisimmat tunnit."
   );
-
-  const setAlerts = (newAlerts: AlertsJSON) => {
-    alerts = newAlerts;
-  };
+  const [websiteAlerts, setAlerts] = useState<AlertsJSON>(alerts);
 
   return (
     <>
@@ -49,9 +47,9 @@ const Main = ({ marketData, alerts, error }: MainProps) => {
         </div>
       )}
 
-      {alerts !== undefined &&
-        Object.keys(alerts).map((key, index) => {
-          const alert = alerts[key as keyof typeof alerts];
+      {websiteAlerts !== undefined &&
+        Object.keys(websiteAlerts).map((key, index) => {
+          const alert = websiteAlerts[key as keyof typeof websiteAlerts];
           return (
             <div className={`alert with-button ${alert.type}`} key={index}>
               <p>
@@ -85,8 +83,8 @@ const Main = ({ marketData, alerts, error }: MainProps) => {
                       );
                     }
 
-                    const newAlerts = { ...alerts };
-                    delete newAlerts[key as keyof typeof alerts];
+                    const newAlerts = { ...websiteAlerts };
+                    delete newAlerts[key as keyof typeof websiteAlerts];
                     setAlerts(newAlerts);
                   }}
                 >
